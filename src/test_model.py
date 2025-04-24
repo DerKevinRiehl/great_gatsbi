@@ -84,6 +84,9 @@ if __name__=="__main__":
     model_file_name = run_arguments[4]
     prediction_length = int(run_arguments[5])
     
+    # print info statement
+    print("[test_model.py] Testing Model", relevant_video, relevant_part, model_name, model_file_name, prediction_length)
+    
     # runargs check
     if not (model_name=="social_lstm" or model_name=="gatsbi" or model_name=="const_v" or model_name=="const_a"):
         print("ERROR: invalid model")

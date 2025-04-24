@@ -30,6 +30,7 @@ from models.model_social_lstm import SocialLSTM, load_social_lstm_model
 def load_model_testing(model_name, model_file_name, prediction_length, device):
     model_path = "../data/4_models/"+model_file_name
     if os.path.exists(model_path):
+        print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
             model = load_social_lstm_model(model_path, device, prediction_length)
         elif model_name=="gatsbi":
@@ -92,6 +93,7 @@ def unpack_testing_data(testing_data, model_name, prediction_length):
 def load_model_training(model_name, prediction_length, device):
     model_path = "../data/4_models/"+model_name+"_"+str(prediction_length)+"_"+str(5)+".model"
     if os.path.exists(model_path):
+        print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
             model = load_social_lstm_model(model_path, device, prediction_length)
         elif model_name=="gatsbi":

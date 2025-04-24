@@ -12,6 +12,7 @@
 - [Pre-trained Models](#models)
 - [Results](#results)
 - [License](#license)
+- [Cluster and Runtime](#cluster)
 
 ## [Introduction](#introduction)
 
@@ -149,7 +150,7 @@ unzip neurips25_great_gatsbi/data/1_trajectories/1_trajectories.zip -d neurips25
 ## [Training](#training)
 
 ### Training Data Generation
-We recommend to **precalculate all training data from the trajectory data**, as this is time consuming.
+We recommend to **precalculate all training data from the trajectory data**, as this is time consuming and takes up to 20 minutes.
 First, training data needs to be generated with the script `data_generator.py`. 
 The results are stored in `\neurips25_great_gatsbi\data\2_training_datasets`.
 
@@ -296,3 +297,124 @@ Our model achieves the following performance on :
 ## [License](#license)
 This repository will be published on GitHub upon publication at Neurips25 under the MIT license.
 For further details, please find the **LICENSE** file in this repository.
+
+
+
+## [Cluster & Runtime](#cluster)
+
+We used our university's computational facility that provided a Linux cluster (OS: Ubuntu 22.04.5 LTS, Kernel: Linux 5.15.0-134-generic) with the Slurm workload manager and GPUs. CUDA (3.11.6_cuda) and Python (v3.11.6) were installed.
+
+In the following we outline several linux commands that we used to automate training and testing.
+
+### 1. Prepare Training Dataset
+(takes around 10 minutes)
+```
+#!/bin/bash
+
+# Configurable parameters
+model="social_lstm" # Set your desired model name # "social_lstm", "gatsbi"
+
+# List of video files and their corresponding parts
+declare -A FILE_TRAIN
+FILE_TRAIN["DJI_20240906103036_0003_D.MP4"]="PART_1 PART_2 PART_3 PART_4"
+FILE_TRAIN["DJI_20240906103442_0004_D.MP4"]="PART_1 PART_2"
+FILE_TRAIN["DJI_20240906103850_0005_D.MP4"]="PART_1"
+FILE_TRAIN["DJI_20240906105321_0009_D.MP4"]="PART_1"
+FILE_TRAIN["DJI_20240906105621_0010_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5 PART_6"
+declare -A FILE_TEST
+FILE_TEST["DJI_20240906110027_0011_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5"
+FILE_TEST["DJI_20240906110432_0012_D.MP4"]="PART_1"
+
+# SLURM parameters
+SBATCH_OPTS="-n4 --time=00:40:00 --mem-per-cpu=8000"
+MODULES="module load stack/2024-05 python/3.11.6_cuda"
+for FILE in "${!FILE_TRAIN[@]}"; do
+    for PART in ${FILE_TRAIN[$FILE]}; do
+        CMD="$MODULES ; python data_generator.py $FILE $PART $model train"
+        sbatch $SBATCH_OPTS --wrap="$CMD"
+    done
+done
+SBATCH_OPTS="-n4 --time=00:40:00 --mem-per-cpu=8000"
+MODULES="module load stack/2024-05 python/3.11.6_cuda"
+for FILE in "${!FILE_TEST[@]}"; do
+    for PART in ${FILE_TEST[$FILE]}; do
+        CMD="$MODULES ; python data_generator.py $FILE $PART $model test"
+        sbatch $SBATCH_OPTS --wrap="$CMD"
+    done
+done
+```
+
+### 2. Train Model
+(takes around 8h)
+
+For each model (social_lstm) and prediction_length (25, 50, 75, 100) we run ten epochs, that take around 8h.
+We repeated the same 5 times, so the training was 5 times for 10 epochs each in the order the data appears in the script below.
+```
+#!/bin/bash
+
+# Configurable parameters 
+prediction_length=25   # Set your desired prediction length # "25", "50", "75", "100"
+model="social_lstm"    # Set your desired model name # "social_lstm", "gatsbi"
+n_epochs=10            # Set your desired number of epochs
+
+# SLURM resource options
+SBATCH_OPTS="-n4 -G2 --time=01:30:00 --gres=gpumem:10g --mem-per-cpu=8000"
+MODULES="module load stack/2024-05 python/3.11.6_cuda"
+
+# Map video files to their parts
+declare -A FILE_PARTS
+FILE_PARTS["DJI_20240906103036_0003_D.MP4"]="PART_1 PART_2 PART_3 PART_4"
+FILE_PARTS["DJI_20240906103442_0004_D.MP4"]="PART_1 PART_2"
+FILE_PARTS["DJI_20240906103850_0005_D.MP4"]="PART_1"
+FILE_PARTS["DJI_20240906105321_0009_D.MP4"]="PART_1"
+FILE_PARTS["DJI_20240906105621_0010_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5 PART_6"
+
+# Build the job list
+jobs=()
+for file in "${!FILE_PARTS[@]}"; do
+    for part in ${FILE_PARTS[$file]}; do
+        jobs+=("python train_model.py $file $part $model $prediction_length $n_epochs")
+    done
+done
+
+# Submit jobs with dependencies
+jobid=""
+for i in "${!jobs[@]}"; do
+    cmd="$MODULES ; date ; ${jobs[$i]} ; date"
+    if [[ $i -eq 0 ]]; then
+        jobid=$(sbatch $SBATCH_OPTS --wrap="$cmd" | awk '{print $4}')
+    else
+        jobid=$(sbatch --dependency=afterok:$jobid $SBATCH_OPTS --wrap="$cmd" | awk '{print $4}')
+    fi
+done
+```
+
+### 3. Test Model
+(takes around 5 minutes)
+```
+#!/bin/bash
+
+# Configurable parameters 
+prediction_length=25   # Set your desired prediction length # "25", "50", "75", "100"
+model="social_lstm"    # Set your desired model name # "social_lstm", "gatsbi"
+model_file=""
+
+# Map video files to their parts
+declare -A FILE_TEST
+FILE_TEST["DJI_20240906110027_0011_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5"
+FILE_TEST["DJI_20240906110432_0012_D.MP4"]="PART_1"
+
+# Build the job list
+jobs=()
+for file in "${!FILE_TEST[@]}"; do
+    for part in ${FILE_TEST[$file]}; do
+        jobs+=("python test_model.py $file $part $model $model_file $prediction_length")
+    done
+done
+
+# Submit jobs with dependencies
+for i in "${!jobs[@]}"; do
+    cmd="$MODULES ; date ; ${jobs[$i]} ; date"
+    eval "$cmd"
+done
+```

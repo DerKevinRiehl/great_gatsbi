@@ -105,6 +105,9 @@ if __name__=="__main__":
     prediction_length = int(run_arguments[4])
     n_epochs = int(run_arguments[5])
     
+    # print info statement
+    print("[train_model.py] Training Model", relevant_video, relevant_part, model_name, prediction_length, n_epochs)
+    
     # runargs check
     if not (model_name=="social_lstm" or model_name=="gatsbi"):
         print("ERROR: invalid model")

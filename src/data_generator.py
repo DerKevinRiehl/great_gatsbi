@@ -114,6 +114,9 @@ if __name__=="__main__":
     model = run_arguments[3]
     data_type = run_arguments[4]
     
+    # print info statement
+    print("[data_generator.py] Generating Data For", relevant_video, relevant_part, model, data_type)
+    
     # runargs check
     if not (model=="social_lstm" or model=="gatsbi"):
         print("ERROR: invalid model")
