@@ -306,8 +306,14 @@ We used our university's computational facility that provided a Linux cluster (O
 
 In the following we outline several linux commands that we used to automate training and testing.
 
+**[!!!] Important Note:** All of the following commands are executed from within folder `./neurips25_great_gatsbi/src/`.
+
+```
+cd ./neurips25_great_gatsbi/src/
+```
+
 ### 1. Prepare Training Dataset
-(takes around 10 minutes)
+(takes around 30 minutes)
 ```
 #!/bin/bash
 
@@ -326,7 +332,7 @@ FILE_TEST["DJI_20240906110027_0011_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5"
 FILE_TEST["DJI_20240906110432_0012_D.MP4"]="PART_1"
 
 # SLURM parameters
-SBATCH_OPTS="-n4 --time=00:40:00 --mem-per-cpu=8000"
+SBATCH_OPTS="-n4 --time=02:00:00 --mem-per-cpu=16000"
 MODULES="module load stack/2024-05 python/3.11.6_cuda"
 for FILE in "${!FILE_TRAIN[@]}"; do
     for PART in ${FILE_TRAIN[$FILE]}; do
@@ -334,7 +340,7 @@ for FILE in "${!FILE_TRAIN[@]}"; do
         sbatch $SBATCH_OPTS --wrap="$CMD"
     done
 done
-SBATCH_OPTS="-n4 --time=00:40:00 --mem-per-cpu=8000"
+SBATCH_OPTS="-n4 --time=02:00:00 --mem-per-cpu=16000"
 MODULES="module load stack/2024-05 python/3.11.6_cuda"
 for FILE in "${!FILE_TEST[@]}"; do
     for PART in ${FILE_TEST[$FILE]}; do
@@ -344,6 +350,45 @@ for FILE in "${!FILE_TEST[@]}"; do
 done
 ```
 
+**[!!!] Important Note:** Verify that all files exist before you go to the next step with:
+```
+all_exist=true
+missing_files=()
+
+# Check training files
+for file in "${!FILE_TRAIN[@]}"; do
+    for part in ${FILE_TRAIN[$file]}; do
+        fname="data_social_lstm_${file}-${part}.pt"
+        fpath="../data/2_training_datasets/$fname"
+        if [[ ! -f "$fpath" ]]; then
+            all_exist=false
+            missing_files+=("$fpath")
+        fi
+    done
+done
+
+# Check testing files
+for file in "${!FILE_TEST[@]}"; do
+    for part in ${FILE_TEST[$file]}; do
+        fname="data_social_lstm_${file}-${part}.pt"
+        fpath="../data/3_testing_datasets/$fname"
+        if [[ ! -f "$fpath" ]]; then
+            all_exist=false
+            missing_files+=("$fpath")
+        fi
+    done
+done
+
+if $all_exist; then
+    echo "[!!!] yes all files existing! ready for training!"
+else
+    echo "[!!!] no some files missing! not ready for training yet!"
+    echo "Missing files:"
+    for f in "${missing_files[@]}"; do
+        echo "$f"
+    done
+fi
+```
 ### 2. Train Model
 (takes around 8h)
 
