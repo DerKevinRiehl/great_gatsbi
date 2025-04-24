@@ -51,14 +51,19 @@ def generate_data_gatsbi_all_batches(trajectory_data, batches, history_length, p
         lst_ego_hists.extend(ego_hist)
         lst_future_trajs.extend(predicted_traj)
         lst_neighbor_hists.extend(neighbor_hists)
-        lst_adj_matrix.append(adj_matrixs)
-        lst_dist.append(dist)
+        lst_adj_matrix.extend(adj_matrixs)
+        lst_dist.extend(dist)
     # convert lists to tensors
     lst_ego_hists = torch.stack(lst_ego_hists)
     lst_future_trajs = torch.stack(lst_future_trajs)
     lst_neighbor_hists = torch.stack(lst_neighbor_hists)
     lst_adj_matrix = torch.stack(lst_adj_matrix)
     lst_dist = torch.stack(lst_dist)
+    print(">>>>YYY")
+    print(lst_ego_hists.shape)
+    print(lst_future_trajs.shape)
+    print(lst_adj_matrix.shape)
+    print(lst_dist.shape)
     # return
     return lst_ego_hists, lst_future_trajs, lst_neighbor_hists, lst_adj_matrix, lst_dist
 

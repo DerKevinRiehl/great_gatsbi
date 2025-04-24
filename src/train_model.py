@@ -30,7 +30,7 @@ import sys
 import warnings
 warnings.filterwarnings("ignore")
 
-from models.model_loader import unpack_training_data, load_model_training
+from models.model_loader import unpack_trajectory_prediction, unpack_training_data, load_model_training
 from training.loss_functions import compute_ADE_train
 import utils.constants as cs
 
@@ -70,9 +70,12 @@ def train_model(model_name, model_path, model, training_data, prediction_length,
         num_batches = 0
         pbar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{n_epochs}")
         for batch in pbar:
-            ego_hist, ego_pos, future_traj, neighbor_hists, neighbor_pos = [x.to(device) for x in batch]
+            batch_data = [x.to(device) for x in batch]
+            future_traj = batch_data[0]
+            batch_feature_data = batch_data[1:]
             # Forward pass
-            pred_traj = model(ego_hist, ego_pos, neighbor_hists, neighbor_pos)
+            model_results = model(*batch_feature_data)
+            pred_traj = unpack_trajectory_prediction(model_results, model_name)
             # Loss computation
             loss = loss_function(pred_traj, future_traj)
             # Backward pass

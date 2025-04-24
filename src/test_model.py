@@ -29,7 +29,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from training.loss_functions import compute_ADE, compute_FDE
-from models.model_loader import load_model_testing, unpack_testing_data
+from models.model_loader import load_model_testing, unpack_testing_data, unpack_trajectory_prediction
 import utils.constants as cs
 
 
@@ -61,7 +61,8 @@ def test_model(model_name, model, testing_data, prediction_length, loss_function
     # prepare a dataloader
     dataset, future_trajs = unpack_testing_data(testing_data, model_name, prediction_length)
     # test model
-    pred_traj = model(*dataset)
+    model_results = model(*dataset)
+    pred_traj = unpack_trajectory_prediction(model_results, model_name)
     # evaluate model
     performances = {}
     for loss_function_name in loss_functions:

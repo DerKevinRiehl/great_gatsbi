@@ -114,7 +114,7 @@ def unpack_training_data(training_data, model_name, batch_size, prediction_lengt
         # cut future trajectories to prediction length of model
         future_trajs = future_trajs[:, :prediction_length, :]
         # create tensordataset
-        dataset = torch.utils.data.TensorDataset(ego_hists, ego_pos, future_trajs, neighbor_hists, neighbor_pos)
+        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, ego_pos, neighbor_hists, neighbor_pos)
     elif model_name=="gatsbi":
         # unpack training data
         ego_hists = training_data['ego_trajectory_history']
@@ -125,5 +125,11 @@ def unpack_training_data(training_data, model_name, batch_size, prediction_lengt
         # cut future trajectories to prediction length of model
         future_trajs = future_trajs[:, :prediction_length, :]
         # create tensordataset
-        dataset = torch.utils.data.TensorDataset(ego_hists, future_trajs, neighbor_hists, adj_matrixs, road_dist)
+        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, road_dist)
     return dataset
+
+def unpack_trajectory_prediction(model_results, model_name):
+    if model_name=="social_lstm":
+        return model_results
+    elif model_name=="gatsbi":
+        return model_results[0]
