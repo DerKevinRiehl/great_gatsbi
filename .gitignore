@@ -1,0 +1,5 @@
+data/1_trajectories/*.txt
+data/2_training_datasets/*.pt
+data/3_testing_datasets/*.pt
+data/4_models/*.model
+*.pyc
