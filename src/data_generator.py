@@ -10,7 +10,7 @@ This runnable Python script generates data for different models for training and
 Usage: python data_generator.py [1] [2] [3] [4]")
     [1] - relevant_video
     [2] - relevant_part
-    [3] - model ("social_lstm" or "gatsbi")
+    [3] - model ("social_lstm" or "gatsbi" or "physics_lstm")
     [4] - data_type ("train" or "test")
     
 Example:
@@ -30,6 +30,7 @@ warnings.filterwarnings("ignore")
 from data.data_loader import load_trajectories, get_unique_vehicles, get_frame_range
 from data.data_gen_social_lstm import generate_data_social_lstm_all_batches
 from data.data_gen_gatsbi import generate_data_gatsbi_all_batches
+from data.data_gen_physics import generate_data_physics_all_batches
 import utils.constants as cs
 
 
@@ -64,6 +65,20 @@ def generate_data_gatsbi(trajectory_data, data_type, batches):
     }
     return data_dict
 
+def generate_data_physics(trajectory_data, data_type, batches):
+    ego_hists, future_trajs, preds_cv, preds_ca, preds_bk, preds_xk = generate_data_physics_all_batches(
+        trajectory_data, batches, cs.HISTORY_LENGTH, cs.PREDICTION_LENGTH, cs.N_NEIGHBORS, data_type
+    )
+    data_dict = {
+        'ego_trajectory_history': ego_hists,
+        'ego_trajectory_future': future_trajs,
+        'preds_cv': preds_cv,
+        'preds_ca': preds_ca,
+        'preds_bk': preds_bk,
+        'preds_xk': preds_xk,
+    }
+    return data_dict
+
 def print_info():
     print("-------------------------------------------")
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
@@ -71,7 +86,7 @@ def print_info():
     print("USAGE: python data_generator.py [1] [2] [3] [4]")
     print(" [1] - relevant_video")
     print(" [2] - relevant_part")
-    print(" [3] - model (\"social_lstm\" or \"gatsbi\")")
+    print(" [3] - model (\"social_lstm\" or \"gatsbi\" or \"physics_lstm\")")
     print(" [4] - data_type (\"train\" or \"test\")")
     print("")
     print("Example: python data_generator.py DJI_20240906103036_0003_D.MP4 PART_3 social_lstm train")
@@ -98,6 +113,8 @@ def generate_data(trajectory_data, batches, model, data_type):
         return generate_data_social_lstm(trajectory_data, data_type, batches)
     elif model=="gatsbi":
         return generate_data_gatsbi(trajectory_data, data_type, batches)
+    elif model=="physics_lstm":
+        return generate_data_physics(trajectory_data, data_type, batches)
     
 def save_data(data_dict, output_file_path):
     torch.save(data_dict, output_file_path)
@@ -118,7 +135,7 @@ if __name__=="__main__":
     print("[data_generator.py] Generating Data For", relevant_video, relevant_part, model, data_type)
     
     # runargs check
-    if not (model=="social_lstm" or model=="gatsbi"):
+    if not (model=="social_lstm" or model=="gatsbi" or model=="physics_lstm"):
         print("ERROR: invalid model")
         print_info()
         sys.exit(-1)

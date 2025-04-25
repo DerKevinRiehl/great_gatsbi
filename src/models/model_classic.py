@@ -54,8 +54,9 @@ def constant_velocity_predictor(x_hist, y_hist, history_dt=0.04, prediction_leng
         y_pred (np.ndarray): Predicted y positions, shape (prediction_length,)
     """
     # estimate velocity from last two points (or use filtered velocity if available)
-    vx = (x_hist[-1] - x_hist[-2]) / (1 * history_dt)
-    vy = (y_hist[-1] - y_hist[-2]) / (1 * history_dt)
+    n = 1
+    vx = (x_hist[-1] - x_hist[-1-n]) / (n * history_dt)
+    vy = (y_hist[-1] - y_hist[-1-n]) / (n * history_dt)
 
     # generate time steps
     future_times = np.arange(1, prediction_length + 1) * history_dt

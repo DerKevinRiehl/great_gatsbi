@@ -59,11 +59,6 @@ def generate_data_gatsbi_all_batches(trajectory_data, batches, history_length, p
     lst_neighbor_hists = torch.stack(lst_neighbor_hists)
     lst_adj_matrix = torch.stack(lst_adj_matrix)
     lst_dist = torch.stack(lst_dist)
-    print(">>>>YYY")
-    print(lst_ego_hists.shape)
-    print(lst_future_trajs.shape)
-    print(lst_adj_matrix.shape)
-    print(lst_dist.shape)
     # return
     return lst_ego_hists, lst_future_trajs, lst_neighbor_hists, lst_adj_matrix, lst_dist
 

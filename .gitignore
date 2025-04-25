@@ -2,4 +2,14 @@ data/1_trajectories/*.txt
 data/2_training_datasets/*.pt
 data/3_testing_datasets/*.pt
 data/4_models/*.model
+data/4_models/epochs_10/*.model
+data/4_models/epochs_20/*.model
+data/4_models/epochs_30/*.model
+data/4_models/epochs_10/*.out
+data/4_models/epochs_20/*.out
+data/4_models/epochs_30/*.out
 *.pyc
+*.out
+src/_playground_model_physics.py
+src/myarray.txt
+src/myarray2.txt

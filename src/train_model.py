@@ -6,11 +6,11 @@ Organization:   ANONYMOUS
 Development:    2025
 Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
-This runnable Python script generates data for different models for training and testing.
+This runnable Python script trains a model.
 Usage: python train_model.py [1] [2] [3] [4]")
     [1] - relevant_video
     [2] - relevant_part
-    [3] - model ("social_lstm" or "gatsbi")
+    [3] - model ("social_lstm" or "gatsbi" or "physics_lstm")
     [4] - prediction_length in [s] (25, 50 , 75, 100)
     [5] - n_epochs
     
@@ -46,7 +46,7 @@ def print_info():
     print("USAGE: python train_model.py [1] [2] [3] [4]")
     print(" [1] - relevant_video")
     print(" [2] - relevant_part")
-    print(" [3] - model (\"social_lstm\" or \"gatsbi\")")
+    print(" [3] - model (\"social_lstm\" or \"gatsbi\" or \"physics_lstm\")")
     print(" [4] - prediction_length in [s] (25, 50 , 75, 100)")
     print(" [5] - n_epochs")
     print("")
@@ -109,7 +109,7 @@ if __name__=="__main__":
     print("[train_model.py] Training Model", relevant_video, relevant_part, model_name, prediction_length, n_epochs)
     
     # runargs check
-    if not (model_name=="social_lstm" or model_name=="gatsbi"):
+    if not (model_name=="social_lstm" or model_name=="gatsbi" or model_name=="physics_lstm"):
         print("ERROR: invalid model")
         print_info()
         sys.exit(-1)
