@@ -88,7 +88,7 @@ class GATSBI(nn.Module):  # V2
         ego_hist: [B, T_hist, 2]              - history of ego agent
         neighbor_histories: [B, N, T_hist, 2] - history of neighbors
         adj: [B, N+1, N+1, E]                 - adjacency matrix for all agents (neighbors + ego)
-        dist: [B, 1, 1]                       - distance from road boder for ego agent
+        dist: [B, T_hist, 1]                       - distance from road boder for ego agent
         """
         B, N, T, _ = neighbor_histories.shape
     

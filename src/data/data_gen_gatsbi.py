@@ -94,7 +94,7 @@ def generate_training_data_gatsbi_one_batch(trajectory_data, batch_triplets, his
     # predicted_traj: (batch_size, prediction_length, 2)
     # neighbor_hists: (batch_size, n_neighbours, history_length, 2)
     # adj_matrixs: (batch_size, n_neighbours+1, n_neighbours+1, 3)
-    # dist: (batch_size, 1, 1)
+    # dist: (batch_size, history_length, 1)
     return ego_hist, predicted_traj, neighbor_hists, adj_matrixs, dist_list
 
 def generate_training_data_gatsbi_one_record(trajectory_data, n_neighbors, history_length, prediction_length, sequence, ego_vehicle_id, frame_id, speed_history_consideration, data_type="train"):
@@ -168,7 +168,7 @@ def generate_training_data_gatsbi_one_record(trajectory_data, n_neighbors, histo
             mat_n1.append(mat_n2)
         adj_matrix.append(mat_n1)
     adj_matrix = np.asarray(adj_matrix)
-    # distance from road border
-    distance = cs.CIRCLE_OUTER_RADIUS - lane_xy[-1][0]
+    # historical distances from road border
+    distances = cs.CIRCLE_OUTER_RADIUS - lane_xy[-1:,0]
     # return
-    return neighbor_trajs, lane_xy, pred_traj, adj_matrix, distance
+    return neighbor_trajs, lane_xy, pred_traj, adj_matrix, distances

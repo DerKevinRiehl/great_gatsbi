@@ -130,6 +130,16 @@ if __name__=="__main__":
     sequence = relevant_video + "-" + relevant_part
     training_data = load_training_data(model_name, sequence)
     
+    # for key in training_data:
+    #     tensor = training_data[key]
+    #     training_data[key] = tensor[::32] # Keep every 32nd row along the first dimension
+    #     print(f"{key}: {training_data[key].shape}")
+        
+    # print(type(training_data["ego_trajectory_history"]))
+    # print(training_data["ego_trajectory_history"].shape)
+    # import sys
+    # sys.exit(0)
+    
     # load model
     model, model_path = load_model_training(model_name, prediction_length, device)
     

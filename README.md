@@ -300,6 +300,11 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | **pedestrian specific** |   |   |   |   |  |   |   |   |
 | social_lstm (10ep) | 0.2051 | 0.3899 | 0.7601 | 4.1339 | 0.4583 | 0.7872 | 1.8785 | 7.9684 |
 | social_lstm (20ep) | 0.1923 | 1.9488 | 3.1585 | 4.2578 | 0.4207 | 3.5531 | 6.0151 | 7.6663 |
+| social_lstm (30ep) | 1.0387 | 1.9844 | 3.1449 | 4.2242 | 1.8596 | 3.6397 | 5.9297 | 8.4077 |
+| **own models** |   |   |   |   |  |   |   |   |
+| physics_lstm (5ep) | 0.1141 |   |   |   | 0.2826 |   |   |   |
+| physics_lstm (10ep) | 0.1110 |   |   |   | 0.2739 |   |   |   |
+
 
 ### All digits... [to be deleted]
 | Model | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
@@ -313,9 +318,12 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | **pedestrian specific** |   |   |   |   |  |   |   |   |
 | social_lstm (10ep) | 0.20509553169628814 | 0.3899093248726271 | 0.7601036562366721 | 4.133902388973659 | 0.45827985002242844 | 0.7872095224037342 | 1.8784515377772142 | 7.968354260334436 |
 | social_lstm (20ep) |  0.19227776936463148 | 1.9488191385935258 | 3.1585467262129607 | 4.257847008154115 | 0.42069589445023575 | 3.5531278204305137 | 6.01511868088999 | 7.666314679920989 |
+| social_lstm (30ep) | 1.038656719214593 | 1.984373107596381 | 3.14488590505045 | 4.224214635364023 | 1.859556195524035 | 3.639733616922658 | 5.929743839755628 | 8.407655536228006 |
+| **own models** |   |   |   |   |  |   |   |   |
 
-
-
+>>Final Results [ physics_lstm phlstm_32_5/physics_lstm_25_5.model 25 ]
+{'ADE': 0.08940453522750764, 'FDE': 0.23202501618618915}
+{'ADE': 0.08839565493007115, 'FDE': 0.23267997813290278}
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 

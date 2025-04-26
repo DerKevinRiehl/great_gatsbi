@@ -78,7 +78,18 @@ def generate_training_data_physics_one_batch(trajectory_data, batch_triplets, hi
         if not data_type=="train":
             max_permutations = 1
         for n_repetitions in range(0, max_permutations):
-            lane_xy, pred_traj, pred_cv, pred_ca, pred_bkin, pred_xkal = generate_training_data_physics_one_record(trajectory_data, n_neighbors, history_length, sequence, ego_vehicle_id, frame_id, data_type)
+            if n_repetitions==0:
+                lane_xy, pred_traj, pred_cv, pred_ca, pred_bkin, pred_xkal = generate_training_data_physics_one_record(trajectory_data, n_neighbors, history_length, sequence, ego_vehicle_id, frame_id, data_type, skip_regen=False)
+                last_pred_cv = pred_cv
+                last_pred_ca = pred_ca
+                last_pred_bkin = pred_bkin
+                last_pred_xkal = pred_xkal
+            else:
+                lane_xy, pred_traj, pred_cv, pred_ca, pred_bkin, pred_xkal = generate_training_data_physics_one_record(trajectory_data, n_neighbors, history_length, sequence, ego_vehicle_id, frame_id, data_type, skip_regen=True)
+                pred_cv = last_pred_cv
+                pred_ca = last_pred_ca
+                pred_bkin = last_pred_bkin
+                pred_xkal = last_pred_xkal
             if lane_xy is None:
                 continue
             ego_hists.append(lane_xy)
@@ -105,7 +116,7 @@ def generate_training_data_physics_one_batch(trajectory_data, batch_triplets, hi
     # pred_xk_list: (batch_size, history_length, 2)
     return ego_hist, predicted_traj, pred_cv_list, pred_ca_list, pred_bk_list, pred_xk_list
 
-def generate_training_data_physics_one_record(trajectory_data, n_neighbors, history_length, sequence, ego_vehicle_id, frame_id, data_type="train"):
+def generate_training_data_physics_one_record(trajectory_data, n_neighbors, history_length, sequence, ego_vehicle_id, frame_id, data_type="train", skip_regen=False):
     prediction_length = 100
     # find neighbors for this record
     relevant_neighbors = get_relevant_neighbors(trajectory_data, sequence, frame_id, ego_vehicle_id, n_neighbors)
@@ -130,26 +141,32 @@ def generate_training_data_physics_one_record(trajectory_data, n_neighbors, hist
         pred_traj = np.pad(pred_traj, ((0, pad_len), (0, 0)), mode='constant')
     else:
         pred_traj = pred_traj[:prediction_length]
-    # const_v model future trajectory
-    model = ModelClassic(model_func=constant_velocity_predictor, prediction_length=prediction_length)
-    pred_cv = model([ego_hist])
-    pred_cv = pred_cv[0]
-    pred_cv = np.asarray(pred_cv)
-    # const_a model future trajectory
-    model = ModelClassic(model_func=constant_acceleration_predictor, prediction_length=prediction_length)
-    pred_ca = model([ego_hist])
-    pred_ca = pred_ca[0]
-    pred_ca = np.asarray(pred_ca)
-    # physics kinematics model future trajectory
-    model = ModelBikeKinematics(prediction_length=prediction_length)
-    pred_kin = model([ego_hist])
-    pred_kin = pred_kin[0]
-    pred_kin = np.asarray(pred_kin)
-    # xkalman model future trajectory
-    model = ModelXKalman(prediction_length=prediction_length)
-    train_ego_hist = np.expand_dims(ego_hist, axis=0)
-    pred_xkal = model(train_ego_hist)
-    pred_xkal = pred_xkal[0]
-    pred_xkal = np.asarray(pred_xkal)
+    if skip_regen:
+        pred_cv = None
+        pred_ca = None
+        pred_kin = None
+        pred_xkal = None
+    else:
+        # const_v model future trajectory
+        model = ModelClassic(model_func=constant_velocity_predictor, prediction_length=prediction_length)
+        pred_cv = model([ego_hist])
+        pred_cv = pred_cv[0]
+        pred_cv = np.asarray(pred_cv)
+        # const_a model future trajectory
+        model = ModelClassic(model_func=constant_acceleration_predictor, prediction_length=prediction_length)
+        pred_ca = model([ego_hist])
+        pred_ca = pred_ca[0]
+        pred_ca = np.asarray(pred_ca)
+        # physics kinematics model future trajectory
+        model = ModelBikeKinematics(prediction_length=prediction_length)
+        pred_kin = model([ego_hist])
+        pred_kin = pred_kin[0]
+        pred_kin = np.asarray(pred_kin)
+        # xkalman model future trajectory
+        model = ModelXKalman(prediction_length=prediction_length)
+        train_ego_hist = np.expand_dims(ego_hist, axis=0)
+        pred_xkal = model(train_ego_hist)
+        pred_xkal = pred_xkal[0]
+        pred_xkal = np.asarray(pred_xkal)
     # return
     return ego_hist, pred_traj, pred_cv, pred_ca, pred_kin, pred_xkal

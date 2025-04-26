@@ -5,9 +5,12 @@ data/4_models/*.model
 data/4_models/epochs_10/*.model
 data/4_models/epochs_20/*.model
 data/4_models/epochs_30/*.model
-data/4_models/epochs_10/*.out
-data/4_models/epochs_20/*.out
-data/4_models/epochs_30/*.out
+data/4_models/epochs_5_phlstm/*.model
+data/4_models/epochs_10_phlstm/*.model
+data/4_models/phlstm_32_5/*.model
+data/4_models/phlstm_32_5_v2/*.model
+data/4_models/phlstm_32_10/*.model
+data/4_models/phlstm_32_10_v2/*.model
 *.pyc
 *.out
 src/_playground_model_physics.py

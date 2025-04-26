@@ -68,25 +68,28 @@ def test_model(model_name, model, testing_data, prediction_length, loss_function
     return performances
 
 if __name__=="__main__":
-    # parse runargs
-    run_arguments = sys.argv
-    if len(run_arguments)!=4:
-        print("ERROR: invalid number of arguments")
-        print_info()
-        sys.exit(-1)
-    model_name = run_arguments[1]
-    model_file_name = run_arguments[2]
-    prediction_length = int(run_arguments[3])
+    # # parse runargs
+    # run_arguments = sys.argv
+    # if len(run_arguments)!=4:
+    #     print("ERROR: invalid number of arguments")
+    #     print_info()
+    #     sys.exit(-1)
+    # model_name = run_arguments[1]
+    # model_file_name = run_arguments[2]
+    # prediction_length = int(run_arguments[3])
     
-    # prediction_length = 25*3
-    # # model_name = "const_v"
+    prediction_length = 25*1
+    # model_name = "const_v"
     # model_name = "xkalman"
-    # # model_name = "social_lstm"
-    # model_file_name = "epochs_20/social_lstm_"+str(prediction_length)+"_5.model"
-    # # model_name = "physics_lstm"
-    # # model_file_name = "physics_lstm_25_5.model"
+    # model_name = "social_lstm"
+    # model_file_name = "epochs_30/social_lstm_"+str(prediction_length)+"_5.model"
+    # model_name = "physics_lstm"
+    # model_file_name = "physics_lstm_25_5.model"
+    # model_name = "physics_lstm"
+    # model_file_name = "epochs_10_phlstm/physics_lstm_"+str(prediction_length)+"_5.model"
+    model_name = "physics_lstm"
+    model_file_name = "phlstm_32_5_v2/physics_lstm_"+str(prediction_length)+"_5.model"
 
-    
     # print info statement
     print("[test_model_all.py] Testing Model", model_name, model_file_name, prediction_length)
     
