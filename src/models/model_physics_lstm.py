@@ -23,7 +23,7 @@ import torch.nn as nn
 
 
 
-# """
+"""
 class PhysicsLSTM(nn.Module):
     def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, dropout_prob=0.3):
         super(PhysicsLSTM, self).__init__()
@@ -97,9 +97,9 @@ class PhysicsLSTM(nn.Module):
         pred = self.output_layer(decoder_output)
 
         return pred
-# """    
+"""    
 
-"""
+# """
 # #############################################################################
 # ### MODEL
 class PhysicsLSTM(nn.Module):
@@ -122,13 +122,13 @@ class PhysicsLSTM(nn.Module):
         self.output_layer = nn.Linear(hidden_dim, output_dim)
 
     def forward(self, ego_hist, pred_cv, pred_ca, pred_bk, pred_xk):
-        " ""
+        """
         ego_hist: [batch, hist_len, 2] – past positions
         pred_cv:  [batch, pred_len, 2] – CV prediction for the future
         pred_ca:  [batch, pred_len, 2] – CA prediction for the future
         pred_bk:  [batch, pred_len, 2] – BK prediction for the future
         pred_xk:  [batch, pred_len, 2] – XK prediction for the future
-        " ""
+        """
         # Encode history
         _, (h_hist, _) = self.hist_encoder(ego_hist)
         h_hist = h_hist[-1]  # [batch, hidden_dim]
@@ -161,7 +161,7 @@ class PhysicsLSTM(nn.Module):
         pred = self.output_layer(decoder_output)  # [batch, T_pred, 2]
 
         return pred
-"""
+# """
 
 def load_physics_lstm_model(model_path, device, prediction_length):
     model = PhysicsLSTM(prediction_length=prediction_length)

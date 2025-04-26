@@ -91,7 +91,7 @@ We therefore selected **20 sequences** from these videos, as outlined in the fol
 | 17          | DJI_20240906110027_0011_D.MP4 | PART_3  | 3500       | 4375     | 875        | 17           | test  |
 | 18          | DJI_20240906110027_0011_D.MP4 | PART_4  | 4675       | 5500     | 825        | 17           | test  |
 | 19          | DJI_20240906110027_0011_D.MP4 | PART_5  | 5850       | 6122     | 272        | 17           | test  |
-| 20          | DJI_20240906110432_0012_D.MP4 | PART_1  | 0          | 625      | 625        | 17           | test  |
+| 20          | DJI_20240906110432_0012_D.MP4 | PART_1  | 0          | 625      | 625        | 17           | train  |
 | | | | | | | |
 | | | | | **total** | 16054 | 25 | |
 
@@ -151,37 +151,31 @@ unzip neurips25_great_gatsbi/data/1_trajectories/1_trajectories.zip -d neurips25
 
 ## [Training](#training)
 
-### Training Data Generation
-We recommend to **precalculate all training data from the trajectory data**, as this is time consuming and takes up to 20 minutes.
+### Data Generation
+We recommend to **precalculate all training & testing data from the trajectory data**, as this is time consuming (especially physical and social features) this might take up to 20 hours.
+We recommend reviewers to run it for one video only with few frames (e.g. *PART_3* of *DJI_20240906103036_0003_D.MP4*)
 First, training data needs to be generated with the script `data_generator.py`. 
-The results are stored in `\neurips25_great_gatsbi\data\2_training_datasets`.
+The results are stored in `\neurips25_great_gatsbi\data\2_datasets`.
 
 The script can be used as follows:
 ```
-python data_generator.py [1] [2] [3] [4]
-    [1] - relevant_video
-    [2] - relevant_part
-    [3] - model ("social_lstm" or "gatsbi")
-    [4] - data_type ("train" or "test")
+python data_generator.py
 ```
 
-An example to generate data can be found here:
-
-```
-python data_generator.py DJI_20240906103036_0003_D.MP4 PART_3 social_lstm train
-```
-
-A list of all training relevant sequences is outlined below:
-<details>
-    All sequences related to these videos have been used for training.
-    <ul>
-        <li> DJI_20240906103036_0003_D.MP4 </li>
-        <li> DJI_20240906103442_0004_D.MP4 </li>
-        <li> DJI_20240906103850_0005_D.MP4 </li>
-        <li> DJI_20240906105321_0009_D.MP4 </li>
-        <li> DJI_20240906105621_0010_D.MP4 </li>
-    </ul>
-</details>
+Three different types of features are generated:
+- **Physical Features**
+    - preditions according to constant velocity model
+    - predictions according to constant acceleration model
+    - predictions according to bicycle kinematics model
+    - predictions according to an extended Kalman filter
+- **Social Features**
+    - ego's historical trajectory
+    - ego's future trajectory (for testing only)
+    - neighbor's historical trajectory
+    - adjacency matrix representing ego and neighbor's graph incl. distance, angle, rel. speed x and y
+    - neighbors include ego's five closest neighbors (within a max. distance of 20m)
+- **Road Features**
+    - ego's historical distance from road edge
 
 ### Model Training
 
@@ -190,78 +184,36 @@ The resulting models are stored in `\neurips25_great_gatsbi\data\4_models`.
 
 The script can be used as follows:
 ```
-python train_model.py [1] [2] [3] [4]")
-    [1] - relevant_video
-    [2] - relevant_part
-    [3] - model ("social_lstm" or "gatsbi")
-    [4] - prediction_length in [s] (25, 50 , 75, 100)
-    [5] - n_epochs   
+python train_model.py [1] [2] [3]
+    [1] - model ("social_lstm" or "gatsbi" or "physics_lstm")
+    [2] - prediction_length in [s] (25, 50 , 75, 100)
+    [3] - max_epochs
 ```
 
 An example to train a model can be found here:
 ```
-python train_model.py DJI_20240906103036_0003_D.MP4 PART_3 social_lstm 25 10
+python train_model.py social_lstm 25 50
 ```
 
-After training on a specific sequence (video+part) two model files are stored in the models folder:
-- general workbench model (Example: *social_lstm_25_5.model*)
-    - if this model file exists in the model folder already, then it will be loaded, and continued to be trained
-- specific snapshot model (Example: *social_lstm_25_5_DJI_20240906103036_0003_D.MP4-PART_3.model*)
-    - this is a copy of a workbench that is the result after training on a specific sequence
-
-This storage allows to retrieve models of different training amounts.
+After training of each epoch a model file is stored in the models folder, as well as a txt file containing the performance on the test set.
 
 
 ## [Evaluation](#evaluation)
-
-### Testing Data Generation
-
-We recommend to **precalculate all testing data from the trajectory data**, as this is time consuming.
-First, testing data needs to be generated with the script `data_generator.py`. 
-The results are stored in `\neurips25_great_gatsbi\data\3_testing_datasets`.
-
-The script can be used as follows:
-```
-python data_generator.py [1] [2] [3] [4]
-    [1] - relevant_video
-    [2] - relevant_part
-    [3] - model ("social_lstm" or "gatsbi")
-    [4] - data_type ("train" or "test")
-```
-
-An example to generate data can be found here:
-
-```
-python data_generator.py DJI_20240906103036_0003_D.MP4 PART_3 social_lstm test
-```
-
-A list of all testing / evaluation relevant sequences is outlined below:
-<details>
-    All sequences related to these videos have been used for training.
-    <ul>
-        <li> DJI_20240906110027_0011_D.MP4</li>
-        <li> DJI_20240906110432_0012_D.MP4 </li>
-    </ul>
-</details>
-
-### Evaluation
 
 To test the model (and thus evaluate) you can use the script `test_model.py`. 
 The resulting evaluation metrics are printed to the console.
 
 The script can be used as follows:
 ```eval
-python test_model.py [1] [2] [3] [4]")
-    [1] - relevant_video
-    [2] - relevant_part
-    [3] - model ("social_lstm" or "gatsbi" or "const_v" or "const_a")
-    [4] - model_file_name
-    [5] - prediction_length in [s] (25, 50 , 75, 100)
+python test_model.py [1] [2] [3]
+    [1] - model ("social_lstm" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
+    [2] - model_file_name
+    [3] - prediction_length in [s] (25, 50, 75, 100)
 ```
 
 An example to run a test can be found here:
 ```
-python test_model.py DJI_20240906103036_0003_D.MP4 PART_3 social_lstm social_lstm_25_5_0010.model 25
+python test_model_all.py social_lstm social_lstm_25_5_0010.model 25
 ```
 This outputs something like this:
 ```
@@ -293,10 +245,10 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 |------------|----|----|----|----|----|----|----|----|
 | *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
 | **car specific (physics)** |   |   |   |   |  |   |   |   |
-| const_v    | 0.1106 | 0.2923 | 0.5589 | 0.9452 | 0.2672 | 0.6844 | 1.5290 | 2.6763 |
-| const_a    | 0.1270 | 0.5491 | 1.2874 | 2.3715 | 0.3914 | 1.6356 | 3.9722 | 7.3009 |
-| kinematics | 0.1113 | 0.3972 | 0.8901 | 1.6178 | 0.3051 | 1.1105 | 2.6968 | 4.9086 |
-| xkalman    | 0.1489 | 0.3404 | 0.6141 | 1.0054 | 0.3179 | 0.7489 | 1.6019 | 2.7542 |
+| const_v      | 0.1127   | 0.2965   | 0.5576   | 0.9273   | 0.2722   | 0.6900   | 1.4945   | 2.5747   |
+| const_a      | 0.1289   | 0.5585   | 1.3033   | 2.3898   | 0.3980   | 1.6632   | 4.0006   | 7.3234   |
+| kinematics   | 0.1135   | 0.4068   | 0.9059   | 1.6347   | 0.3120   | 1.1383   | 2.7230   | 4.9213   |
+| xkalman      | 0.1489   | 0.3404   | 0.6141   | 1.0054   | 0.3179   | 0.7489   | 1.6019   | 2.7542   |
 | **pedestrian specific** |   |   |   |   |  |   |   |   |
 | social_lstm (10ep) | 0.2051 | 0.3899 | 0.7601 | 4.1339 | 0.4583 | 0.7872 | 1.8785 | 7.9684 |
 | social_lstm (20ep) | 0.1923 | 1.9488 | 3.1585 | 4.2578 | 0.4207 | 3.5531 | 6.0151 | 7.6663 |
@@ -311,19 +263,43 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 |------------|----|----|----|----|----|----|----|----|
 | *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
 | **car specific** |   |   |   |   |  |   |   |   |
-| const_v    | 0.11056696657038025 | 0.29234241037736436 | 0.5589889535979709 | 0.945163672885311 |  0.2671894703293539  | 0.6844184623060213 | 1.5290085477690523 | 2.6763083424922742 |
-| const_a    | 0.12703750214115742 | 0.5491118972058714 | 1.2873844576742641 | 2.371540486730733 | 0.3913595031669894 | 1.635600893058238 | 3.972229972595745 | 7.300925779744927 |
-| kinematics | 0.11131377199367609 | 0.39723217019572643 | 0.8900938109835153 | 1.6178176029537246 | 0.30509164684984014 | 1.1104835422805694 | 2.696847655526652 | 4.908569119363433 |
+| const_v    | 0.11273600161075592 | 0.29649898409843445 | 0.5575750470161438  | 0.9272697567939758  | 0.27221187949180603 | 0.6900343298912048 | 1.4944883584976196 | 2.574655771255493  |
+| const_a     | 0.12889571487903595 | 0.5585442185401917 | 1.3032768964767456 | 2.389838218688965  | 0.39801520109176636 | 1.663221836090088  | 4.000614643096924  | 7.3233962059021    |
+| kinematics    | 0.11346796154975891 | 0.4068422317504883 | 0.9059017896652222 | 1.6347376108169556 | 0.3119632303714752 | 1.1383190155029297 | 2.7230348587036133 | 4.921277046203613  |
 | xkalman | 0.1489094605288226 | 0.34044283121526064 | 0.6141094498969256 | 1.0053677485343262 | 0.317884474618542 | 0.748918094949814 | 1.6018550991895084 | 2.754164592130338 |
 | **pedestrian specific** |   |   |   |   |  |   |   |   |
-| social_lstm (10ep) | 0.20509553169628814 | 0.3899093248726271 | 0.7601036562366721 | 4.133902388973659 | 0.45827985002242844 | 0.7872095224037342 | 1.8784515377772142 | 7.968354260334436 |
-| social_lstm (20ep) |  0.19227776936463148 | 1.9488191385935258 | 3.1585467262129607 | 4.257847008154115 | 0.42069589445023575 | 3.5531278204305137 | 6.01511868088999 | 7.666314679920989 |
-| social_lstm (30ep) | 1.038656719214593 | 1.984373107596381 | 3.14488590505045 | 4.224214635364023 | 1.859556195524035 | 3.639733616922658 | 5.929743839755628 | 8.407655536228006 |
+| social_lstm (10ep) |  |   |   |   |  |   |   |   |
 | **own models** |   |   |   |   |  |   |   |   |
 
->>Final Results [ physics_lstm phlstm_32_5/physics_lstm_25_5.model 25 ]
-{'ADE': 0.08940453522750764, 'FDE': 0.23202501618618915}
-{'ADE': 0.08839565493007115, 'FDE': 0.23267997813290278}
+
+>>Final Results [ const_v no 25 ]
+{'ADE': 0.11273600161075592, 'FDE': 0.27221187949180603}
+>>Final Results [ const_v no 50 ]
+{'ADE': 0.29649898409843445, 'FDE': 0.6900343298912048}
+>>Final Results [ const_v no 75 ]
+{'ADE': 0.5575750470161438, 'FDE': 1.4944883584976196}
+>>Final Results [ const_v no 100 ]
+{'ADE': 0.9272697567939758, 'FDE': 2.574655771255493}
+
+>>Final Results [ const_a no 25 ]
+{'ADE': 0.12889571487903595, 'FDE': 0.39801520109176636}
+>>Final Results [ const_a no 50 ]
+{'ADE': 0.5585442185401917, 'FDE': 1.663221836090088}
+>>Final Results [ const_a no 75 ]
+{'ADE': 1.3032768964767456, 'FDE': 4.000614643096924}
+>>Final Results [ const_a no 100 ]
+{'ADE': 2.389838218688965, 'FDE': 7.3233962059021}
+
+>>Final Results [ kinematics no 25 ]
+{'ADE': 0.11346796154975891, 'FDE': 0.3119632303714752}
+>>Final Results [ kinematics no 50 ]
+{'ADE': 0.4068422317504883, 'FDE': 1.1383190155029297}
+>>Final Results [ kinematics no 75 ]
+{'ADE': 0.9059017896652222, 'FDE': 2.7230348587036133}
+>>Final Results [ kinematics no 100 ]
+{'ADE': 1.6347376108169556, 'FDE': 4.921277046203613}
+
+
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 
@@ -347,160 +323,58 @@ cd ./neurips25_great_gatsbi/src/
 ```
 
 ### 1. Prepare Training Dataset
-(takes around 30 minutes)
-```
-#!/bin/bash
+(takes time!)
 
-# Configurable parameters
-model="social_lstm" # Set your desired model name # "social_lstm", "gatsbi", "physics_lstm"
-
-# List of video files and their corresponding parts
-declare -A FILE_TRAIN
-FILE_TRAIN["DJI_20240906103036_0003_D.MP4"]="PART_1 PART_2 PART_3 PART_4"
-FILE_TRAIN["DJI_20240906103442_0004_D.MP4"]="PART_1 PART_2"
-FILE_TRAIN["DJI_20240906103850_0005_D.MP4"]="PART_1"
-FILE_TRAIN["DJI_20240906105321_0009_D.MP4"]="PART_1"
-FILE_TRAIN["DJI_20240906105621_0010_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5 PART_6"
-declare -A FILE_TEST
-FILE_TEST["DJI_20240906110027_0011_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5"
-FILE_TEST["DJI_20240906110432_0012_D.MP4"]="PART_1"
-
-# SLURM parameters
-SBATCH_OPTS="-n4 --time=02:00:00 --mem-per-cpu=16000"
-MODULES="module load stack/2024-05 python/3.11.6_cuda"
-for FILE in "${!FILE_TRAIN[@]}"; do
-    for PART in ${FILE_TRAIN[$FILE]}; do
-        CMD="$MODULES ; python data_generator.py $FILE $PART $model train"
-        sbatch $SBATCH_OPTS --wrap="$CMD"
-    done
-done
-SBATCH_OPTS="-n4 --time=02:00:00 --mem-per-cpu=16000"
-MODULES="module load stack/2024-05 python/3.11.6_cuda"
-for FILE in "${!FILE_TEST[@]}"; do
-    for PART in ${FILE_TEST[$FILE]}; do
-        CMD="$MODULES ; python data_generator.py $FILE $PART $model test"
-        sbatch $SBATCH_OPTS --wrap="$CMD"
-    done
-done
-```
-
-**[!!!] Important Note:** Verify that all files exist before you go to the next step with:
-```
-all_exist=true
-missing_files=()
-
-# Check training files
-for file in "${!FILE_TRAIN[@]}"; do
-    for part in ${FILE_TRAIN[$file]}; do
-        fname="data_social_lstm_${file}-${part}.pt"
-        fpath="../data/2_training_datasets/$fname"
-        if [[ ! -f "$fpath" ]]; then
-            all_exist=false
-            missing_files+=("$fpath")
-        fi
-    done
-done
-
-# Check testing files
-for file in "${!FILE_TEST[@]}"; do
-    for part in ${FILE_TEST[$file]}; do
-        fname="data_social_lstm_${file}-${part}.pt"
-        fpath="../data/3_testing_datasets/$fname"
-        if [[ ! -f "$fpath" ]]; then
-            all_exist=false
-            missing_files+=("$fpath")
-        fi
-    done
-done
-
-if $all_exist; then
-    echo "[!!!] yes all files existing! ready for training!"
-else
-    echo "[!!!] no some files missing! not ready for training yet!"
-    echo "Missing files:"
-    for f in "${missing_files[@]}"; do
-        echo "$f"
-    done
-fi
-```
 ### 2. Train Model
-(takes around 8h)
+(takes around 2h)
 
 For each model (social_lstm) and prediction_length (25, 50, 75, 100) we run ten epochs, that take around 8h.
 We repeated the same 5 times, so the training was 5 times for 10 epochs each in the order the data appears in the script below.
+
+```
+./_submit_jobs.sh social_lstm 25 10
+```
+
 ```
 #!/bin/bash
 
-# Configurable parameters 
-prediction_length=25   # Set your desired prediction length # "25", "50", "75", "100"
-model="social_lstm"    # Set your desired model name # "social_lstm", "gatsbi", "physics_lstm"
-n_epochs=10            # Set your desired number of epochs
+# Usage: ./_submit_jobs.sh <model_name> <prediction_length> <num_jobs>
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 <model_name> <prediction_length> <num_jobs>"
+    exit 1
+fi
 
-# Activate software environment for session host as well
-module load stack/2024-05 python/3.11.6_cuda
+MODEL_NAME=$1
+PRED_LEN=$2
+NUM_JOBS=$3
 
-# SLURM resource options
-SBATCH_OPTS="-n4 -G2 --time=01:30:00 --gres=gpumem:10g --mem-per-cpu=8000"
-MODULES="module load stack/2024-05 python/3.11.6_cuda"
-
-# Map video files to their parts
-declare -A FILE_PARTS
-FILE_PARTS["DJI_20240906103036_0003_D.MP4"]="PART_1 PART_2 PART_3 PART_4"
-FILE_PARTS["DJI_20240906103442_0004_D.MP4"]="PART_1 PART_2"
-FILE_PARTS["DJI_20240906103850_0005_D.MP4"]="PART_1"
-FILE_PARTS["DJI_20240906105321_0009_D.MP4"]="PART_1"
-FILE_PARTS["DJI_20240906105621_0010_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5 PART_6"
-
-# Build the job list
-jobs=()
-for file in "${!FILE_PARTS[@]}"; do
-    for part in ${FILE_PARTS[$file]}; do
-        jobs+=("python train_model.py $file $part $model $prediction_length $n_epochs")
-    done
-done
-printf '%s\n' "${jobs[@]}"
-
-# Wait for user to press enter to confirm
-read -p "Please enter to submit jobs"
-
-# Submit jobs with dependencies
-jobid=""
-for i in "${!jobs[@]}"; do
-    cmd="$MODULES ; date ; ${jobs[$i]} ; date"
-    if [[ $i -eq 0 ]]; then
-        jobid=$(sbatch $SBATCH_OPTS --wrap="$cmd" | awk '{print $4}')
+echo "The following job submission commands will be executed:"
+for i in $(seq 1 $NUM_JOBS); do
+    if [ $i -eq 1 ]; then
+        echo "sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50\""
     else
-        jobid=$(sbatch --dependency=afterok:$jobid $SBATCH_OPTS --wrap="$cmd" | awk '{print $4}')
+        echo "sbatch --dependency=afterok:<jobid_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50\""
     fi
+done
+
+echo
+read -p "Press Enter to confirm and submit the jobs..."
+
+# Actual submission with dependency chaining
+PREV_JOBID=""
+for i in $(seq 1 $NUM_JOBS)
+do
+    if [ -z "$PREV_JOBID" ]; then
+        JOBID=$(sbatch --parsable -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+            --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50")
+    else
+        JOBID=$(sbatch --parsable --dependency=afterok:$PREV_JOBID -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+            --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50")
+    fi
+    echo "Submitted job $JOBID (iteration $i)"
+    PREV_JOBID=$JOBID
 done
 ```
 
 ### 3. Test Model
 (takes around 5 minutes)
-```
-#!/bin/bash
-
-# Configurable parameters 
-prediction_length=25   # Set your desired prediction length # "25", "50", "75", "100"
-model="social_lstm"    # Set your desired model name # "social_lstm", "gatsbi", "physics_lstm"
-model_file=""
-
-# Map video files to their parts
-declare -A FILE_TEST
-FILE_TEST["DJI_20240906110027_0011_D.MP4"]="PART_1 PART_2 PART_3 PART_4 PART_5"
-FILE_TEST["DJI_20240906110432_0012_D.MP4"]="PART_1"
-
-# Build the job list
-jobs=()
-for file in "${!FILE_TEST[@]}"; do
-    for part in ${FILE_TEST[$file]}; do
-        jobs+=("python test_model.py $file $part $model $model_file $prediction_length")
-    done
-done
-
-# Submit jobs with dependencies
-for i in "${!jobs[@]}"; do
-    cmd="$MODULES ; date ; ${jobs[$i]} ; date"
-    eval "$cmd"
-done
-```

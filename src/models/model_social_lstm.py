@@ -60,7 +60,7 @@ class SocialLSTM(nn.Module):
             pooled += mask[:, None] * all_hidden_states[:, i]  # broadcast over hidden dim
         return pooled
 
-    def forward(self, ego_hist, ego_pos, neighbor_hists, neighbor_pos):
+    def forward(self, ego_hist, neighbor_hists):
         """
         ego_hist: [batch, history_length, 2] – history of ego
         ego_pos: [batch, 2] – current position of ego
@@ -79,6 +79,8 @@ class SocialLSTM(nn.Module):
             h_neighbors.append(h.squeeze(0))
         h_neighbors = torch.stack(h_neighbors, dim=1)  # [batch, num_neighbors, hidden]
         # Social pooling
+        ego_pos = ego_hist[:,-1,:]
+        neighbor_pos = neighbor_hists[:,:,-1,:]
         pooled_social = self.social_pooling(ego_pos, h_neighbors, neighbor_pos)  # [batch, hidden]
         # Decode with pooled context
         h_dec_in = torch.cat([h_ego, pooled_social], dim=1).unsqueeze(1).repeat(1, self.prediction_length, 1)

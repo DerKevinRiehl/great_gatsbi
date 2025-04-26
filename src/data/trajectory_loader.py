@@ -31,8 +31,8 @@ import utils.constants as cs
 # #############################################################################
 def load_trajectories(relevant_cols = True):
     trajectory_data = {}
-    for relevant_video in cs.VIDEOS:
-        for relevant_part in cs.VIDEOS[relevant_video]:
+    for relevant_video in cs.VIDEOS_PARTS:
+        for relevant_part in cs.VIDEOS_PARTS[relevant_video]:
             sequence = relevant_video+"-"+relevant_part
             df_trajectory = pd.read_csv("../data/1_trajectories/"+relevant_video+"_"+relevant_part+".txt")
             # Unwrap Angle

@@ -28,6 +28,9 @@ class ModelClassic:
         self.model_func = model_func
         self.prediction_length = prediction_length
 
+    def eval(self):
+        pass
+    
     def __call__(self, traj_hist):
         forecasts = [
             np.stack(self.model_func(record[:, 0], record[:, 1], prediction_length=self.prediction_length), axis=1)

@@ -13,6 +13,8 @@ data/4_models/phlstm_32_10/*.model
 data/4_models/phlstm_32_10_v2/*.model
 *.pyc
 *.out
+*.pt
+*.zip
 src/_playground_model_physics.py
 src/myarray.txt
 src/myarray2.txt

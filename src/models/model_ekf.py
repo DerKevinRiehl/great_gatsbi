@@ -48,10 +48,12 @@ class ModelXKalman:
         trajectory = torch.from_numpy(np.stack(forecasts, axis=0)).float()
         return trajectory
     """
+
+    def eval(self):
+        pass
+
     def __call__(self, traj_hist):
-        batch_size = traj_hist.shape[0]
         forecasts = []
-        start_time = time.time()
         for record in traj_hist: 
             ekf_pred = do_prediction(
                 record[:, 0], record[:, 1],
@@ -59,7 +61,6 @@ class ModelXKalman:
                 device=self.device
             )
             forecasts.append(ekf_pred)
-        total_time = time.time() - start_time
         trajectory = torch.from_numpy(np.stack(forecasts, axis=0)).float()
         return trajectory
     

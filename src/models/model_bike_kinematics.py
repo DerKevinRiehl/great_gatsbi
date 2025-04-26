@@ -28,6 +28,9 @@ class ModelBikeKinematics:
     def __init__(self, prediction_length):
         self.prediction_length = prediction_length
 
+    def eval(self):
+        pass
+
     def __call__(self, traj_hist):
         forecasts = [
             np.stack(predict_trajectory_kinematic(record[:, 0], record[:, 1], prediction_length=self.prediction_length), axis=1)
