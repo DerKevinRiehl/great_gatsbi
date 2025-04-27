@@ -250,12 +250,9 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | kinematics   | 0.1135   | 0.4068   | 0.9059   | 1.6347   | 0.3120   | 1.1383   | 2.7230   | 4.9213   |
 | xkalman      | 0.1489   | 0.3404   | 0.6141   | 1.0054   | 0.3179   | 0.7489   | 1.6019   | 2.7542   |
 | **pedestrian specific** |   |   |   |   |  |   |   |   |
-| social_lstm (10ep) | 0.2051 | 0.3899 | 0.7601 | 4.1339 | 0.4583 | 0.7872 | 1.8785 | 7.9684 |
-| social_lstm (20ep) | 0.1923 | 1.9488 | 3.1585 | 4.2578 | 0.4207 | 3.5531 | 6.0151 | 7.6663 |
-| social_lstm (30ep) | 1.0387 | 1.9844 | 3.1449 | 4.2242 | 1.8596 | 3.6397 | 5.9297 | 8.4077 |
+| social_lstm (best)        | 0.0926    | 0.2607    | 0.4761    | 0.7843    | 0.2304    | 0.5829    | 1.2379    | 2.1844    |
 | **own models** |   |   |   |   |  |   |   |   |
-| physics_lstm (5ep) | 0.1141 |   |   |   | 0.2826 |   |   |   |
-| physics_lstm (10ep) | 0.1110 |   |   |   | 0.2739 |   |   |   |
+| physics_lstm (best)        | 0.0730    | 0.2245    | 0.4324    | 0.7429    | 0.1984    | 0.5291    | 1.1899    | 2.1240    |
 
 
 ### All digits... [to be deleted]
@@ -268,8 +265,9 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | kinematics    | 0.11346796154975891 | 0.4068422317504883 | 0.9059017896652222 | 1.6347376108169556 | 0.3119632303714752 | 1.1383190155029297 | 2.7230348587036133 | 4.921277046203613  |
 | xkalman | 0.1489094605288226 | 0.34044283121526064 | 0.6141094498969256 | 1.0053677485343262 | 0.317884474618542 | 0.748918094949814 | 1.6018550991895084 | 2.754164592130338 |
 | **pedestrian specific** |   |   |   |   |  |   |   |   |
-| social_lstm (10ep) |  |   |   |   |  |   |   |   |
+| social_lstm (best) | 0.092595063149929 | 0.260732531547546 | 0.476132899522781 | 0.784296452999114 | 0.23038001358509 | 0.582925915718078 | 1.23794972896575 | 2.18438363075256 |
 | **own models** |   |   |   |   |  |   |   |   |
+| physics_lstm (best) | 0.0730470493435859 | 0.224520921707153 | 0.432428479194641 | 0.742918670177459 | 0.198400869965553 | 0.529065370559692 | 1.18991124629974 | 2.1239583492279 |
 
 
 >>Final Results [ const_v no 25 ]
@@ -326,9 +324,9 @@ cd ./neurips25_great_gatsbi/src/
 (takes time!)
 
 ### 2. Train Model
-(takes around 2h)
+(takes around 3h)
 
-For each model (social_lstm) and prediction_length (25, 50, 75, 100) we run ten epochs, that take around 8h.
+For each model (social_lstm) and prediction_length (25, 50, 75, 100) we run ten epochs, that take around 2h.
 We repeated the same 5 times, so the training was 5 times for 10 epochs each in the order the data appears in the script below.
 
 ```
@@ -377,4 +375,25 @@ done
 ```
 
 ### 3. Test Model
-(takes around 5 minutes)
+(takes around 1 minute)
+
+The following script parses all summaries from models folder to assess for which epoch, prediction_length, and model the performance on testing set was best.
+```
+#!/bin/bash
+
+DATA_DIR="$HOME/neurips25_great_gatsbi/data/4_models"
+
+for model_name in social_lstm physics_lstm; do
+  for prediction_length in 25 50 75 100; do
+    for epoch in $(seq -w 0 49); do
+      file_path="${DATA_DIR}/${model_name}_${prediction_length}_${epoch}.model_perf.txt"
+      if [ -f "$file_path" ]; then
+        file_content=$(tr '\n' ' ' < "$file_path" | sed 's/  */ /g' | sed 's/^ *//;s/ *$//')
+      else
+        file_content="File not found"
+      fi
+      echo -e "${model_name}\t${prediction_length}\t${epoch}\t${file_content}"
+    done
+  done
+done
+```

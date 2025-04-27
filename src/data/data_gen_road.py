@@ -43,7 +43,7 @@ def generate_data_road(trajectory_data, batches):
         lane_xy = np.pad(lane_xy, ((max(0, cs.HISTORY_LENGTH - lane_xy.shape[0]), 0), (0, 0)), mode='constant')[-cs.HISTORY_LENGTH:]
 
         # --- Distance from road border
-        distances = cs.CIRCLE_OUTER_RADIUS - lane_xy[-1:, 0]
+        distances = cs.CIRCLE_OUTER_RADIUS - lane_xy[:, 0]
 
         # --- Collect all
         lst_dist.append(torch.tensor(distances, dtype=torch.float32))
