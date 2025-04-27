@@ -79,7 +79,7 @@ if __name__=="__main__":
     # # model_file_name = "phlstm_32_10_v2/physics_lstm_"+str(prediction_length)+"_5.model"
 
     # runargs check
-    if not (model_name=="social_lstm" or model_name=="gatsbi" 
+    if not (model_name=="social_lstm" or model_name.startswith("gatsbi") 
             or model_name=="const_v" or model_name=="const_a" or model_name=="kinematics"
             or model_name=="xkalman" or model_name=="physics_lstm"):
         print("ERROR: invalid model")

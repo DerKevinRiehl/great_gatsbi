@@ -34,12 +34,9 @@ def print_info():
     print("-------------------------------------------")
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
-    print("USAGE: python data_generator.py [1] [2] [3]")
-    print(" [1] - relevant_video")
-    print(" [2] - relevant_part")
-    print(" [3] - model (\"social_lstm\" or \"gatsbi\" or \"physics_lstm\")")
+    print("USAGE: python data_generator.py")
     print("")
-    print("Example: python data_generator.py DJI_20240906103036_0003_D.MP4 PART_3 social_lstm")
+    print("Example: python data_generator.py")
     print("-------------------------------------------")
 
 def generate_batches(unique_vehicles, sequence, frame_from, frame_to):

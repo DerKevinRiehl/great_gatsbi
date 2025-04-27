@@ -22,7 +22,8 @@ from models.model_classic import ModelClassic, constant_velocity_predictor, cons
 from models.model_bike_kinematics import ModelBikeKinematics
 from models.model_ekf import ModelXKalman
 from models.model_physics_lstm import PhysicsLSTM, load_physics_lstm_model
-from models.model_gatsbi import GATSBI, load_gatsbi_model
+from models.model_gatsbi_v1 import GATSBIv1, load_gatsbi_modelv1
+from models.model_gatsbi_v2 import GATSBIv2, load_gatsbi_modelv2
 from models.model_social_lstm import SocialLSTM, load_social_lstm_model
 
 
@@ -35,18 +36,18 @@ def load_model_testing(model_name, model_file_name, prediction_length, device):
         print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
             model = load_social_lstm_model(model_path, device, prediction_length)
-        elif model_name=="gatsbi":
-            model = load_gatsbi_model(model_path, device, prediction_length)
         elif model_name=="physics_lstm":
             model = load_physics_lstm_model(model_path, device, prediction_length)
+        elif model_name=="gatsbiv1":
+            model = load_gatsbi_modelv1(model_path, device, prediction_length)
+        elif model_name=="gatsbiv2":
+            model = load_gatsbi_modelv2(model_path, device, prediction_length)
         else:
             print("ERROR, model in ",model_file_name,"could not be found.")
             sys.exit(-1)
     else:
         if model_name=="social_lstm":
             model = SocialLSTM(prediction_length=prediction_length)
-        elif model_name=="gatsbi":
-            model = GATSBI(prediction_length=prediction_length)
         elif model_name=="const_v":
             model = ModelClassic(model_func=constant_velocity_predictor, prediction_length=prediction_length)
         elif model_name=="const_a":
@@ -57,6 +58,10 @@ def load_model_testing(model_name, model_file_name, prediction_length, device):
             model = ModelXKalman(prediction_length=prediction_length)
         elif model_name=="physics_lstm":
             model = PhysicsLSTM(prediction_length=prediction_length)
+        elif model_name=="gatsbiv1":
+            model = GATSBIv1(prediction_length=prediction_length)
+        elif model_name=="gatsbiv2":
+            model = GATSBIv2(prediction_length=prediction_length)
         else:
             print("ERROR failed to load model")
             sys.exit(-1)
@@ -81,19 +86,24 @@ def load_model_training(model_name, prediction_length, device):
         print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
             model = load_social_lstm_model(model_path, device, prediction_length)
-        elif model_name=="gatsbi":
-            model = load_gatsbi_model(model_path, device, prediction_length)
         elif model_name=="physics_lstm":
             model = load_physics_lstm_model(model_path, device, prediction_length)
+        elif model_name=="gatsbiv1":
+            model = load_gatsbi_modelv1(model_path, device, prediction_length)
+        elif model_name=="gatsbiv2":
+            model = load_gatsbi_modelv2(model_path, device, prediction_length)
     # generate model by creating from scratch
     else:
         print("[model_loader.py] Create model from scatch")
         if model_name=="social_lstm":
             model = SocialLSTM(prediction_length=prediction_length)
-        elif model_name=="gatsbi":
-            model = GATSBI(prediction_length=prediction_length)
         elif model_name=="physics_lstm":
             model = PhysicsLSTM(prediction_length=prediction_length)
+        elif model_name=="gatsbiv1":
+            model = GATSBIv1(prediction_length=prediction_length)
+        elif model_name=="gatsbiv2":
+            model = GATSBIv2(prediction_length=prediction_length)
+        model.to(device)
     return model, last_epoch
 
 def unpack_data(data, model_name, prediction_length):
@@ -106,7 +116,7 @@ def unpack_data(data, model_name, prediction_length):
         future_trajs = future_trajs[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists)
-    elif model_name=="gatsbi":
+    elif model_name.startswith("gatsbi"):
         # unpack data
         ego_hists = data['ego_trajectory_history']
         future_trajs = data['ego_trajectory_future']
@@ -156,8 +166,6 @@ def unpack_data(data, model_name, prediction_length):
 def unpack_trajectory_prediction(model_results, model_name):
     if model_name=="social_lstm":
         return model_results
-    elif model_name=="gatsbi":
-        return model_results[0]
     elif model_name=="const_v":
         return model_results
     elif model_name=="const_a":
@@ -168,3 +176,5 @@ def unpack_trajectory_prediction(model_results, model_name):
         return model_results
     elif model_name=="physics_lstm":
         return model_results
+    elif model_name.startswith("gatsbi"):
+        return model_results[0]

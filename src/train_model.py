@@ -76,7 +76,7 @@ if __name__=="__main__":
     print("[train_model.py] Training Model", model_name, prediction_length, max_epochs)
     
     # runargs check
-    if not (model_name=="social_lstm" or model_name=="gatsbi" or model_name=="physics_lstm"):
+    if not (model_name=="social_lstm" or model_name.startswith("gatsbi") or model_name=="physics_lstm"):
         print("ERROR: invalid model")
         print_info()
         sys.exit(-1)
