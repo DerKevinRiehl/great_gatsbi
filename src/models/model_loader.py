@@ -138,7 +138,6 @@ def unpack_data(data, model_name, prediction_length):
         pred_xk = pred_xk[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, pred_ca, pred_bk, pred_xk, road_dist)
-        
     elif model_name=="physics_lstm":
         # unpack data
         ego_hists = data['ego_trajectory_history']

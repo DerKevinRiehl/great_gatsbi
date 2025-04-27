@@ -30,25 +30,48 @@ def load_data_for_sequence(sequence):
     data_social = torch.load('../data/2_datasets/data_social_'+sequence+'.pt')
     data_physics = torch.load('../data/2_datasets/data_physics_'+sequence+'.pt')
     data_road = torch.load('../data/2_datasets/data_road_'+sequence+'.pt')
+    data_batches = torch.load('../data/2_datasets/data_batches_'+sequence+'.pt')
     data = {}    
     for data_set in [data_social, data_physics, data_road]:
         for key in data_set:
             data[key] = data_set[key]
-    return data
+    return data, data_batches
 
 def load_data_from_videos(lst_videos):
-    training_data = None
+    dataset = None
+    batches_tot = {}
     for relevant_video in lst_videos:
         for relevant_part in cs.VIDEOS_PARTS[relevant_video]:
-            training_data_sequence = load_data_for_sequence(sequence=relevant_video+"-"+relevant_part)
-            if training_data is None:
-                training_data = training_data_sequence.copy()
+            data_sequence, sequence_batches = load_data_for_sequence(sequence=relevant_video+"-"+relevant_part)
+            batches_tot[relevant_video+"-"+relevant_part] = sequence_batches
+            if dataset is None:
+                dataset = data_sequence.copy()
             else:
-                for key in training_data:
-                    training_data[key] = torch.cat((training_data[key], training_data_sequence[key]), dim=0)
-    return training_data
+                for key in dataset:
+                    dataset[key] = torch.cat((dataset[key], data_sequence[key]), dim=0)
+    return dataset, batches_tot
+
+def load_data_from_videos_inference(sequence):
+    dataset = None
+    batches_tot = {}
+    relevant_video = sequence.split("-")[0]
+    relevant_part = sequence.split("-")[1]
+    data_sequence, sequence_batches = load_data_for_sequence(sequence=relevant_video+"-"+relevant_part)
+    batches_tot[relevant_video+"-"+relevant_part] = sequence_batches
+    if dataset is None:
+        dataset = data_sequence.copy()
+    else:
+        for key in dataset:
+            dataset[key] = torch.cat((dataset[key], data_sequence[key]), dim=0)
+    return dataset, batches_tot
 
 def load_dataset(model_name, videos, prediction_length):
-    dataset = load_data_from_videos(videos)
+    dataset, batches_tot = load_data_from_videos(videos)
     return unpack_data(dataset, model_name, prediction_length)
+
+def load_dataset_inference(model_name, sequence, prediction_length):
+    dataset, batches_tot = load_data_from_videos_inference(sequence)
+    return batches_tot[sequence]["batch_info"], unpack_data(dataset, model_name, prediction_length)
+
+
 

@@ -22,6 +22,7 @@ from data.trajectory_loader import load_trajectories, get_unique_vehicles, get_f
 from data.data_gen_road import generate_data_road
 from data.data_gen_social import generate_data_social
 from data.data_gen_physics import generate_data_physics
+from data.data_gen_batch_info import generate_data_batches
 import utils.constants as cs
 
 
@@ -58,6 +59,8 @@ def generate_data(trajectory_data, batches, model_features):
         return generate_data_social(trajectory_data, batches)
     elif model_features=="physics":
         return generate_data_physics(trajectory_data, batches)
+    elif model_features=="batches":
+        return generate_data_batches(trajectory_data, batches)
     
 def save_data(data_dict, output_file_path):
     torch.save(data_dict, output_file_path)
@@ -70,7 +73,7 @@ def save_data(data_dict, output_file_path):
 
 if __name__=="__main__":    
     print("[data_generator.py] Generating Data")
-    for model_features in ["road", "social", "physics"]:
+    for model_features in ["road", "social", "physics", "batches"]:
         for relevant_video in cs.VIDEOS_PARTS:
             for relevant_part in cs.VIDEOS_PARTS[relevant_video]:
                 print("generating data", model_features, relevant_video, relevant_part)
