@@ -12,9 +12,11 @@ Usage: python test_model.py [1] [2] [3]
     [2] - model_file_name
     [3] - prediction_length in [s] (25, 50, 75, 100)
     [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5" or "all")
+    optional:
+    [5] - multimodal ("unimodal" or "multimodal_gmm" or "multimodal_cvae")
     
 Example:
-    python test_model_all.py social_lstm social_lstm_25_5_0010.model 25 split_1
+    python test_model_all.py social_lstm social_lstm_25_5_0010.model 25 split_1 unimodal
 """
 
 
@@ -48,6 +50,8 @@ def print_info():
     print(" [2] - model_file_name")
     print(" [3] - prediction_length in [s] (25, 50, 75, 100)")
     print(" [4] - split (\"split_1\" or \"split_2\" or \"split_3\" or \"split_4\" or \"split_5\" or \"all\")")
+    print(" (optional):")
+    print(" [5] - multi_modal (\"unimodal\" or \"multimodal_gmm\" or \"multimodal_cvae\")")
     print("")
     print("Example: python test_model.py social_lstm social_lstm_25_5_0010.model 25")
     print("-------------------------------------------")
@@ -61,7 +65,7 @@ def print_info():
 if __name__=="__main__":
     # parse runargs
     run_arguments = sys.argv
-    if len(run_arguments)!=5:
+    if len(run_arguments)<5:
         print("ERROR: invalid number of arguments")
         print_info()
         sys.exit(-1)
@@ -69,7 +73,10 @@ if __name__=="__main__":
     model_file_name = run_arguments[2]
     prediction_length = int(run_arguments[3])
     split = run_arguments[4]
-    
+    multimodal = "unimodal"
+    if len(run_arguments)==6:
+        multimodal = run_arguments[5]
+        
     # prediction_length = 25*4
     # # model_name = "const_a"
     # model_name = "xkalman"
@@ -120,10 +127,10 @@ if __name__=="__main__":
         testing_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
     
         # load model
-        model = load_model_testing(model_name, model_file_name, prediction_length, device)
+        model = load_model_testing(model_name, model_file_name, prediction_length, device, multimodal)
         
         # test model
-        performances = test_model(model_name, model, testing_loader, loss_functions, prediction_length, device)
+        performances = test_model(model_name, model, testing_loader, loss_functions, prediction_length, device, multimodal)
         
         # print results
         print(">>Split Test Results [", model_name, model_file_name, prediction_length, "]")
@@ -135,6 +142,20 @@ if __name__=="__main__":
     print("Final Test Results")
     for loss in loss_functions:
         vals = []
+        vals_a = []
+        vals_b = []
+        vals_c = []
         for entr in split_performances:
-            vals.append(entr[loss])
-        print(">>", loss, np.mean(vals), "[", np.std(vals), "]", "across", len(splits_to_test), "splits")
+            if multimodal=="unimodal":
+                vals.append(entr[loss])
+            elif multimodal=="multimodal_gmm":
+                vals_a.append(entr[loss][0])
+                vals_b.append(entr[loss][1])
+                vals_c.append(entr[loss][2])
+        if multimodal=="unimodal":
+            print(">>", loss, np.mean(vals), "[", np.std(vals), "]", "across", len(splits_to_test), "splits")
+        elif multimodal=="multimodal_gmm":
+            print(">>a", loss, np.mean(vals_a), "[", np.std(vals_a), "]", "across", len(splits_to_test), "splits")
+            print(">>b", loss, np.mean(vals_b), "[", np.std(vals_b), "]", "across", len(splits_to_test), "splits")
+            print(">>c", loss, np.mean(vals_c), "[", np.std(vals_c), "]", "across", len(splits_to_test), "splits")
+            

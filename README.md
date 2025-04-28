@@ -261,8 +261,8 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | **own models** |   |   |   |   |   |   |   |   |
 | physics_lstm | 0.0744 | 0.2157 | 0.4324 | 0.7724 | 0.1967 | 0.5082 | 1.2479 | 2.3160 |
 |       | [0.0068] | [0.0148] | [0.0377] | [0.0987] | [0.0167] | [0.0322] | [0.1695] | [0.4164] |
-
-| gatsbiv1 (best)  | 0.0787 | 0.2209 | 0.4304 | 0.7423 | 0.2047 | 0.5080 | 1.1906 | 2.1211 |
+| gatsbiv1 | 0.0763 | 0.2181 | 0.4222 | 0.7812 | 0.1955 | 0.4996 | 1.2218 | 2.3137 |
+|       | [0.0031] | [0.0167] | [0.0342] | [0.1045] | [0.0091] | [0.0264] | [0.1548] | [0.4081] |
 | gatsbiv2 (best)| 0.0795 | 0.2228 | 0.4261 | 0.7366 | 0.2033 | 0.5107 | 1.1500 | 2.1162 |
 
 
@@ -341,15 +341,16 @@ We repeated the same 5 times, so the training was 5 times for 10 epochs each in 
 ```
 #!/bin/bash
 
-# Usage: ./_submit_jobs.sh <model_name> <prediction_length> <num_jobs_per_split>
-if [ $# -ne 3 ]; then
-    echo "Usage: $0 <model_name> <prediction_length> <num_jobs_per_split>"
+# Usage: ./_submit_jobs.sh <model_name> <prediction_length> <multimodal> <num_jobs_per_split>
+if [ $# -ne 4 ]; then
+    echo "Usage: $0 <model_name> <prediction_length> <multimodal> <num_jobs_per_split>"
     exit 1
 fi
 
 MODEL_NAME=$1
 PRED_LEN=$2
-NUM_JOBS=$3
+MULTI_MODAL=$3
+NUM_JOBS=$4
 
 SPLITS=(split_1 split_2 split_3 split_4 split_5)
 
@@ -358,9 +359,9 @@ for SPLIT in "${SPLITS[@]}"; do
     echo "Processing $SPLIT:"
     for i in $(seq 1 $NUM_JOBS); do
         if [ $i -eq 1 ]; then
-            echo "  sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT\""
+            echo "  sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
         else
-            echo "  sbatch --dependency=afterok:<jobid_${SPLIT}_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT\""
+            echo "  sbatch --dependency=afterok:<jobid_${SPLIT}_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
         fi
     done
 done
@@ -375,10 +376,10 @@ for SPLIT in "${SPLITS[@]}"; do
     for i in $(seq 1 $NUM_JOBS); do
         if [ -z "$PREV_JOBID" ]; then
             JOBID=$(sbatch --parsable -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
-                --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT")
+                --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL")
         else
             JOBID=$(sbatch --parsable --dependency=afterok:$PREV_JOBID -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
-                --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT")
+                --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL")
         fi
         echo "  Submitted job $JOBID (iteration $i for $SPLIT)"
         PREV_JOBID=$JOBID
@@ -386,7 +387,7 @@ for SPLIT in "${SPLITS[@]}"; do
 done
 ```
 
-### 3. Test Model
+### 3. Test Model (outdated)
 (takes around 1 minute)
 
 The following script parses all summaries from models folder to assess for which epoch, prediction_length, and model the performance on testing set was best.
