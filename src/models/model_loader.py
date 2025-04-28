@@ -24,6 +24,7 @@ from models.model_ekf import ModelXKalman
 from models.model_physics_lstm import PhysicsLSTM, load_physics_lstm_model
 from models.model_gatsbi_v1 import GATSBIv1, load_gatsbi_modelv1
 from models.model_gatsbi_v2 import GATSBIv2, load_gatsbi_modelv2
+from models.model_social_bigat import SocialBiGAT, load_social_bigat_model
 from models.model_social_lstm import SocialLSTM, load_social_lstm_model
 
 
@@ -36,6 +37,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device):
         print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
             model = load_social_lstm_model(model_path, device, prediction_length)
+        elif model_name=="social_bigat":
+            model = load_social_bigat_model(model_path, device, prediction_length)
         elif model_name=="physics_lstm":
             model = load_physics_lstm_model(model_path, device, prediction_length)
         elif model_name=="gatsbiv1":
@@ -48,6 +51,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device):
     else:
         if model_name=="social_lstm":
             model = SocialLSTM(prediction_length=prediction_length)
+        elif model_name=="social_bigat":
+            model = SocialBiGAT(prediction_length=prediction_length)
         elif model_name=="const_v":
             model = ModelClassic(model_func=constant_velocity_predictor, prediction_length=prediction_length)
         elif model_name=="const_a":
@@ -86,6 +91,8 @@ def load_model_training(model_name, prediction_length, split, device):
         print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
             model = load_social_lstm_model(model_path, device, prediction_length)
+        elif model_name=="social_bigat":
+            model = load_social_bigat_model(model_path, device, prediction_length)
         elif model_name=="physics_lstm":
             model = load_physics_lstm_model(model_path, device, prediction_length)
         elif model_name=="gatsbiv1":
@@ -97,6 +104,8 @@ def load_model_training(model_name, prediction_length, split, device):
         print("[model_loader.py] Create model from scatch")
         if model_name=="social_lstm":
             model = SocialLSTM(prediction_length=prediction_length)
+        elif model_name=="social_bigat":
+            model = SocialBiGAT(prediction_length=prediction_length)
         elif model_name=="physics_lstm":
             model = PhysicsLSTM(prediction_length=prediction_length)
         elif model_name=="gatsbiv1":
@@ -108,6 +117,15 @@ def load_model_training(model_name, prediction_length, split, device):
 
 def unpack_data(data, model_name, prediction_length):
     if model_name=="social_lstm":
+        # unpack data
+        ego_hists = data['ego_trajectory_history']
+        future_trajs = data['ego_trajectory_future']
+        neighbor_hists = data['neighbor_trajectory_history']
+        # cut future trajectories to prediction length of model
+        future_trajs = future_trajs[:, :prediction_length, :]
+        # create tensordataset
+        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists)
+    elif model_name=="social_bigat":
         # unpack data
         ego_hists = data['ego_trajectory_history']
         future_trajs = data['ego_trajectory_future']
@@ -164,6 +182,8 @@ def unpack_data(data, model_name, prediction_length):
 
 def unpack_trajectory_prediction(model_results, model_name):
     if model_name=="social_lstm":
+        return model_results
+    elif model_name=="social_bigat":
         return model_results
     elif model_name=="const_v":
         return model_results

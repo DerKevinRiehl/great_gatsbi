@@ -47,7 +47,7 @@ def print_info():
     print(" [1] - model (\"social_lstm\" or \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\" or \"physics_lstm\")")
     print(" [2] - model_file_name")
     print(" [3] - sequence")
-    print(" [4] - prediction_length in [s] (25, 50 , 75, 100)")
+    print(" [4] - prediction_length in [s] (25, 50, 75, 100)")
     print(" [5] - output_file_name")
     
     print("")

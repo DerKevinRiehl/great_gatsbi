@@ -8,7 +8,7 @@ Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script tests a model on all testing data.
 Usage: python test_model.py [1] [2] [3]
-    [1] - model ("social_lstm" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
+    [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
     [2] - model_file_name
     [3] - prediction_length in [s] (25, 50, 75, 100)
     [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5" or "all")
@@ -44,9 +44,9 @@ def print_info():
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
     print("USAGE: python test_model.py [1] [2] [3] [4]")
-    print(" [1] - model (\"social_lstm\" or \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\" or \"physics_lstm\")")
+    print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\" or \"physics_lstm\")")
     print(" [2] - model_file_name")
-    print(" [3] - prediction_length in [s] (25, 50 , 75, 100)")
+    print(" [3] - prediction_length in [s] (25, 50, 75, 100)")
     print(" [4] - split (\"split_1\" or \"split_2\" or \"split_3\" or \"split_4\" or \"split_5\" or \"all\")")
     print("")
     print("Example: python test_model.py social_lstm social_lstm_25_5_0010.model 25")
@@ -84,7 +84,7 @@ if __name__=="__main__":
     # split = "all"
     
     # runargs check
-    if not (model_name=="social_lstm" or model_name.startswith("gatsbi") 
+    if not (model_name=="social_lstm" or model_name=="social_bigat" or model_name.startswith("gatsbi") 
             or model_name=="const_v" or model_name=="const_a" or model_name=="kinematics"
             or model_name=="xkalman" or model_name=="physics_lstm"):
         print("ERROR: invalid model")

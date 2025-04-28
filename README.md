@@ -141,7 +141,7 @@ The proposed network was implemented in Pytorch which allows for the use of CPU 
 In case GPUs are available, the implementation will automatically switch to use CUDA.
 Within a reasonable amount of time, training and testing can be conducted even without GPUs.
 
-### Prepratation of Trajectory Dataset
+### Preparation of Trajectory Dataset
 Please extract all trajectory txt files from `\neurips25_great_gatsbi\data\1_trajectories\1_trajectories.zip` and store them in the folder `\neurips25_great_gatsbi\data\1_trajectories`.
 
 On Linux you could use this command:
@@ -239,7 +239,7 @@ You can download pretrained models here:
 
 
 ### Benchmark results
-The benchmark of different models shows that the proposed GATsBi model is outperforming pedestrian specific (social_lstm) and car specific (const_v, const_a) models.
+The benchmark of different models shows that the proposed GATsBi model is outperforming pedestrian specific (social_lstm, social_bigats) and car specific (const_v, const_a) models.
 
 | Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
 |------------|----|----|----|----|----|----|----|----|
@@ -251,24 +251,20 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 |       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
 | kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
 |       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
-| xkalman      |    |   |   |   |   |   |   |   |
-| .      |    |   |   |   |   |   |   |   |
+| xkalman | 0.1445 | 0.3269 | 0.5967 | 0.9948 | 0.3068 | 0.7154 | 1.5887 | 2.7913 |
+|       |[0.0122]|[0.0242]|[0.0512]|[0.1146]|[0.0235]|[0.0492]|[0.1904]|[0.4417]|
 | **pedestrian specific** |   |   |   |   |   |   |   |   |
-| social_lstm (best)        | 0.0926    | 0.2607    | 0.4761    | 0.7843    | 0.2304    | 0.5829    | 1.2379    | 2.1844    |
+| social_lstm | 0.0871 | 0.2413 | 0.4755 | 0.8203 | 0.2135 | 0.5390 | 1.3003 | 2.3724 |
+|       | [0.0057] | [0.0175] | [0.0372] | [0.0837] | [0.0152] | [0.0353] | [0.1648] | [0.3723] |
+| social_bigats |   |   |   |   |   |   |   |   |
+|      . |   |   |   |   |   |   |   |   |
 | **own models** |   |   |   |   |   |   |   |   |
-| physics_lstm (best)        | 0.0730    | 0.2245    | 0.4324    | 0.7429    | 0.1984    | 0.5291    | 1.1899    | 2.1240    |
+| physics_lstm | 0.0744 | 0.2157 | 0.4324 | 0.7724 | 0.1967 | 0.5082 | 1.2479 | 2.3160 |
+|       | [0.0068] | [0.0148] | [0.0377] | [0.0987] | [0.0167] | [0.0322] | [0.1695] | [0.4164] |
+
 | gatsbiv1 (best)  | 0.0787 | 0.2209 | 0.4304 | 0.7423 | 0.2047 | 0.5080 | 1.1906 | 2.1211 |
 | gatsbiv2 (best)| 0.0795 | 0.2228 | 0.4261 | 0.7366 | 0.2033 | 0.5107 | 1.1500 | 2.1162 |
 
-| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
-|------------|----|----|----|----|----|----|----|----|
-| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
-| const_v | 0.1080 | 0.2818 | 0.5460 | 0.9406 | 0.2592 | 0.6568 | 1.5245 | 2.7275 |
-|       |[0.0076]|[0.0194]|[0.0444]|[0.1059]|[0.0182]|[0.0436]|[0.1787]|[0.4278]|
-| const_a | 0.1281 | 0.5504 | 1.2951 | 2.3929 | 0.3934 | 1.6373 | 4.0117 | 7.3837 |
-|       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
-| kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
-|       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
 
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
@@ -304,6 +300,11 @@ python log_parser_classic.py const_v
 python log_parser_classic.py const_a
 python log_parser_classic.py kinematics
 python log_parser_classic.py xkalman
+python log_parser_ml.py social_lstm
+python log_parser_ml.py social_bigats
+python log_parser_ml.py physics_lstm
+python log_parser_ml.py gatsbiv1
+python log_parser_ml.py gatsbiv2
 ```
 
 ## [License](#license)
