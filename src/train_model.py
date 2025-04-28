@@ -7,13 +7,14 @@ Development:    2025
 Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script trains a model.
-Usage: python train_model.py [1] [2] [3]
+Usage: python train_model.py [1] [2] [3] [4]
     [1] - model ("social_lstm" or "gatsbi" or "physics_lstm")
     [2] - prediction_length in [s] (25, 50 , 75, 100)
     [3] - max_epochs
+    [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5")
     
 Example:
-    python train_model.py social_lstm 25 10
+    python train_model.py social_lstm 25 10 split_1
 """
 
 
@@ -43,12 +44,13 @@ def print_info():
     print("-------------------------------------------")
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
-    print("USAGE: python train_model.py [1] [2 [3]")
+    print("USAGE: python train_model.py [1] [2 [3] [4]")
     print(" [1] - model (\"social_lstm\" or \"gatsbi\" or \"physics_lstm\")")
     print(" [2] - prediction_length in [s] (25, 50 , 75, 100)")
     print(" [3] - max_epochs")
+    print(" [4] - split (\"split_1\" or \"split_2\" or \"split_3\" or \"split_4\" or \"split_5\") ")
     print("")
-    print("Example: python train_model.py social_lstm 25 50")
+    print("Example: python train_model.py social_lstm 25 50 split_1")
     print("-------------------------------------------")
 
 
@@ -60,39 +62,45 @@ def print_info():
 if __name__=="__main__":
     # parse runargs
     run_arguments = sys.argv
-    if len(run_arguments)!=4:
+    if len(run_arguments)!=5:
         print("ERROR: invalid number of arguments")
         print_info()
         sys.exit(-1)
     model_name = run_arguments[1]
     prediction_length = int(run_arguments[2])
     max_epochs = int(run_arguments[3])
+    split = run_arguments[4]
     
     # model_name="social_lstm"
     # prediction_length = 25
     # max_epochs = 3
+    # split = "split_1"
     
     # print info statement
-    print("[train_model.py] Training Model", model_name, prediction_length, max_epochs)
+    print("[train_model.py] Training Model", model_name, prediction_length, max_epochs, split)
     
     # runargs check
     if not (model_name=="social_lstm" or model_name.startswith("gatsbi") or model_name=="physics_lstm"):
         print("ERROR: invalid model")
         print_info()
         sys.exit(-1)
-    
+    if (not split in cs.TRAIN_TEST_SPLITS):
+        print("ERROR: invalid split")
+        print_info()
+        sys.exit(-1)
+        
     # setup torch
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("[TORCH]\tRUNNING ON DEVICE:", device)
 
     # prepare data
-    training_dataset = load_dataset(model_name, cs.TRAINING_VIDEOS, prediction_length)
+    training_dataset = load_dataset(model_name, cs.TRAIN_TEST_SPLITS[split]["TRAINING_VIDEOS"], prediction_length)
     train_loader = torch.utils.data.DataLoader(training_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
-    testing_dataset = load_dataset(model_name, cs.TESTING_VIDEOS, prediction_length)
+    testing_dataset = load_dataset(model_name, cs.TRAIN_TEST_SPLITS[split]["TESTING_VIDEOS"], prediction_length)
     testing_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
 
     # load last available model
-    model, last_epoch = load_model_training(model_name, prediction_length, device)
+    model, last_epoch = load_model_training(model_name, prediction_length, split, device)
     
     # define loss function
     loss_function_training = compute_ADE_train
@@ -130,7 +138,7 @@ if __name__=="__main__":
         avg_loss = total_loss / num_batches
         print(f"[Epoch {epoch+1}] Average Training ADE Loss: {avg_loss:.4f}")        
         # Save Snapshot Of Model
-        model_path = f"../data/4_models/{model_name}_{prediction_length:}_{epoch:02d}.model" # save model checkpoint after every epoch
+        model_path = f"../data/4_models/{model_name}_{prediction_length:}_{split}_{epoch:02d}.model" # save model checkpoint after every epoch
         torch.save(model.state_dict(), model_path, _use_new_zipfile_serialization=False) # downwards compatible saving
         # Determine Testing Loss
         performances = test_model(model_name, model, testing_loader, loss_functions_testing, prediction_length, device)

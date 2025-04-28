@@ -245,10 +245,14 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 |------------|----|----|----|----|----|----|----|----|
 | *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
 | **car specific (physics)** |   |   |   |   |   |   |   |   |
-| const_v      | 0.1127   | 0.2965   | 0.5576   | 0.9273   | 0.2722   | 0.6900   | 1.4945   | 2.5747   |
-| const_a      | 0.1289   | 0.5585   | 1.3033   | 2.3898   | 0.3980   | 1.6632   | 4.0006   | 7.3234   |
-| kinematics   | 0.1135   | 0.4068   | 0.9059   | 1.6347   | 0.3120   | 1.1383   | 2.7230   | 4.9213   |
-| xkalman      | 0.1489   | 0.3404   | 0.6141   | 1.0054   | 0.3179   | 0.7489   | 1.6019   | 2.7542   |
+| const_v | 0.1080 | 0.2818 | 0.5460 | 0.9406 | 0.2592 | 0.6568 | 1.5245 | 2.7275 |
+|       |[0.0076]|[0.0194]|[0.0444]|[0.1059]|[0.0182]|[0.0436]|[0.1787]|[0.4278]|
+| const_a | 0.1281 | 0.5504 | 1.2951 | 2.3929 | 0.3934 | 1.6373 | 4.0117 | 7.3837 |
+|       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
+| kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
+|       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
+| xkalman      |    |   |   |   |   |   |   |   |
+| .      |    |   |   |   |   |   |   |   |
 | **pedestrian specific** |   |   |   |   |   |   |   |   |
 | social_lstm (best)        | 0.0926    | 0.2607    | 0.4761    | 0.7843    | 0.2304    | 0.5829    | 1.2379    | 2.1844    |
 | **own models** |   |   |   |   |   |   |   |   |
@@ -256,27 +260,51 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | gatsbiv1 (best)  | 0.0787 | 0.2209 | 0.4304 | 0.7423 | 0.2047 | 0.5080 | 1.1906 | 2.1211 |
 | gatsbiv2 (best)| 0.0795 | 0.2228 | 0.4261 | 0.7366 | 0.2033 | 0.5107 | 1.1500 | 2.1162 |
 
-### All digits... [to be deleted]
-| Model | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
 |------------|----|----|----|----|----|----|----|----|
 | *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
-| **car specific** |   |   |   |   |   |   |   |   |
-| const_v    | 0.11273600161075592 | 0.29649898409843445 | 0.5575750470161438  | 0.9272697567939758  | 0.27221187949180603 | 0.6900343298912048 | 1.4944883584976196 | 2.574655771255493  |
-| const_a     | 0.12889571487903595 | 0.5585442185401917 | 1.3032768964767456 | 2.389838218688965  | 0.39801520109176636 | 1.663221836090088  | 4.000614643096924  | 7.3233962059021    |
-| kinematics    | 0.11346796154975891 | 0.4068422317504883 | 0.9059017896652222 | 1.6347376108169556 | 0.3119632303714752 | 1.1383190155029297 | 2.7230348587036133 | 4.921277046203613  |
-| xkalman | 0.1489094605288226 | 0.34044283121526064 | 0.6141094498969256 | 1.0053677485343262 | 0.317884474618542 | 0.748918094949814 | 1.6018550991895084 | 2.754164592130338 |
-| **pedestrian specific** |   |   |   |   |   |   |   |   |
-| social_lstm (best) | 0.092595063149929 | 0.260732531547546 | 0.476132899522781 | 0.784296452999114 | 0.23038001358509 | 0.582925915718078 | 1.23794972896575 | 2.18438363075256 |
-| **own models** |   |   |   |   |   |   |   |   |
-| physics_lstm (best) | 0.0730470493435859 | 0.224520921707153 | 0.432428479194641 | 0.742918670177459 | 0.198400869965553 | 0.529065370559692 | 1.18991124629974 | 2.1239583492279 |
-| gatsbiv1 (best) | 0.0786950513720512 | 0.220941022038459 | 0.430353313684463 | 0.742277204990386 | 0.204683929681777 | 0.508041560649871 | 1.19061279296875 | 2.1210503578186 |
-| gatsbiv2 (best) | 0.0795135498046875 | 0.222822204232215 | 0.426115363836288 | 0.73663717508316 | 0.20332932472229 | 0.510687351226806 | 1.15002560615539 | 2.11623072624206 |
-
-
+| const_v | 0.1080 | 0.2818 | 0.5460 | 0.9406 | 0.2592 | 0.6568 | 1.5245 | 2.7275 |
+|       |[0.0076]|[0.0194]|[0.0444]|[0.1059]|[0.0182]|[0.0436]|[0.1787]|[0.4278]|
+| const_a | 0.1281 | 0.5504 | 1.2951 | 2.3929 | 0.3934 | 1.6373 | 4.0117 | 7.3837 |
+|       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
+| kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
+|       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
 
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 
+### Codes to reproduce
+
+#### 1) Create Log Files Of Classical Models
+```
+python test_model.py const_v x 25 all > ../data/3_logs/const_v_25.txt
+python test_model.py const_a x 25 all > ../data/3_logs/const_a_25.txt
+python test_model.py kinematics x 25 all > ../data/3_logs/kinematics_25.txt
+python test_model.py xkalman x 25 all > ../data/3_logs/xkalman_25.txt
+python test_model.py const_v x 50 all > ../data/3_logs/const_v_50.txt
+python test_model.py const_a x 50 all > ../data/3_logs/const_a_50.txt
+python test_model.py kinematics x 50 all > ../data/3_logs/kinematics_50.txt
+python test_model.py xkalman x 50 all > ../data/3_logs/xkalman_50.txt
+python test_model.py const_v x 75 all > ../data/3_logs/const_v_75.txt
+python test_model.py const_a x 75 all > ../data/3_logs/const_a_75.txt
+python test_model.py kinematics x 75 all > ../data/3_logs/kinematics_75.txt
+python test_model.py xkalman x 75 all > ../data/3_logs/xkalman_75.txt
+python test_model.py const_v x 100 all > ../data/3_logs/const_v_100.txt
+python test_model.py const_a x 100 all > ../data/3_logs/const_a_100.txt
+python test_model.py kinematics x 100 all > ../data/3_logs/kinematics_100.txt
+python test_model.py xkalman x 100 all > ../data/3_logs/xkalman_100.txt
+```
+
+#### 2) Create Log Files Of Machine Learning Based Models (via Training)
+[...]
+
+#### 3) Script To Merge All Logs and Create Performance Table
+```
+python log_parser_classic.py const_v
+python log_parser_classic.py const_a
+python log_parser_classic.py kinematics
+python log_parser_classic.py xkalman
+```
 
 ## [License](#license)
 This repository will be published on GitHub upon publication at Neurips25 under the MIT license.
@@ -312,9 +340,9 @@ We repeated the same 5 times, so the training was 5 times for 10 epochs each in 
 ```
 #!/bin/bash
 
-# Usage: ./_submit_jobs.sh <model_name> <prediction_length> <num_jobs>
+# Usage: ./_submit_jobs.sh <model_name> <prediction_length> <num_jobs_per_split>
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <model_name> <prediction_length> <num_jobs>"
+    echo "Usage: $0 <model_name> <prediction_length> <num_jobs_per_split>"
     exit 1
 fi
 
@@ -322,31 +350,38 @@ MODEL_NAME=$1
 PRED_LEN=$2
 NUM_JOBS=$3
 
+SPLITS=(split_1 split_2 split_3 split_4 split_5)
+
 echo "The following job submission commands will be executed:"
-for i in $(seq 1 $NUM_JOBS); do
-    if [ $i -eq 1 ]; then
-        echo "sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50\""
-    else
-        echo "sbatch --dependency=afterok:<jobid_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50\""
-    fi
+for SPLIT in "${SPLITS[@]}"; do
+    echo "Processing $SPLIT:"
+    for i in $(seq 1 $NUM_JOBS); do
+        if [ $i -eq 1 ]; then
+            echo "  sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT\""
+        else
+            echo "  sbatch --dependency=afterok:<jobid_${SPLIT}_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT\""
+        fi
+    done
 done
 
 echo
 read -p "Press Enter to confirm and submit the jobs..."
 
-# Actual submission with dependency chaining
-PREV_JOBID=""
-for i in $(seq 1 $NUM_JOBS)
-do
-    if [ -z "$PREV_JOBID" ]; then
-        JOBID=$(sbatch --parsable -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
-            --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50")
-    else
-        JOBID=$(sbatch --parsable --dependency=afterok:$PREV_JOBID -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
-            --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50")
-    fi
-    echo "Submitted job $JOBID (iteration $i)"
-    PREV_JOBID=$JOBID
+# Actual submission with dependency chaining per split
+for SPLIT in "${SPLITS[@]}"; do
+    PREV_JOBID=""
+    echo "Submitting jobs for $SPLIT..."
+    for i in $(seq 1 $NUM_JOBS); do
+        if [ -z "$PREV_JOBID" ]; then
+            JOBID=$(sbatch --parsable -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+                --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT")
+        else
+            JOBID=$(sbatch --parsable --dependency=afterok:$PREV_JOBID -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+                --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT")
+        fi
+        echo "  Submitted job $JOBID (iteration $i for $SPLIT)"
+        PREV_JOBID=$JOBID
+    done
 done
 ```
 

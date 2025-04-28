@@ -30,19 +30,6 @@ FRAME_SKIP = 25*2                      # the trajectories are most plausible whe
 FPS = 25                               # frame rate per second, recording of videos
 
 # ### SEQUENCES
-TRAINING_VIDEOS = {
-    "DJI_20240906103036_0003_D.MP4",
-    "DJI_20240906103442_0004_D.MP4",
-    "DJI_20240906103850_0005_D.MP4",
-    "DJI_20240906105321_0009_D.MP4",
-    "DJI_20240906105621_0010_D.MP4",
-    "DJI_20240906110432_0012_D.MP4"
-}
-
-TESTING_VIDEOS = {
-    "DJI_20240906110027_0011_D.MP4",
-}
-
 VIDEOS_PARTS = {
     "DJI_20240906103036_0003_D.MP4": {
         "PART_1": [12*FPS, 78*FPS],    # 6 bikes
@@ -86,6 +73,75 @@ VIDEOS_PARTS = {
     },
     "DJI_20240906110432_0012_D.MP4": {
         "PART_1": [0*FPS, 25*FPS],     # 17 bikes
+    },
+}
+
+# ### TRAIN_TEST_SPLITS
+TRAIN_TEST_SPLITS = {
+    "split_1": {
+        "TRAINING_VIDEOS": {
+            "DJI_20240906103036_0003_D.MP4",
+            "DJI_20240906103442_0004_D.MP4",
+            "DJI_20240906103850_0005_D.MP4",
+            "DJI_20240906105321_0009_D.MP4",
+            "DJI_20240906105621_0010_D.MP4",
+            "DJI_20240906110432_0012_D.MP4"
+        },
+        "TESTING_VIDEOS": {
+            "DJI_20240906110027_0011_D.MP4",
+        }
+    },
+    "split_2": {
+        "TRAINING_VIDEOS": {
+            "DJI_20240906103036_0003_D.MP4",
+            "DJI_20240906103442_0004_D.MP4",
+            "DJI_20240906110027_0011_D.MP4",
+            "DJI_20240906110432_0012_D.MP4"
+        },
+        "TESTING_VIDEOS": {
+            "DJI_20240906103850_0005_D.MP4",
+            "DJI_20240906105321_0009_D.MP4",
+            "DJI_20240906105621_0010_D.MP4",
+        }
+    },
+    "split_3": {
+        "TRAINING_VIDEOS": {
+            "DJI_20240906103442_0004_D.MP4",
+            "DJI_20240906105321_0009_D.MP4",
+            "DJI_20240906105621_0010_D.MP4",
+            "DJI_20240906110027_0011_D.MP4",
+            "DJI_20240906110432_0012_D.MP4"
+        },
+        "TESTING_VIDEOS": {
+            "DJI_20240906103036_0003_D.MP4",
+            "DJI_20240906103850_0005_D.MP4",
+        }
+    },
+    "split_4": {
+        "TRAINING_VIDEOS": {
+            "DJI_20240906103442_0004_D.MP4",
+            "DJI_20240906103850_0005_D.MP4",
+            "DJI_20240906110027_0011_D.MP4",
+            "DJI_20240906110432_0012_D.MP4"
+        },
+        "TESTING_VIDEOS": {
+            "DJI_20240906103036_0003_D.MP4",
+            "DJI_20240906105321_0009_D.MP4",
+            "DJI_20240906105621_0010_D.MP4",
+        }
+    },
+    "split_5": {
+        "TRAINING_VIDEOS": {
+            "DJI_20240906103036_0003_D.MP4",
+            "DJI_20240906103850_0005_D.MP4",
+            "DJI_20240906105321_0009_D.MP4",
+            "DJI_20240906110027_0011_D.MP4",
+            "DJI_20240906110432_0012_D.MP4"
+        },
+        "TESTING_VIDEOS": {
+            "DJI_20240906103442_0004_D.MP4",
+            "DJI_20240906105621_0010_D.MP4",
+        }
     },
 }
 
