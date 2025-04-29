@@ -249,7 +249,7 @@ def unpack_data(data, model_name, prediction_length):
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists)
     return dataset
 
-def unpack_trajectory_prediction(model_results, model_name):
+def unpack_trajectory_prediction(model_results, model_name, multimodal):
     if model_name=="social_lstm":
         return model_results
     elif model_name=="social_bigat":
@@ -265,4 +265,7 @@ def unpack_trajectory_prediction(model_results, model_name):
     elif model_name=="physics_lstm":
         return model_results
     elif model_name.startswith("gatsbi"):
-        return model_results[0]
+        if multimodal=="unimodal":
+            return model_results[0]
+        else:
+            return model_results

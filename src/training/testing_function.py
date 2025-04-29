@@ -30,6 +30,7 @@ def test_model(model_name, model, test_loader, loss_functions, prediction_length
     all_pred_trajs_a = []
     all_pred_trajs_b = []
     all_pred_trajs_c = []
+    all_pred_trajs_d = []
     all_future_trajs = []
     
     with torch.no_grad():
@@ -40,7 +41,7 @@ def test_model(model_name, model, test_loader, loss_functions, prediction_length
             batch_feature_data = batch_data[1:]
             # Forward pass
             model_results = model(*batch_feature_data)
-            model_res = unpack_trajectory_prediction(model_results, model_name)
+            model_res = unpack_trajectory_prediction(model_results, model_name, multimodal)
             if multimodal=="unimodal":
                 pred_traj = model_res
                 all_pred_trajs.append(pred_traj)
@@ -56,9 +57,11 @@ def test_model(model_name, model, test_loader, loss_functions, prediction_length
                 pred_traj_a = best_mode(mu_x, mu_y, future_traj)
                 pred_traj_b = most_probable_mode(mu_x, mu_y, pi)
                 pred_traj_c = sampled_mode(mu_x, mu_y, sigma_x, sigma_y, rho, pi)       
+                pred_traj_d = most_expected_mode(mu_x, mu_y, pi)
                 all_pred_trajs_a.append(pred_traj_a)
                 all_pred_trajs_b.append(pred_traj_b)
                 all_pred_trajs_c.append(pred_traj_c)
+                all_pred_trajs_d.append(pred_traj_d)
                 all_future_trajs.append(future_traj)         
     
     # Concatenate all predictions and targets
@@ -69,6 +72,7 @@ def test_model(model_name, model, test_loader, loss_functions, prediction_length
         all_pred_trajs_a = torch.cat(all_pred_trajs_a, dim=0)
         all_pred_trajs_b = torch.cat(all_pred_trajs_b, dim=0)
         all_pred_trajs_c = torch.cat(all_pred_trajs_c, dim=0)
+        all_pred_trajs_d = torch.cat(all_pred_trajs_d, dim=0)
     
     # Evaluate model
     performances = {}
@@ -79,7 +83,8 @@ def test_model(model_name, model, test_loader, loss_functions, prediction_length
             performances[loss_function_name] = [
                 loss_function(all_pred_trajs_a, all_future_trajs).item(),
                 loss_function(all_pred_trajs_b, all_future_trajs).item(),
-                loss_function(all_pred_trajs_c, all_future_trajs).item()
+                loss_function(all_pred_trajs_c, all_future_trajs).item(),
+                loss_function(all_pred_trajs_d, all_future_trajs).item()
             ]
     return performances
 
@@ -133,7 +138,8 @@ def best_mode(mu_x, mu_y, gt):
 
     return best_traj
 
-def most_probable_mode(mu_x, mu_y, pi):
+
+def most_probable_mode(mu_x, mu_y, pi): # final timestep
     """
     Select the most probable mode (highest pi at final timestep) per example.
     Args:
@@ -159,6 +165,31 @@ def most_probable_mode(mu_x, mu_y, pi):
     most_prob_traj = torch.stack([most_prob_mu_x, most_prob_mu_y], dim=-1)  # [batch, T_pred, 2]
 
     return most_prob_traj
+
+
+def most_expected_mode(mu_x, mu_y, pi):
+    """
+    Compute the expected trajectory as a linear combination of all modes weighted by their probabilities (pi).
+    
+    Args:
+        mu_x: [batch, T_pred, num_modes] - x coordinates of the modes
+        mu_y: [batch, T_pred, num_modes] - y coordinates of the modes
+        pi:   [batch, T_pred, num_modes] - probability of each mode at each timestep
+    
+    Returns:
+        expected_traj: [batch, T_pred, 2] - expected trajectory
+    """
+    batch_size, T_pred, num_modes = mu_x.shape
+    
+    # Compute expected x and y coordinates at each timestep
+    expected_mu_x = torch.sum(pi * mu_x, dim=2)  # [batch, T_pred]
+    expected_mu_y = torch.sum(pi * mu_y, dim=2)  # [batch, T_pred]
+    
+    # Stack to return the full trajectory
+    expected_traj = torch.stack([expected_mu_x, expected_mu_y], dim=-1)  # [batch, T_pred, 2]
+    
+    return expected_traj
+
 
 def sampled_mode(mu_x, mu_y, sigma_x, sigma_y, rho, pi):
     """

@@ -155,7 +155,7 @@ if __name__=="__main__":
             batch_feature_data = batch_data[1:]
             # Forward pass
             model_results = model(*batch_feature_data)
-            model_res = unpack_trajectory_prediction(model_results, model_name)
+            model_res = unpack_trajectory_prediction(model_results, model_name, multimodal)
             # Loss computation
             if multimodal=="unimodal":
                 pred_traj = model_res

@@ -16,7 +16,7 @@ Usage: python test_model.py [1] [2] [3]
     [5] - multimodal ("unimodal" or "multimodal_gmm" or "multimodal_cvae")
     
 Example:
-    python test_model_all.py social_lstm social_lstm_25_5_0010.model 25 split_1 unimodal
+    python test_model.py social_lstm social_lstm_25_5_0010.model 25 split_1 unimodal
 """
 
 
@@ -108,7 +108,7 @@ if __name__=="__main__":
         splits_to_test = [split]
         
     # print info statement
-    print("[test_model_all.py] Testing Model", model_name, model_file_name, prediction_length, split)
+    print("[test_model.py] Testing Model", model_name, model_file_name, prediction_length, split)
     
     # setup torch
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -120,7 +120,7 @@ if __name__=="__main__":
     # test relevant splits
     split_performances = []
     for split in splits_to_test:
-        print("[test_model_all.py] Testing Model On Split", split)
+        print("[test_model.py] Testing Model On Split", split)
     
         # load testing data
         testing_dataset = load_dataset(model_name, cs.TRAIN_TEST_SPLITS[split]["TESTING_VIDEOS"], prediction_length)
@@ -145,6 +145,7 @@ if __name__=="__main__":
         vals_a = []
         vals_b = []
         vals_c = []
+        vals_d = []
         for entr in split_performances:
             if multimodal=="unimodal":
                 vals.append(entr[loss])
@@ -152,10 +153,12 @@ if __name__=="__main__":
                 vals_a.append(entr[loss][0])
                 vals_b.append(entr[loss][1])
                 vals_c.append(entr[loss][2])
+                vals_d.append(entr[loss][3])
         if multimodal=="unimodal":
             print(">>", loss, np.mean(vals), "[", np.std(vals), "]", "across", len(splits_to_test), "splits")
         elif multimodal=="multimodal_gmm":
             print(">>a", loss, np.mean(vals_a), "[", np.std(vals_a), "]", "across", len(splits_to_test), "splits")
             print(">>b", loss, np.mean(vals_b), "[", np.std(vals_b), "]", "across", len(splits_to_test), "splits")
             print(">>c", loss, np.mean(vals_c), "[", np.std(vals_c), "]", "across", len(splits_to_test), "splits")
+            print(">>d", loss, np.mean(vals_d), "[", np.std(vals_d), "]", "across", len(splits_to_test), "splits")
             

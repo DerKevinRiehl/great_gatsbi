@@ -8,12 +8,11 @@ Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script parses all log files to calculate final statistics for results table.
 This only covers the ML models that have been trained for 50 epochs on 5 different test-training splits.
-Usage: python log_parser_ml.py 
-Usage: python log_parser_ml.py [1]
+Usage: python log_parser_ml_unimodal.py [1]
     [1] - model_name ("social_lstm" or "social_bigat" or "physics_lstm" or "gatsbiv1" or "gatsbiv2")
     
 Example:
-    python log_parser_ml.py social_lstm
+    python log_parser_ml_unimodal.py social_lstm
 """
 
 
@@ -123,7 +122,7 @@ if __name__ == "__main__":
     # Parse runargs (no need for prediction_length as input anymore)
     args = sys.argv
     if len(args) != 2:
-        print("Usage: python log_parser_classic.py model_name")
+        print("Usage: python log_parser_ml_unimodal.py model_name")
         sys.exit(0)
     model_name = args[1]
 
