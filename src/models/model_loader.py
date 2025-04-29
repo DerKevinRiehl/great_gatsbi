@@ -31,6 +31,7 @@ from models.model_gatsbi_v1 import GATSBIv1, load_gatsbi_modelv1
 from models.model_gatsbi_v1_gmm import GATSBIv1_GMM, load_gatsbi_modelv1_gmm
 from models.model_gatsbi_v2 import GATSBIv2, load_gatsbi_modelv2
 from models.model_gatsbi_v2_gmm import GATSBIv2_GMM, load_gatsbi_modelv2_gmm
+from models.model_gatsbi_v3 import GATSBIv3, load_gatsbi_modelv3
 
 
 
@@ -66,6 +67,9 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
                 model = load_gatsbi_modelv2(model_path, device, prediction_length)
             elif multimodal=="multimodal_gmm":  
                 model = load_gatsbi_modelv2_gmm(model_path, device, prediction_length)
+        elif model_name=="gatsbiv3":
+            if multimodal=="unimodal":  
+                model = load_gatsbi_modelv3(model_path, device, prediction_length)
         else:
             print("ERROR, model in ",model_file_name,"could not be found.")
             sys.exit(-1)
@@ -103,6 +107,9 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
                 model = GATSBIv2(prediction_length=prediction_length)
             elif multimodal=="multimodal_gmm":
                 model = GATSBIv2_GMM(prediction_length=prediction_length)
+        elif model_name=="gatsbiv3":
+            if multimodal=="unimodal":  
+                model = GATSBIv3(prediction_length=prediction_length)
         else:
             print("ERROR failed to load model")
             sys.exit(-1)
@@ -152,6 +159,9 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
                 model = load_gatsbi_modelv2(model_path, device, prediction_length)
             elif multimodal=="multimodal_gmm":
                 model = load_gatsbi_modelv2_gmm(model_path, device, prediction_length)
+        elif model_name=="gatsbiv3":
+            if multimodal=="unimodal":  
+                model = load_gatsbi_modelv3(model_path, device, prediction_length)
                 
     # generate model by creating from scratch
     else:
@@ -181,6 +191,9 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
                 model = GATSBIv2(prediction_length=prediction_length)
             elif multimodal=="multimodal_gmm":
                 model = GATSBIv2_GMM(prediction_length=prediction_length)
+        elif model_name=="gatsbiv3":
+            if multimodal=="unimodal":  
+                model = GATSBIv3(prediction_length=prediction_length)
         model.to(device)
     return model, last_epoch
 
@@ -203,7 +216,7 @@ def unpack_data(data, model_name, prediction_length):
         future_trajs = future_trajs[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists)
-    elif model_name.startswith("gatsbi"):
+    elif model_name=="gatsbiv1" or model_name=="gatsbiv2":
         # unpack data
         ego_hists = data['ego_trajectory_history']
         future_trajs = data['ego_trajectory_future']
@@ -225,6 +238,22 @@ def unpack_data(data, model_name, prediction_length):
         pred_xk = pred_xk[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, pred_ca, pred_bk, pred_xk, road_dist)
+    elif model_name=="gatsbiv3":
+        # unpack data
+        ego_hists = data['ego_trajectory_history']
+        future_trajs = data['ego_trajectory_future']
+            # social feature        
+        neighbor_hists = data['neighbor_trajectory_history']
+        adj_matrixs = data["neighbor_adjacency_matrix"]
+            # physics feature
+        pred_cv = data["preds_cv"]
+            # road feature
+        road_dist = data["ego_road_border_distance"]
+        # cut future trajectories to prediction length of model
+        future_trajs = future_trajs[:, :prediction_length, :]
+        pred_cv = pred_cv[:, :prediction_length, :]
+        # create tensordataset
+        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, road_dist)
     elif model_name=="physics_lstm":
         # unpack data
         ego_hists = data['ego_trajectory_history']

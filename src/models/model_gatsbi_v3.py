@@ -17,8 +17,9 @@ This file contains the implementation of GATsBI model as part of this project.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import numpy
 
-from models.model_classic import ModelClassic, constant_velocity_predictor
+# from models.model_classic import ModelClassic, constant_velocity_predictor
 
 # #############################################################################
 # ### MODEL
@@ -75,6 +76,37 @@ class DynamicDecoderWithLayerNorm(nn.Module):
 
         return output
 
+def constant_velocity_predictor(hist, history_dt=0.04, prediction_length=50):
+    """
+    Predicts future x, y positions assuming constant velocity.
+    
+    Parameters:
+        hist [32,100,2]
+        history_dt (float): Time step between observations in seconds (default: 0.025)
+        prediction_length (int): Number of future time steps to predict
+        
+    Returns:
+        pred [32,100,2]
+    """
+    B, _, _ = hist.shape
+    
+    # estimate velocity from last two points (or use filtered velocity if available)
+    n = 1
+    vx = (hist[:,-1,0] - hist[:,-1-n,0])/ (n * history_dt)
+    vy = (hist[:,-1,1] - hist[:,-1-n,1])/ (n * history_dt)
+    vx = vx.unsqueeze(-1).repeat(1, prediction_length)
+    vy = vy.unsqueeze(-1).repeat(1, prediction_length)
+    
+    # predict future positions
+    future_times = torch.arange(1, prediction_length + 1) * history_dt
+    future_times = future_times.repeat(B, 1)
+   
+    x_pred = hist[:,-1,0].unsqueeze(-1).repeat(1, prediction_length) + vx * future_times
+    y_pred = hist[:,-1,1].unsqueeze(-1).repeat(1, prediction_length) + vy * future_times
+    pred = torch.cat((x_pred, y_pred), dim=-1)
+
+    return pred
+
 # GATSBI Model with Two GAT Layers and Dynamic Decoder
 class GATSBIv3(nn.Module):
     def __init__(self, input_dim=2, hidden_dim=64, gat_out_dim=64, prediction_length=25):
@@ -103,9 +135,11 @@ class GATSBIv3(nn.Module):
         h_ego = h_ego.squeeze(0)  # [B, hidden_dim]
 
         B, N, T, _ = neighbor_hists.shape
-        neighbor_preds = ModelClassic(model_func=constant_velocity_predictor, prediction_length=self.prediction_length)(neighbor_hists)
+        
         neighbor_encodings = []
         for i in range(N):
+            neighbor_preds = constant_velocity_predictor(neighbor_hists[:,i,:,:], prediction_length=self.prediction_length)
+            # neighbor_preds = ModelClassic(model_func=constant_velocity_predictor, prediction_length=self.prediction_length)(neighbor_hists)
             _, (h_neigh, _) = self.pred_encoder(neighbor_preds[:, i])  # [1, B, hidden_dim]
             neighbor_encodings.append(h_neigh.squeeze(0))
         neighbor_encodings = torch.stack(neighbor_encodings, dim=1)  # [B, N, hidden_dim]

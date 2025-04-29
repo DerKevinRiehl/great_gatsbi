@@ -20,7 +20,8 @@ ML_MODELS_UNIMODAL = [
     "social_bigat",
     "physics_lstm",
     "gatsbiv1",
-    "gatsbiv2"
+    "gatsbiv2",
+    "gatsbiv3"
 ]
 
 ML_MODELS_MULTIMODAL_GMM = [
