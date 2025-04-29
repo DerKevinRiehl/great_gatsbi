@@ -56,7 +56,7 @@ class ContextFusionAttention(nn.Module):
         # Combine all contexts
         fused_context = fused_context_social + fused_context_physics + fused_context_road  # [B, T_pred, hidden_dim]
     
-        return fused_context
+        return fused_context, attn_weights_road, attn_weights_social, attn_weights_physics_parts
 
 # GAT Layer with Edge Features and LayerNorm
 class GATLayerWithEdgeFeatures(nn.Module):
@@ -209,11 +209,11 @@ class GATSBIv2(nn.Module):
         context_repeated_road = context_road.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, hidden_dim*5]
 
         # Fusion with Attention
-        fused_context = self.context_fusion(context_repeated_social, context_repeated_physics, context_repeated_road)
+        fused_context, attn_weights_road, attn_weights_social, attn_weights_physics_parts = self.context_fusion(context_repeated_social, context_repeated_physics, context_repeated_road)
         # Decode
         decoder_output = self.decoder(fused_context)  # [B, T_pred, 2]
 
-        return decoder_output, attn2
+        return decoder_output, attn2, attn_weights_road, attn_weights_social, attn_weights_physics_parts
 
     
 def load_gatsbi_modelv2(model_path, device, prediction_length):

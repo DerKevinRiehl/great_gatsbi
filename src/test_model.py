@@ -7,7 +7,7 @@ Development:    2025
 Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script tests a model on all testing data.
-Usage: python test_model.py [1] [2] [3]
+Usage: python test_model.py [1] [2] [3] [4] ([5])
     [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
     [2] - model_file_name
     [3] - prediction_length in [s] (25, 50, 75, 100)
@@ -45,7 +45,7 @@ def print_info():
     print("-------------------------------------------")
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
-    print("USAGE: python test_model.py [1] [2] [3] [4]")
+    print("USAGE: python test_model.py [1] [2] [3] [4] ([5])")
     print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\" or \"physics_lstm\")")
     print(" [2] - model_file_name")
     print(" [3] - prediction_length in [s] (25, 50, 75, 100)")
@@ -108,7 +108,7 @@ if __name__=="__main__":
         splits_to_test = [split]
         
     # print info statement
-    print("[test_model.py] Testing Model", model_name, model_file_name, prediction_length, split)
+    print("[test_model.py] Testing Model", model_name, model_file_name, prediction_length, split, multimodal)
     
     # setup torch
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
