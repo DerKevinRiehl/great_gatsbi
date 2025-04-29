@@ -277,6 +277,14 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 | *_____(expected)*  |   |   |   |   |   |   |   |   |
 |      .              |   |   |   |   |   |   |   |   |
 | social_bigat |   |   |   |   |   |   |   |   |
+|  *_____(best)*  | 0.0608 | 0.2112 | 0.4245 | 0.6725 | 0.1687 | 0.4992 | 1.0759 | 1.6508 |
+|   | [0.0015] | [0.0175] | [0.0325] | [0.0761] | [0.0051] | [0.0507] | [0.1188] | [0.2344] |
+|  *_____(most prob)* | 0.0743 | 0.2608 | 0.4837 | 0.8816 | 0.1968 | 0.5308 | 1.2880 | 2.3662 |
+|     | [0.0010] | [0.0356] | [0.0278] | [0.1269] | [0.0043] | [0.0349] | [0.1514] | [0.3880] |
+|  *_____(sampled)*  | 0.1615 | 0.7956 | 1.8744 | 6.4529 | 0.5838 | 2.7581 | 5.9781 | 13.9169 |
+|      | [0.0745] | [0.3358] | [0.6099] | [0.8414] | [0.3310] | [0.9683] | [1.3556] | [1.1371] |
+| *_____(expected)*  |   |   |   |   |   |   |   |   |
+|      .              |   |   |   |   |   |   |   |   |
 | physics_lstm |   |   |   |   |   |   |   |   |
 | *_____(best)* | 0.0583 | 0.1894 | 0.3725 | 0.6151 | 0.1571 | 0.4445 | 0.9791 | 1.5167 |
 |               | [0.0048] | [0.0126] | [0.0261] | [0.0509] | [0.0105] | [0.0286] | [0.0975] | [0.1619] |
@@ -288,6 +296,8 @@ The benchmark of different models shows that the proposed GATsBi model is outper
 |      .              |   |   |   |   |   |   |   |   |
 | gatsbiv1 |   |   |   |   |   |   |   |   |
 | gatsbiv2 |   |   |   |   |   |   |   |   |
+
+
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 

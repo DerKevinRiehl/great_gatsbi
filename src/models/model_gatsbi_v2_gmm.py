@@ -56,7 +56,7 @@ class ContextFusionAttention(nn.Module):
         # Combine all contexts
         fused_context = fused_context_social + fused_context_physics + fused_context_road  # [B, T_pred, hidden_dim]
     
-        return fused_context
+        return fused_context, attn_weights_road, attn_weights_social, attn_weights_physics_parts
 
 # GAT Layer with Edge Features and LayerNorm
 class GATLayerWithEdgeFeatures(nn.Module):
@@ -98,11 +98,7 @@ class DynamicDecoderWithLayerNorm(nn.Module):
         self.layernorm = nn.LayerNorm(hidden_dim)
         self.dropout = nn.Dropout(dropout)
         self.num_modes = num_modes  # New: number of Gaussians
-                
-        # --- output layer (CHANGED) ---
-        # Instead of 2 outputs (x, y), we predict for each mode:
-        # (mu_x, mu_y, sigma_x, sigma_y, correlation rho) + mixture weight
-        self.output_layer = nn.Linear(hidden_dim, num_modes * 6)  # 6 params per mode
+
 
     def forward(self, context, prev_output=None):
         if prev_output is not None:
@@ -111,9 +107,8 @@ class DynamicDecoderWithLayerNorm(nn.Module):
         lstm_out, _ = self.lstm(context)  # [B, T_pred, hidden_dim]
         lstm_out = self.layernorm(lstm_out)  # Apply LayerNorm
         lstm_out = self.dropout(lstm_out)    # Apply Dropout
-        output = self.output_layer(lstm_out)  # Final output [B, T_pred, 2]
 
-        return output
+        return lstm_out
 
 # GATSBI Model with Two GAT Layers and Dynamic Decoder
 class GATSBIv2_GMM(nn.Module):
@@ -143,7 +138,11 @@ class GATSBIv2_GMM(nn.Module):
         # Dynamic Decoder
         decoder_input_dim = gat_out_dim 
         self.decoder = DynamicDecoderWithLayerNorm(decoder_input_dim, hidden_dim, num_modes)
-
+                
+        # --- output layer (CHANGED) ---
+        # Instead of 2 outputs (x, y), we predict for each mode:
+        # (mu_x, mu_y, sigma_x, sigma_y, correlation rho) + mixture weight
+        self.output_layer = nn.Linear(hidden_dim, num_modes * 6)  # 6 params per mode
 
     def encode_agent_histories(self, ego_hist, neighbor_hists):
         """Encode ego and neighbor histories separately."""
@@ -216,11 +215,27 @@ class GATSBIv2_GMM(nn.Module):
         context_repeated_road = context_road.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, hidden_dim*5]
 
         # Fusion with Attention
-        fused_context = self.context_fusion(context_repeated_social, context_repeated_physics, context_repeated_road)
+        fused_context, attn_weights_road, attn_weights_social, attn_weights_physics_parts = self.context_fusion(context_repeated_social, context_repeated_physics, context_repeated_road)
         # Decode
         decoder_output = self.decoder(fused_context)  # [B, T_pred, 2]
 
-        return decoder_output, attn2
+        # --- output head (CHANGED) ---
+        raw_output = self.output_layer(decoder_output)  # [batch, T_pred, num_modes * 6]
+
+        # Reshape to [batch, T_pred, num_modes, 6]
+        raw_output = raw_output.view(raw_output.size(0), raw_output.size(1), self.num_modes, 6)
+
+        # Split into parameters
+        mu_x = raw_output[..., 0]
+        mu_y = raw_output[..., 1]
+        sigma_x = torch.exp(raw_output[..., 2])  # positive
+        sigma_y = torch.exp(raw_output[..., 3])  # positive
+        rho = torch.tanh(raw_output[..., 4])     # between -1 and 1
+        log_pi = raw_output[..., 5]              # mixture weights logits
+
+        pi = F.softmax(log_pi, dim=-1)           # normalize to probabilities
+
+        return mu_x, mu_y, sigma_x, sigma_y, rho, pi, attn2, attn_weights_road, attn_weights_social, attn_weights_physics_parts
 
     
 def load_gatsbi_modelv2_gmm(model_path, device, prediction_length):

@@ -47,7 +47,7 @@ def print_info():
     print("-------------------------------------------")
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
-    print("USAGE: python train_model.py [1] [2 [3] [4]")
+    print("USAGE: python train_model.py [1] [2 [3] [4] ([5])")
     print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\" or \"physics_lstm\")")
     print(" [2] - prediction_length in [s] (25, 50, 75, 100)")
     print(" [3] - max_epochs")
