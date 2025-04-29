@@ -17,7 +17,6 @@ This file contains the implementation of GATsBI model as part of this project.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy
 
 # from models.model_classic import ModelClassic, constant_velocity_predictor
 
@@ -36,7 +35,7 @@ class GATLayerWithEdgeFeatures(nn.Module):
         self.layernorm = nn.LayerNorm(out_features)  # LayerNorm after GAT output
 
     def forward(self, node_features, edge_features):
-        B, N, _ = node_features.size()
+        B, N, _ = node_features.size()        
         Wh = self.W(node_features)  # [B, N, F_out]
         Wh_i = Wh.unsqueeze(2).repeat(1, 1, N, 1)  # [B, N, N, F_out]
         Wh_j = Wh.unsqueeze(1).repeat(1, N, 1, 1)  # [B, N, N, F_out]
@@ -81,30 +80,29 @@ def constant_velocity_predictor(hist, history_dt=0.04, prediction_length=50):
     Predicts future x, y positions assuming constant velocity.
     
     Parameters:
-        hist [32,100,2]
+        hist [B, N, T_hist, 2]
         history_dt (float): Time step between observations in seconds (default: 0.025)
         prediction_length (int): Number of future time steps to predict
         
     Returns:
-        pred [32,100,2]
+        pred [B, N, T_pred, 2]
     """
-    B, _, _ = hist.shape
+    B, N, _, _ = hist.shape
     
     # estimate velocity from last two points (or use filtered velocity if available)
     n = 1
-    vx = (hist[:,-1,0] - hist[:,-1-n,0])/ (n * history_dt)
-    vy = (hist[:,-1,1] - hist[:,-1-n,1])/ (n * history_dt)
-    vx = vx.unsqueeze(-1).repeat(1, prediction_length)
-    vy = vy.unsqueeze(-1).repeat(1, prediction_length)
+    vx = (hist[:,:,-1,0] - hist[:,:,-1-n,0])/ (n * history_dt)
+    vy = (hist[:,:,-1,1] - hist[:,:,-1-n,1])/ (n * history_dt)
+    vx = vx.unsqueeze(-1).repeat(1, 1, prediction_length)
+    vy = vy.unsqueeze(-1).repeat(1, 1, prediction_length)
     
     # predict future positions
     future_times = torch.arange(1, prediction_length + 1) * history_dt
-    future_times = future_times.repeat(B, 1)
+    future_times = future_times.repeat(B, N, 1)
    
-    x_pred = hist[:,-1,0].unsqueeze(-1).repeat(1, prediction_length) + vx * future_times
-    y_pred = hist[:,-1,1].unsqueeze(-1).repeat(1, prediction_length) + vy * future_times
-    pred = torch.cat((x_pred, y_pred), dim=-1)
-
+    x_pred = hist[:,:,-1,0].unsqueeze(-1).repeat(1, 1, prediction_length) + vx * future_times
+    y_pred = hist[:,:,-1,1].unsqueeze(-1).repeat(1, 1, prediction_length) + vy * future_times
+    pred = torch.cat((x_pred.unsqueeze(-1), y_pred.unsqueeze(-1)), dim=-1)
     return pred
 
 # GATSBI Model with Two GAT Layers and Dynamic Decoder
@@ -122,7 +120,7 @@ class GATSBIv3(nn.Module):
         self.agent_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
 
         # GAT Layers
-        self.gat1 = GATLayerWithEdgeFeatures(hidden_dim, gat_out_dim, edge_dim=4)
+        self.gat1 = GATLayerWithEdgeFeatures(3*hidden_dim, gat_out_dim, edge_dim=4)
         self.gat2 = GATLayerWithEdgeFeatures(gat_out_dim, gat_out_dim, edge_dim=4)
         
         # Dynamic Decoder
@@ -135,11 +133,9 @@ class GATSBIv3(nn.Module):
         h_ego = h_ego.squeeze(0)  # [B, hidden_dim]
 
         B, N, T, _ = neighbor_hists.shape
-        
+        neighbor_preds = constant_velocity_predictor(neighbor_hists, prediction_length=self.prediction_length)
         neighbor_encodings = []
         for i in range(N):
-            neighbor_preds = constant_velocity_predictor(neighbor_hists[:,i,:,:], prediction_length=self.prediction_length)
-            # neighbor_preds = ModelClassic(model_func=constant_velocity_predictor, prediction_length=self.prediction_length)(neighbor_hists)
             _, (h_neigh, _) = self.pred_encoder(neighbor_preds[:, i])  # [1, B, hidden_dim]
             neighbor_encodings.append(h_neigh.squeeze(0))
         neighbor_encodings = torch.stack(neighbor_encodings, dim=1)  # [B, N, hidden_dim]
@@ -185,11 +181,12 @@ class GATSBIv3(nn.Module):
         all_agents_fut = torch.cat([neighbor_fut_encodings, ego_fut_encodings.unsqueeze(1)], dim=1)  # [B, N+1, hidden_dim]
 
         # Road Encoding
+        N = neighbor_hists.shape[1]
         context_road = self.encode_road_features(dist)
-        context_repeated_road = context_road.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, hidden_dim]
+        context_repeated_road = context_road.unsqueeze(1).repeat(1, N+1, 1)  # [B, N+1, hidden_dim]
 
         # Social Encoding
-        node_features = torch.cat([all_agents_hist, all_agents_fut, context_repeated_road], dim=1) # [B, 2*(N+1)+T_pred, hidden_dim]
+        node_features = torch.cat([all_agents_hist, all_agents_fut, context_repeated_road], dim=-1) # [B, N+1, 3*hidden_dim]
         edge_features = adj
 
         h_gat1, attn1 = self.gat1(node_features, edge_features)  # First GAT layer
