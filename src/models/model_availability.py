@@ -21,7 +21,8 @@ ML_MODELS_UNIMODAL = [
     "physics_lstm",
     "gatsbiv1",
     "gatsbiv2",
-    "gatsbiv3"
+    "gatsbiv3",
+    "gatsbiv4"
 ]
 
 ML_MODELS_MULTIMODAL_GMM = [
