@@ -17,7 +17,7 @@ This file contains the implementation of GATsBI model as part of this project.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from models.model_utils import output_decoding_layer_unimodal, output_decoding_layer_multimodal_gmm
+from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
 from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
@@ -82,13 +82,14 @@ class GATSBIv1(nn.Module):
         self.agent_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
             # GAT
         self.gat = GATLayerWithEdgeFeatures(hidden_dim, gat_out_dim, edge_dim=4)
-            # fusion
-        self.fusion_decoder = nn.LSTM(gat_out_dim + hidden_dim*5, hidden_dim, batch_first=True)
-            # final output layer
-        if not gmm:
-            self.output = output_decoding_layer_unimodal(hidden_dim, 5, output_dim)
+            # Decoder
+        decoder_input_dim = gat_out_dim + hidden_dim * 5 + hidden_dim * 5
+        self.decoder = nn.LSTM(decoder_input_dim, hidden_dim, batch_first=True)
+            # Output
+        if not self.gmm:
+            self.output = output_layer_unimodal(hidden_dim, output_dim)
         else:
-            self.output = output_decoding_layer_multimodal_gmm(hidden_dim, num_modes)
+            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
         
     def encode_agent_histories(self, ego_hist, neighbor_hists):
         """Encode ego and neighbor histories separately."""
@@ -122,37 +123,45 @@ class GATSBIv1(nn.Module):
 
         return physics_context
 
-    def forward(self, t_ego_hist, t_neighbor_hist, s_adj, t_pred_cv, t_pred_ca, t_pred_bk, t_pred_xk):
+    def forward(self, ego_hist, neighbor_hists, adj, pred_cv, pred_ca, pred_bk, pred_xk, dist):
         """
         Forward pass of the GATSBI model.
-            t_ego_hist       - [32, 100, 2]
-            t_neighbor_hist  - [32, 5, 100, 2]
-            s_adj            - [32, 6, 6, 4]
-            t_pred_cv        - [32, 25, 2]
-            t_pred_ca        - [32, 25, 2]
-            t_pred_bk        - [32, 25, 2]
-            t_pred_xk        - [32, 25, 2]
+            ego_hist       - [32, 100, 2]
+            neighbor_hists - [32, 5, 100, 2]
+            adj            - [32, 6, 6, 4]
+            pred_cv        - [32, 25, 2]
+            pred_ca        - [32, 25, 2]
+            pred_bk        - [32, 25, 2]
+            pred_xk        - [32, 25, 2]
+            hist           - [32, 100]
         """
-        
-        # Physics Encoding
-        h_context_physics = self.encode_physics_predictions(t_pred_cv, t_pred_ca, t_pred_bk, t_pred_xk, t_ego_hist)
-
         # Social Encoding
-        h_ego, neighbor_encodings = self.encode_agent_histories(t_ego_hist, t_neighbor_hist)
+        h_ego, neighbor_encodings = self.encode_agent_histories(ego_hist, neighbor_hists)
         all_agents = torch.cat([neighbor_encodings, h_ego.unsqueeze(1)], dim=1)  # [B, N+1, hidden_dim]
         node_features = all_agents
-        edge_features = s_adj
-        h_gat, neighbor_attention = self.gat(node_features, edge_features)  # [B, N+1, gat_out_dim]        
-        ego_attention = neighbor_attention[:, -1, :]  # [B, N+1]
-        h_context_social = torch.sum(ego_attention.unsqueeze(-1) * h_gat, dim=1)  # [B, gat_out_dim]
+        edge_features = adj
 
-        # Fusion
-        h_context = torch.cat([h_context_social, h_context_physics], dim=1)  # [batch, hidden*5]        
-        h_context_repeated = h_context.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [batch, T_pred, hidden*5]  
-        h_context_fused, _ = self.fusion_decoder(h_context_repeated)
-    
+        h_gat, neighbor_attention = self.gat(node_features, edge_features)  # [B, N+1, gat_out_dim]
+        
+        ego_attention = neighbor_attention[:, -1, :]  # [B, N+1]
+        context_social = torch.sum(ego_attention.unsqueeze(-1) * h_gat, dim=1)  # [B, gat_out_dim]
+        context_repeated_social = context_social.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, gat_out_dim]
+
+        # Physics Encoding
+        context_physics = self.encode_physics_predictions(pred_cv, pred_ca, pred_bk, pred_xk, ego_hist)
+        context_repeated_physics = context_physics.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, hidden_dim*5]
+
+        # Concatenate all contexts
+        decoder_input = torch.cat([
+            context_repeated_social,  # [B, T_pred, gat_out_dim]
+            context_repeated_physics, # [B, T_pred, hidden_dim*5]
+        ], dim=-1)  # [B, T_pred, combined_dim]
+
+        # Decode
+        h_dec, _ = self.decoder(decoder_input)  # [B, T_pred, hidden_dim]
+
         # Output Layer
         if not self.gmm:
-            return output_decode_unimodal(h_context_fused, self.output)
+            return output_decode_unimodal(h_dec, self.output), neighbor_attention
         else:
-            return output_decode_multimodal_gmm(h_context_fused, self.num_modes, self.output)
+            return *output_decode_multimodal_gmm(h_dec, self.num_modes, self.output), neighbor_attention

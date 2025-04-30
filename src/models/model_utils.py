@@ -24,8 +24,7 @@ import torch.nn.functional as F
 # #############################################################################
 # ### METHODS
 
-def output_layer_unimodal(hidden_dim, output_dim):
-    # (x,y)
+def output_decoding_layer_unimodal(hidden_dim, num_opinions, output_dim):
     # return nn.Linear(hidden_dim, output_dim)
     return nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim),
@@ -33,17 +32,17 @@ def output_layer_unimodal(hidden_dim, output_dim):
             nn.Linear(hidden_dim, output_dim)
         )
 
-def output_layer_multimodal_gmm(hidden_dim, num_modes):
+def output_decoding_layer_multimodal_gmm(hidden_dim, num_modes):
     # Instead of 2 outputs (x, y), we predict for each mode:
     # (mu_x, mu_y, sigma_x, sigma_y, correlation rho) + mixture weight
     return nn.Linear(hidden_dim, num_modes * 6)  # 6 params per mode
 
-def output_decode_unimodal(h_dec, output_model):
-    return output_model(h_dec)
+def output_decode_unimodal(h_context_fused, output_model):
+    out = output_model(h_context_fused)
+    return out
         
-def output_decode_multimodal_gmm(h_dec, num_modes, output_model):
-    # --- output head (CHANGED) ---
-    raw_output = output_model(h_dec)  # [batch, T_pred, num_modes * 6]
+def output_decode_multimodal_gmm(h_context_fused, num_modes, output_model):
+    raw_output = output_model(h_context_fused)  # [batch, T_pred, num_modes * 6]
     # Reshape to [batch, T_pred, num_modes, 6]
     raw_output = raw_output.view(raw_output.size(0), raw_output.size(1), num_modes, 6)
     # Split into GMM parameters

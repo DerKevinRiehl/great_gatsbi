@@ -23,7 +23,7 @@ This file contains the implementation of Social-LSTM following Alahi et al. 2016
 # ### IMPORTS
 import torch
 import torch.nn as nn
-from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decoding_layer_unimodal, output_decoding_layer_multimodal_gmm
 from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
@@ -48,57 +48,59 @@ class SocialLSTM(nn.Module):
         # ### NETWORK STRUCTURE
             # encoder LSTM for each agent's history
         self.encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-            # decoder LSTM for predicting future positions
-        self.decoder = nn.LSTM(hidden_dim + hidden_dim, hidden_dim, batch_first=True)  # with pooled hidden states
+            # fusion
+        self.fusion_decoder = nn.LSTM(hidden_dim*2, hidden_dim, batch_first=True)
             # final output layer
-        if not self.gmm:
-            self.output = output_layer_unimodal(hidden_dim, output_dim)
+        if not gmm:
+            self.output = output_decoding_layer_unimodal(hidden_dim, 5, output_dim)
         else:
-            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
+            self.output = output_decoding_layer_multimodal_gmm(hidden_dim, num_modes)
 
-    def social_pooling(self, ego_pos, all_hidden_states, all_positions):
+    def social_pooling(self, t_ego_pos, h_neighbor_hist, t_neighbor_pos):
         """
         Aggregate hidden states of nearby agents within pooling_radius
-        ego_pos: [batch_size, 2]
-        all_hidden_states: [batch_size, num_agents, hidden_dim]
-        all_positions: [batch_size, num_agents, 2]
+        t_ego_pos: [batch_size, 2]
+        h_neighbor_hist: [batch_size, num_agents, hidden_dim]
+        t_neighbor_pos: [batch_size, num_agents, 2]
         """
-        batch_size, num_agents, _ = all_positions.shape
-        pooled = torch.zeros((batch_size, self.hidden_dim), device=ego_pos.device)
+        batch_size, num_agents, _ = t_neighbor_pos.shape
+        h_pooled = torch.zeros((batch_size, self.hidden_dim), device=t_ego_pos.device)
         for i in range(num_agents):
-            dist = torch.norm(all_positions[:, i] - ego_pos, dim=1)
+            dist = torch.norm(t_neighbor_pos[:, i] - t_ego_pos, dim=1)
             mask = dist < self.pooling_radius
-            pooled += mask[:, None] * all_hidden_states[:, i]  # broadcast over hidden dim
-        return pooled
+            h_pooled += mask[:, None] * h_neighbor_hist[:, i]  # broadcast over hidden dim
+        return h_pooled
 
-    def forward(self, ego_hist, neighbor_hists):
+    def forward(self, t_ego_hist, t_neighbor_hist):
         """
-        ego_hist: [batch, history_length, 2] – history of ego
-        ego_pos: [batch, 2] – current position of ego
-        neighbor_hists: [batch, num_neighbors, history_length, 2]
-        neighbor_pos: [batch, num_neighbors, 2]
+        t_ego_hist: [batch, history_length, 2] – history of ego
+        t_neighbor_hist: [batch, num_neighbors, history_length, 2]
         """
-        batch_size, num_neighbors, history_length, _ = neighbor_hists.shape
+        batch_size, num_neighbors, history_length, _ = t_neighbor_hist.shape
         # Encode ego history
-        _, (h_ego, _) = self.encoder(ego_hist)  # [1, batch, hidden]
-        h_ego = h_ego.squeeze(0)
+        _, (h_ego_hist, _) = self.encoder(t_ego_hist)  # [1, batch, hidden]
+        h_ego_hist = h_ego_hist.squeeze(0)
+        
         # Encode each neighbor
-        h_neighbors = []
+        h_neighbor_hist = []
         for i in range(num_neighbors):
-            hist = neighbor_hists[:, i]  # [batch, history_length, 2]
-            _, (h, _) = self.encoder(hist)
-            h_neighbors.append(h.squeeze(0))
-        h_neighbors = torch.stack(h_neighbors, dim=1)  # [batch, num_neighbors, hidden]
+            t_hist = t_neighbor_hist[:, i]  # [batch, history_length, 2]
+            _, (h_hist, _) = self.encoder(t_hist)
+            h_neighbor_hist.append(h_hist.squeeze(0))
+        h_neighbor_hist = torch.stack(h_neighbor_hist, dim=1)  # [batch, num_neighbors, hidden]
+        
         # Social pooling
-        ego_pos = ego_hist[:,-1,:]
-        neighbor_pos = neighbor_hists[:,:,-1,:]
-        pooled_social = self.social_pooling(ego_pos, h_neighbors, neighbor_pos)  # [batch, hidden]
-        # Decode with pooled context
-        h_dec_in = torch.cat([h_ego, pooled_social], dim=1).unsqueeze(1).repeat(1, self.prediction_length, 1)
-        h_dec, _ = self.decoder(h_dec_in)
+        t_ego_pos = t_ego_hist[:,-1,:]
+        t_neighbor_pos = t_neighbor_hist[:,:,-1,:]
+        h_pooled_social = self.social_pooling(t_ego_pos, h_neighbor_hist, t_neighbor_pos)  # [batch, hidden]
+    
+        # Fusion
+        h_context = torch.cat([h_ego_hist, h_pooled_social], dim=1)  # [batch, hidden*5]        
+        h_context_repeated = h_context.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [batch, T_pred, hidden*5]  
+        h_context_fused, _ = self.fusion_decoder(h_context_repeated)
+    
         # Output Layer
         if not self.gmm:
-            return output_decode_unimodal(h_dec, self.output)
+            return output_decode_unimodal(h_context_fused, self.output)
         else:
-            return output_decode_multimodal_gmm(h_dec, self.num_modes, self.output)
-        
+            return output_decode_multimodal_gmm(h_context_fused, self.num_modes, self.output)

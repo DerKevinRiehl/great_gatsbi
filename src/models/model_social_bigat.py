@@ -24,7 +24,7 @@ This file contains the implementation of Social-BiGAT following Kosaraju et al. 
 # ### IMPORTS
 import torch
 import torch.nn as nn
-from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decoding_layer_unimodal, output_decoding_layer_multimodal_gmm
 from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
@@ -57,29 +57,29 @@ class SocialBiGAT(nn.Module):
         )
             # GAT layer: attention over neighbors
         self.gat = nn.MultiheadAttention(embed_dim=hidden_dim, num_heads=gat_heads, batch_first=True)
-            # Decoder LSTM
-        self.decoder = nn.LSTM(hidden_dim * 2, hidden_dim, batch_first=True)
-            # Output Layer
+            # fusion
+        self.fusion_decoder = nn.LSTM(hidden_dim*2, hidden_dim, batch_first=True)
+            # final output layer
         if not gmm:
-            self.output = output_layer_unimodal(hidden_dim, output_dim)
+            self.output = output_decoding_layer_unimodal(hidden_dim, 5, output_dim)
         else:
-            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
+            self.output = output_decoding_layer_multimodal_gmm(hidden_dim, num_modes)
 
-    def forward(self, ego_hist, neighbor_hists):
+    def forward(self, t_ego_hist, t_neighbor_hist):
         """
         ego_hist: [batch, history_length, 2]
         neighbor_hists: [batch, num_neighbors, history_length, 2]
         """
-        batch_size, num_neighbors, history_length, _ = neighbor_hists.shape
+        batch_size, num_neighbors, history_length, _ = t_neighbor_hist.shape
 
         # Encode ego history
-        _, (h_ego, _) = self.encoder(ego_hist)  # [1, batch, hidden_dim]
+        _, (h_ego, _) = self.encoder(t_ego_hist)  # [1, batch, hidden_dim]
         h_ego = h_ego.squeeze(0)  # [batch, hidden_dim]
 
         # Encode each neighbor
         h_neighbors = []
         for i in range(num_neighbors):
-            hist = neighbor_hists[:, i]  # [batch, history_length, 2]
+            hist = t_neighbor_hist[:, i]  # [batch, history_length, 2]
             _, (h, _) = self.encoder(hist)
             h_neighbors.append(h.squeeze(0))  # [batch, hidden_dim]
         h_neighbors = torch.stack(h_neighbors, dim=1)  # [batch, num_neighbors, hidden_dim]
@@ -91,19 +91,16 @@ class SocialBiGAT(nn.Module):
         # GAT: ego attends to neighbors
         query = h_ego.unsqueeze(1)  # [batch, 1, hidden_dim]
         key_value = h_neighbors  # [batch, num_neighbors, hidden_dim]
-
         attended, _ = self.gat(query, key_value, key_value)  # [batch, 1, hidden_dim]
         attended = attended.squeeze(1)  # [batch, hidden_dim]
 
-        # Concatenate ego encoding + attended neighbor features
-        h_dec_in = torch.cat([h_ego, attended], dim=1)  # [batch, hidden_dim * 2]
-        h_dec_in = h_dec_in.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [batch, pred_len, hidden_dim*2]
-
-        # Decode future
-        h_dec, _ = self.decoder(h_dec_in)  # [batch, pred_len, hidden_dim]
-
+        # Fusion
+        h_context = torch.cat([h_ego, attended], dim=1)  # [batch, hidden*5]        
+        h_context_repeated = h_context.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [batch, T_pred, hidden*5]  
+        h_context_fused, _ = self.fusion_decoder(h_context_repeated)
+    
         # Output Layer
         if not self.gmm:
-            return output_decode_unimodal(h_dec, self.output)
+            return output_decode_unimodal(h_context_fused, self.output)
         else:
-            return output_decode_multimodal_gmm(h_dec, self.num_modes, self.output)
+            return output_decode_multimodal_gmm(h_context_fused, self.num_modes, self.output)

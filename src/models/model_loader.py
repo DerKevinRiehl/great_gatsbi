@@ -25,9 +25,9 @@ from models.model_social_lstm import SocialLSTM
 from models.model_social_bigat import SocialBiGAT
 from models.model_physics_lstm import PhysicsLSTM
 from models.model_gatsbi_v1 import GATSBIv1
-from models.model_gatsbi_v2 import GATSBIv2
-from models.model_gatsbi_v3 import GATSBIv3, load_gatsbi_modelv3
-from models.model_gatsbi_v4 import GATSBIv4, load_gatsbi_modelv4
+# from models.model_gatsbi_v2 import GATSBIv2
+# from models.model_gatsbi_v3 import GATSBIv3, load_gatsbi_modelv3
+# from models.model_gatsbi_v4 import GATSBIv4, load_gatsbi_modelv4
 
 from models.model_utils import load_model, generate_model_scratch
 
@@ -46,14 +46,14 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = load_model(PhysicsLSTM, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
             model = load_model(GATSBIv1, model_path, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv2":
-            model = load_model(GATSBIv2, model_path, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv3":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv3(model_path, device, prediction_length)
-        elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv4(model_path, device, prediction_length)
+        # elif model_name=="gatsbiv2":
+        #     model = load_model(GATSBIv2, model_path, device, prediction_length, multimodal)
+        # elif model_name=="gatsbiv3":
+        #     if multimodal=="unimodal":  
+        #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
+        # elif model_name=="gatsbiv4":
+        #     if multimodal=="unimodal":  
+        #         model = load_gatsbi_modelv4(model_path, device, prediction_length)
         else:
             print("ERROR, model in ",model_file_name,"could not be found.")
             sys.exit(-1)
@@ -74,14 +74,14 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = generate_model_scratch(PhysicsLSTM, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
             model = generate_model_scratch(GATSBIv1, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv2":
-            model = generate_model_scratch(GATSBIv2, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv3":
-            if multimodal=="unimodal":  
-                model = GATSBIv3(prediction_length=prediction_length)
-        elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = GATSBIv4(prediction_length=prediction_length)
+        # elif model_name=="gatsbiv2":
+        #     model = generate_model_scratch(GATSBIv2, device, prediction_length, multimodal)
+        # elif model_name=="gatsbiv3":
+        #     if multimodal=="unimodal":  
+        #         model = GATSBIv3(prediction_length=prediction_length)
+        # elif model_name=="gatsbiv4":
+        #     if multimodal=="unimodal":  
+        #         model = GATSBIv4(prediction_length=prediction_length)
         else:
             print("ERROR failed to load model")
             sys.exit(-1)
@@ -114,14 +114,14 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
             model = load_model(PhysicsLSTM, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
             model = load_model(GATSBIv1, model_path, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv2":
-            model = load_model(GATSBIv2, model_path, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv3":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv3(model_path, device, prediction_length)
-        elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv4(model_path, device, prediction_length)
+        # elif model_name=="gatsbiv2":
+        #     model = load_model(GATSBIv2, model_path, device, prediction_length, multimodal)
+        # elif model_name=="gatsbiv3":
+        #     if multimodal=="unimodal":  
+        #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
+        # elif model_name=="gatsbiv4":
+        #     if multimodal=="unimodal":  
+        #         model = load_gatsbi_modelv4(model_path, device, prediction_length)
                 
     # generate model by creating from scratch
     else:
@@ -134,14 +134,14 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
             model = generate_model_scratch(PhysicsLSTM, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
             model = generate_model_scratch(GATSBIv1, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv2":
-            model = generate_model_scratch(GATSBIv2, device, prediction_length, multimodal)
-        elif model_name=="gatsbiv3":
-            if multimodal=="unimodal":  
-                model = GATSBIv3(prediction_length=prediction_length)
-        elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = GATSBIv4(prediction_length=prediction_length)
+        # elif model_name=="gatsbiv2":
+        #     model = generate_model_scratch(GATSBIv2, device, prediction_length, multimodal)
+        # elif model_name=="gatsbiv3":
+        #     if multimodal=="unimodal":  
+        #         model = GATSBIv3(prediction_length=prediction_length)
+        # elif model_name=="gatsbiv4":
+        #     if multimodal=="unimodal":  
+        #         model = GATSBIv4(prediction_length=prediction_length)
         model.to(device)
     return model, last_epoch
 
@@ -176,8 +176,6 @@ def unpack_data(data, model_name, prediction_length):
         pred_ca = data["preds_ca"]
         pred_bk = data["preds_bk"]
         pred_xk = data["preds_xk"]
-            # road feature
-        road_dist = data["ego_road_border_distance"]
         # cut future trajectories to prediction length of model
         future_trajs = future_trajs[:, :prediction_length, :]
         pred_cv = pred_cv[:, :prediction_length, :]
@@ -185,7 +183,7 @@ def unpack_data(data, model_name, prediction_length):
         pred_bk = pred_bk[:, :prediction_length, :]
         pred_xk = pred_xk[:, :prediction_length, :]
         # create tensordataset
-        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, pred_ca, pred_bk, pred_xk, road_dist)
+        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, pred_ca, pred_bk, pred_xk)
     elif model_name=="gatsbiv3":
         # unpack data
         ego_hists = data['ego_trajectory_history']
@@ -202,7 +200,7 @@ def unpack_data(data, model_name, prediction_length):
         pred_cv = pred_cv[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, road_dist)
-    elif model_name=="physics_lstm":
+    elif model_name.startswith("physics_lstm"):
         # unpack data
         ego_hists = data['ego_trajectory_history']
         future_trajs = data['ego_trajectory_future']
@@ -239,7 +237,7 @@ def unpack_trajectory_prediction(model_results, model_name, multimodal):
         return model_results
     elif model_name=="xkalman":
         return model_results
-    elif model_name=="physics_lstm":
+    elif model_name.startswith("physics_lstm"):
         return model_results
     elif model_name.startswith("gatsbi"):
         if multimodal=="unimodal":

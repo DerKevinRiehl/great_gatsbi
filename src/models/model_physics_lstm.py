@@ -18,7 +18,7 @@ constant velocity, constant acceleration, bicycle-kinematic, and extended-Kalman
 # ### IMPORTS
 import torch
 import torch.nn as nn
-from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decoding_layer_unimodal, output_decoding_layer_multimodal_gmm
 from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
@@ -26,6 +26,7 @@ from models.model_utils import output_decode_unimodal, output_decode_multimodal_
 
 # #############################################################################
 # ### MODEL
+    
 class PhysicsLSTM(nn.Module):
     def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, gmm=False, num_modes=5):
         super(PhysicsLSTM, self).__init__()
@@ -40,20 +41,40 @@ class PhysicsLSTM(nn.Module):
             # model specific
         # ### NETWORK STRUCTURE
             # Separate encoders for trajectory history and physics prediction
-        self.hist_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
+        self.ego_hist_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.cv_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.ca_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.bk_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.xk_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-            # Decoder LSTM (conditioned on both encoded states + physics prediction at each timestep)
-        self.decoder_lstm = nn.LSTM(hidden_dim * 5 +6+ input_dim, hidden_dim, batch_first=True)
+            # fusion
+        self.fusion_decoder = nn.LSTM(hidden_dim*5, hidden_dim, batch_first=True)
             # final output layer
         if not gmm:
-            self.output = output_layer_unimodal(hidden_dim, output_dim)
+            self.output = output_decoding_layer_unimodal(hidden_dim, 5, output_dim)
         else:
-            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
+            self.output = output_decoding_layer_multimodal_gmm(hidden_dim, num_modes)
 
-    def forward(self, ego_hist, pred_cv, pred_ca, pred_bk, pred_xk):
+    def encode_ego_history(self, t_ego_hist):
+        _, (h_ego_hist, _) = self.ego_hist_encoder(t_ego_hist)
+        h_ego_hist = h_ego_hist[-1]
+        return h_ego_hist # [batch, hidden_dim]
+    
+    def encode_physics_predictions(self, t_pred_cv, t_pred_ca, t_pred_bk, t_pred_xk):      
+        # Encode constant velocity predictions
+        _, (h_pred_cv, _) = self.cv_encoder(t_pred_cv)
+        h_pred_cv = h_pred_cv[-1]  # [batch, hidden_dim]
+        # Encode constant acceleration predictions
+        _, (h_pred_ca, _) = self.ca_encoder(t_pred_ca)
+        h_pred_ca = h_pred_ca[-1]  # [batch, hidden_dim]
+        # Encode constant bicycle kinematics predictions
+        _, (h_pred_bk, _) = self.bk_encoder(t_pred_bk)
+        h_pred_bk = h_pred_bk[-1]  # [batch, hidden_dim]
+        # Encode constant xkalman filter predictions
+        _, (h_pred_xk, _) = self.xk_encoder(t_pred_xk)
+        h_pred_xk = h_pred_xk[-1]  # [batch, hidden_dim]
+        return h_pred_cv, h_pred_ca, h_pred_bk, h_pred_xk
+    
+    def forward(self, t_ego_hist, t_pred_cv, t_pred_ca, t_pred_bk, t_pred_xk):
         """
         ego_hist: [batch, hist_len, 2] – past positions
         pred_cv:  [batch, pred_len, 2] – CV prediction for the future
@@ -61,38 +82,19 @@ class PhysicsLSTM(nn.Module):
         pred_bk:  [batch, pred_len, 2] – BK prediction for the future
         pred_xk:  [batch, pred_len, 2] – XK prediction for the future
         """
-        # Encode history
-        _, (h_hist, _) = self.hist_encoder(ego_hist)
-        h_hist = h_hist[-1]  # [batch, hidden_dim]
+        # Encode ego history to H-Domain
+        h_ego_hist = self.encode_ego_history(t_ego_hist)
 
-        # Encode constant velocity predictions
-        _, (h_cv, _) = self.cv_encoder(pred_cv)
-        h_cv = h_cv[-1]  # [batch, hidden_dim]
-
-        # Encode constant acceleration predictions
-        _, (h_ca, _) = self.ca_encoder(pred_ca)
-        h_ca = h_ca[-1]  # [batch, hidden_dim]
-
-        # Encode constant bicycle kinematics predictions
-        _, (h_bk, _) = self.bk_encoder(pred_bk)
-        h_bk = h_bk[-1]  # [batch, hidden_dim]
-
-        # Encode constant xkalman filter predictions
-        _, (h_xk, _) = self.xk_encoder(pred_xk)
-        h_xk = h_xk[-1]  # [batch, hidden_dim]
+        # Encode physics predictions to H-Domain
+        h_pred_cv, h_pred_ca, h_pred_bk, h_pred_xk = self.encode_physics_predictions(t_pred_cv, t_pred_ca, t_pred_bk, t_pred_xk)
         
-        # Prepare repeated context vector
-        context = torch.cat([h_hist, h_cv, h_ca, h_bk, h_xk], dim=1)  # [batch, hidden*2]
-        context_repeated = context.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [batch, T_pred, hidden*2]
-
-        # Concatenate CV predictions at each timestep
-        decoder_input = torch.cat([context_repeated, pred_cv, pred_ca, pred_bk, pred_xk], dim=2)  # [batch, T_pred, hidden*2 + 2]
-
-        # Decode
-        h_dec, _ = self.decoder_lstm(decoder_input)
-        
+        # Fusion
+        h_context = torch.cat([h_ego_hist, h_pred_cv, h_pred_ca, h_pred_bk, h_pred_xk], dim=1)  # [batch, hidden*5]        
+        h_context_repeated = h_context.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [batch, T_pred, hidden*5]  
+        h_context_fused, _ = self.fusion_decoder(h_context_repeated)
+    
         # Output Layer
         if not self.gmm:
-            return output_decode_unimodal(h_dec, self.output)
+            return output_decode_unimodal(h_context_fused, self.output)
         else:
-            return output_decode_multimodal_gmm(h_dec, self.num_modes, self.output)
+            return output_decode_multimodal_gmm(h_context_fused, self.num_modes, self.output)
