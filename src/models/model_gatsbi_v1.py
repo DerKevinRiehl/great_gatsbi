@@ -17,6 +17,8 @@ This file contains the implementation of GATsBI model as part of this project.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
 
@@ -58,12 +60,19 @@ class GATLayerWithEdgeFeatures(nn.Module):
         return h_prime, attention
 
 class GATSBIv1(nn.Module):
-    def __init__(self, input_dim=2, hidden_dim=64, gat_out_dim=64, prediction_length=25):
+    def __init__(self, input_dim=2, hidden_dim=64, gat_out_dim=64, output_dim=2, prediction_length=25, gmm=False, num_modes=5):
         super(GATSBIv1, self).__init__()
-        # Params
+        # ### PARAMS
+            # general
         self.prediction_length = prediction_length
+        self.input_dim = input_dim
         self.hidden_dim = hidden_dim
-        # Network Structure
+        self.output_dim = output_dim
+        self.gmm = gmm
+        self.num_modes = num_modes
+            # model specific
+        self.gat_out_dim = gat_out_dim        
+        # ### NETWORK STRUCTURE
             # Encoders
         self.hist_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.cv_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
@@ -79,11 +88,11 @@ class GATSBIv1(nn.Module):
         decoder_input_dim = gat_out_dim + hidden_dim * 5 + hidden_dim * 5
         self.decoder = nn.LSTM(decoder_input_dim, hidden_dim, batch_first=True)
         # Output
-        self.output_layer = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, 2)
-        )
+        if not self.gmm:
+            self.output = output_layer_unimodal(hidden_dim, output_dim)
+        else:
+            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
+        
     def encode_agent_histories(self, ego_hist, neighbor_hists):
         """Encode ego and neighbor histories separately."""
         B, N, T, _ = neighbor_hists.shape
@@ -142,9 +151,9 @@ class GATSBIv1(nn.Module):
         node_features = all_agents
         edge_features = adj
 
-        h_gat, attn = self.gat(node_features, edge_features)  # [B, N+1, gat_out_dim]
+        h_gat, neighbor_attention = self.gat(node_features, edge_features)  # [B, N+1, gat_out_dim]
         
-        ego_attention = attn[:, -1, :]  # [B, N+1]
+        ego_attention = neighbor_attention[:, -1, :]  # [B, N+1]
         context_social = torch.sum(ego_attention.unsqueeze(-1) * h_gat, dim=1)  # [B, gat_out_dim]
         context_repeated_social = context_social.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, gat_out_dim]
 
@@ -164,14 +173,10 @@ class GATSBIv1(nn.Module):
         ], dim=-1)  # [B, T_pred, combined_dim]
 
         # Decode
-        decoder_output, _ = self.decoder(decoder_input)  # [B, T_pred, hidden_dim]
-        output = self.output_layer(decoder_output)       # [B, T_pred, 2]
+        h_dec, _ = self.decoder(decoder_input)  # [B, T_pred, hidden_dim]
 
-        return output, attn
-    
-def load_gatsbi_modelv1(model_path, device, prediction_length):
-    model = GATSBIv1(prediction_length=prediction_length)
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    model.to(device)
-    model.eval()
-    return model
+        # Output Layer
+        if not self.gmm:
+            return output_decode_unimodal(h_dec, self.output), neighbor_attention
+        else:
+            return *output_decode_multimodal_gmm(h_dec, self.num_modes, self.output), neighbor_attention

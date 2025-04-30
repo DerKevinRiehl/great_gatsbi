@@ -18,31 +18,40 @@ constant velocity, constant acceleration, bicycle-kinematic, and extended-Kalman
 # ### IMPORTS
 import torch
 import torch.nn as nn
+from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
 
 
-# """
 # #############################################################################
 # ### MODEL
 class PhysicsLSTM(nn.Module):
-    def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2):
+    def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, gmm=False, num_modes=5):
         super(PhysicsLSTM, self).__init__()
-        self.hidden_dim = hidden_dim
+        # ### PARAMS
+            # general
         self.prediction_length = prediction_length
-
-        # Separate encoders for trajectory history and physics prediction
+        self.input_dim = input_dim
+        self.hidden_dim = hidden_dim
+        self.output_dim = output_dim
+        self.gmm = gmm
+        self.num_modes = num_modes
+            # model specific
+        # ### NETWORK STRUCTURE
+            # Separate encoders for trajectory history and physics prediction
         self.hist_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.cv_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.ca_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.bk_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.xk_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-
-        # Decoder LSTM (conditioned on both encoded states + physics prediction at each timestep)
+            # Decoder LSTM (conditioned on both encoded states + physics prediction at each timestep)
         self.decoder_lstm = nn.LSTM(hidden_dim * 5 +6+ input_dim, hidden_dim, batch_first=True)
-
-        # Final output layer (e.g., delta x, y or absolute positions)
-        self.output_layer = nn.Linear(hidden_dim, output_dim)
+            # final output layer
+        if not gmm:
+            self.output = output_layer_unimodal(hidden_dim, output_dim)
+        else:
+            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
 
     def forward(self, ego_hist, pred_cv, pred_ca, pred_bk, pred_xk):
         """
@@ -80,15 +89,10 @@ class PhysicsLSTM(nn.Module):
         decoder_input = torch.cat([context_repeated, pred_cv, pred_ca, pred_bk, pred_xk], dim=2)  # [batch, T_pred, hidden*2 + 2]
 
         # Decode
-        decoder_output, _ = self.decoder_lstm(decoder_input)
-        pred = self.output_layer(decoder_output)  # [batch, T_pred, 2]
-
-        return pred
-# """
-
-def load_physics_lstm_model(model_path, device, prediction_length):
-    model = PhysicsLSTM(prediction_length=prediction_length)
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    model.to(device)
-    model.eval()
-    return model
+        h_dec, _ = self.decoder_lstm(decoder_input)
+        
+        # Output Layer
+        if not self.gmm:
+            return output_decode_unimodal(h_dec, self.output)
+        else:
+            return output_decode_multimodal_gmm(h_dec, self.num_modes, self.output)

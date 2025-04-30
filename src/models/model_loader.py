@@ -21,19 +21,15 @@ import sys
 from models.model_classic import ModelClassic, constant_velocity_predictor, constant_acceleration_predictor
 from models.model_bike_kinematics import ModelBikeKinematics
 from models.model_ekf import ModelXKalman
-from models.model_physics_lstm_gmm import PhysicsLSTM_GMM, load_physics_lstm_gmm_model
-from models.model_physics_lstm import PhysicsLSTM, load_physics_lstm_model
-from models.model_social_lstm import SocialLSTM, load_social_lstm_model
-from models.model_social_lstm_gmm import SocialLSTM_GMM, load_social_lstm_gmm_model
-from models.model_social_bigat import SocialBiGAT, load_social_bigat_model
-from models.model_social_bigat_gmm import SocialBiGAT_GMM, load_social_bigat_gmm_model
-from models.model_gatsbi_v1 import GATSBIv1, load_gatsbi_modelv1
-from models.model_gatsbi_v1_gmm import GATSBIv1_GMM, load_gatsbi_modelv1_gmm
-from models.model_gatsbi_v2 import GATSBIv2, load_gatsbi_modelv2
-from models.model_gatsbi_v2_gmm import GATSBIv2_GMM, load_gatsbi_modelv2_gmm
+from models.model_social_lstm import SocialLSTM
+from models.model_social_bigat import SocialBiGAT
+from models.model_physics_lstm import PhysicsLSTM
+from models.model_gatsbi_v1 import GATSBIv1
+from models.model_gatsbi_v2 import GATSBIv2
 from models.model_gatsbi_v3 import GATSBIv3, load_gatsbi_modelv3
 from models.model_gatsbi_v4 import GATSBIv4, load_gatsbi_modelv4
 
+from models.model_utils import load_model, generate_model_scratch
 
 
 # #############################################################################
@@ -43,30 +39,15 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
     if os.path.exists(model_path):
         print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
-            if multimodal=="unimodal":  
-                model = load_social_lstm_model(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":  
-                model = load_social_lstm_gmm_model(model_path, device, prediction_length)
+            model = load_model(SocialLSTM, model_path, device, prediction_length, multimodal)
         elif model_name=="social_bigat":
-            if multimodal=="unimodal":  
-                model = load_social_bigat_model(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":  
-                model = load_social_bigat_gmm_model(model_path, device, prediction_length)
+            model = load_model(SocialBiGAT, model_path, device, prediction_length, multimodal)
         elif model_name=="physics_lstm":
-            if multimodal=="unimodal":  
-                model = load_physics_lstm_model(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":  
-                model = load_physics_lstm_gmm_model(model_path, device, prediction_length)
+            model = load_model(PhysicsLSTM, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv1(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":  
-                model = load_gatsbi_modelv1_gmm(model_path, device, prediction_length)
+            model = load_model(GATSBIv1, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv2":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv2(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":  
-                model = load_gatsbi_modelv2_gmm(model_path, device, prediction_length)
+            model = load_model(GATSBIv2, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv3":
             if multimodal=="unimodal":  
                 model = load_gatsbi_modelv3(model_path, device, prediction_length)
@@ -77,17 +58,7 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             print("ERROR, model in ",model_file_name,"could not be found.")
             sys.exit(-1)
     else:
-        if model_name=="social_lstm":
-            if multimodal=="unimodal":  
-                model = SocialLSTM(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = SocialLSTM_GMM(prediction_length=prediction_length)
-        elif model_name=="social_bigat":
-            if multimodal=="unimodal":  
-                model = SocialBiGAT(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = SocialBiGAT_GMM(prediction_length=prediction_length)
-        elif model_name=="const_v":
+        if model_name=="const_v":
             model = ModelClassic(model_func=constant_velocity_predictor, prediction_length=prediction_length)
         elif model_name=="const_a":
             model = ModelClassic(model_func=constant_acceleration_predictor, prediction_length=prediction_length)
@@ -95,21 +66,16 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = ModelBikeKinematics(prediction_length=prediction_length)
         elif model_name=="xkalman":
             model = ModelXKalman(prediction_length=prediction_length)
+        elif model_name=="social_lstm":
+            model = generate_model_scratch(SocialLSTM, device, prediction_length, multimodal)
+        elif model_name=="social_bigat":
+            model = generate_model_scratch(SocialBiGAT, device, prediction_length, multimodal)
         elif model_name=="physics_lstm":
-            if multimodal=="unimodal":  
-                model = PhysicsLSTM(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = PhysicsLSTM_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(PhysicsLSTM, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
-            if multimodal=="unimodal":  
-                model = GATSBIv1(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = GATSBIv1_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv1, device, prediction_length, multimodal)
         elif model_name=="gatsbiv2":
-            if multimodal=="unimodal":  
-                model = GATSBIv2(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = GATSBIv2_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv2, device, prediction_length, multimodal)
         elif model_name=="gatsbiv3":
             if multimodal=="unimodal":  
                 model = GATSBIv3(prediction_length=prediction_length)
@@ -141,30 +107,15 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         model_path = "../data/4_models/"+most_recent_file
         print("[model_loader.py] Use pretrained model from", model_path)
         if model_name=="social_lstm":
-            if multimodal=="unimodal":  
-                model = load_social_lstm_model(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = load_social_lstm_gmm_model(model_path, device, prediction_length)
+            model = load_model(SocialLSTM, model_path, device, prediction_length, multimodal)
         elif model_name=="social_bigat":
-            if multimodal=="unimodal":  
-                model = load_social_bigat_model(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = load_social_bigat_gmm_model(model_path, device, prediction_length)
+            model = load_model(SocialBiGAT, model_path, device, prediction_length, multimodal)
         elif model_name=="physics_lstm":
-            if multimodal=="unimodal":  
-                model = load_physics_lstm_model(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = load_physics_lstm_gmm_model(model_path, device, prediction_length)
+            model = load_model(PhysicsLSTM, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv1(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = load_gatsbi_modelv1_gmm(model_path, device, prediction_length)
+            model = load_model(GATSBIv1, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv2":
-            if multimodal=="unimodal":  
-                model = load_gatsbi_modelv2(model_path, device, prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = load_gatsbi_modelv2_gmm(model_path, device, prediction_length)
+            model = load_model(GATSBIv2, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv3":
             if multimodal=="unimodal":  
                 model = load_gatsbi_modelv3(model_path, device, prediction_length)
@@ -176,30 +127,15 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
     else:
         print("[model_loader.py] Create model from scatch")
         if model_name=="social_lstm":
-            if multimodal=="unimodal":  
-                model = SocialLSTM(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = SocialLSTM_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(SocialLSTM, device, prediction_length, multimodal)
         elif model_name=="social_bigat":
-            if multimodal=="unimodal":  
-                model = SocialBiGAT(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = SocialBiGAT_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(SocialBiGAT, device, prediction_length, multimodal)
         elif model_name=="physics_lstm":
-            if multimodal=="unimodal":  
-                model = PhysicsLSTM(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = PhysicsLSTM_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(PhysicsLSTM, device, prediction_length, multimodal)
         elif model_name=="gatsbiv1":
-            if multimodal=="unimodal":  
-                model = GATSBIv1(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = GATSBIv1_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv1, device, prediction_length, multimodal)
         elif model_name=="gatsbiv2":
-            if multimodal=="unimodal":  
-                model = GATSBIv2(prediction_length=prediction_length)
-            elif multimodal=="multimodal_gmm":
-                model = GATSBIv2_GMM(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv2, device, prediction_length, multimodal)
         elif model_name=="gatsbiv3":
             if multimodal=="unimodal":  
                 model = GATSBIv3(prediction_length=prediction_length)

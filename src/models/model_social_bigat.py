@@ -24,6 +24,8 @@ This file contains the implementation of Social-BiGAT following Kosaraju et al. 
 # ### IMPORTS
 import torch
 import torch.nn as nn
+from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
 
@@ -32,34 +34,36 @@ import torch.nn as nn
 # ### MODEL
 
 class SocialBiGAT(nn.Module):
-    def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, gat_heads=4):
+    def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, gat_heads=4, gmm=False, num_modes=5):
         super(SocialBiGAT, self).__init__()
-        self.hidden_dim = hidden_dim
+        # ### PARAMS
+            # general
         self.prediction_length = prediction_length
+        self.input_dim = input_dim
+        self.hidden_dim = hidden_dim
+        self.output_dim = output_dim
+        self.gmm = gmm
+        self.num_modes = num_modes
+            # model specific
         self.gat_heads = gat_heads
-
-        # Encode agent histories
+        # ### NETWORK STRUCTURE
+            # Encode agent histories
         self.encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-
-        # Input MLP: refines encoded LSTM features before GAT
+            # Input MLP: refines encoded LSTM features before GAT
         self.input_mlp = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim)
         )
-
-        # GAT layer: attention over neighbors
+            # GAT layer: attention over neighbors
         self.gat = nn.MultiheadAttention(embed_dim=hidden_dim, num_heads=gat_heads, batch_first=True)
-
-        # Decoder LSTM
+            # Decoder LSTM
         self.decoder = nn.LSTM(hidden_dim * 2, hidden_dim, batch_first=True)
-
-        # Output MLP: refines decoder outputs
-        self.output_mlp = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, output_dim)
-        )
+            # Output Layer
+        if not gmm:
+            self.output = output_layer_unimodal(hidden_dim, output_dim)
+        else:
+            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
 
     def forward(self, ego_hist, neighbor_hists):
         """
@@ -98,14 +102,8 @@ class SocialBiGAT(nn.Module):
         # Decode future
         h_dec, _ = self.decoder(h_dec_in)  # [batch, pred_len, hidden_dim]
 
-        # Apply output MLP
-        out = self.output_mlp(h_dec)  # [batch, pred_len, 2]
-
-        return out
-
-def load_social_bigat_model(model_path, device, prediction_length):
-    model = SocialBiGAT(prediction_length=prediction_length)
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    model.to(device)
-    model.eval()
-    return model
+        # Output Layer
+        if not self.gmm:
+            return output_decode_unimodal(h_dec, self.output)
+        else:
+            return output_decode_multimodal_gmm(h_dec, self.num_modes, self.output)

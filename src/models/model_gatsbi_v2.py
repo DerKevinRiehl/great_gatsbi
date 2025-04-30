@@ -17,6 +17,8 @@ This file contains the implementation of GATsBI model as part of this project.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
 
@@ -96,28 +98,32 @@ class DynamicDecoderWithLayerNorm(nn.Module):
         super(DynamicDecoderWithLayerNorm, self).__init__()
         self.lstm = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.layernorm = nn.LayerNorm(hidden_dim)
-        self.output_layer = nn.Linear(hidden_dim, 2)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, context, prev_output=None):
         if prev_output is not None:
             context = torch.cat([context, prev_output], dim=-1)  # Concatenate previous output
-
         lstm_out, _ = self.lstm(context)  # [B, T_pred, hidden_dim]
         lstm_out = self.layernorm(lstm_out)  # Apply LayerNorm
         lstm_out = self.dropout(lstm_out)    # Apply Dropout
-        output = self.output_layer(lstm_out)  # Final output [B, T_pred, 2]
-
-        return output
+        return lstm_out
 
 # GATSBI Model with Two GAT Layers and Dynamic Decoder
 class GATSBIv2(nn.Module):
-    def __init__(self, input_dim=2, hidden_dim=64, gat_out_dim=64, prediction_length=25):
+    def __init__(self, input_dim=2, hidden_dim=64, gat_out_dim=64, output_dim=2, prediction_length=25, gmm=False, num_modes=5):
         super(GATSBIv2, self).__init__()
+        # ### PARAMS
+            # general
         self.prediction_length = prediction_length
+        self.input_dim = input_dim
         self.hidden_dim = hidden_dim
-
-        # Encoder layers
+        self.output_dim = output_dim
+        self.gmm = gmm
+        self.num_modes = num_modes
+            # model specific
+        self.gat_out_dim = gat_out_dim    
+        # ### NETWORK STRUCTURE
+            # Encoder layers
         self.hist_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.cv_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
         self.ca_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
@@ -126,18 +132,20 @@ class GATSBIv2(nn.Module):
         self.dist_encoder = nn.LSTM(1, hidden_dim, batch_first=True)
         self.dist_proj = nn.Linear(hidden_dim, hidden_dim * 5)  # Project road feature
         self.agent_encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-
-        # GAT Layers
+            # GAT Layers
         self.gat1 = GATLayerWithEdgeFeatures(hidden_dim, gat_out_dim, edge_dim=4)
         self.gat2 = GATLayerWithEdgeFeatures(gat_out_dim, gat_out_dim, edge_dim=4)
-
-        # Context Fussion Attention Layer
+            # Context Fussion Attention Layer
         self.context_fusion = ContextFusionAttention(self.hidden_dim)
-        
-        # Dynamic Decoder
+            # Dynamic Decoder
         decoder_input_dim = gat_out_dim 
         self.decoder = DynamicDecoderWithLayerNorm(decoder_input_dim, hidden_dim)
-
+            # Output layer
+        if not self.gmm:
+            self.output = output_layer_unimodal(hidden_dim, output_dim)
+        else:
+            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
+            
     def encode_agent_histories(self, ego_hist, neighbor_hists):
         """Encode ego and neighbor histories separately."""
         B, N, T, _ = neighbor_hists.shape
@@ -194,9 +202,9 @@ class GATSBIv2(nn.Module):
         edge_features = adj
 
         h_gat1, attn1 = self.gat1(node_features, edge_features)  # First GAT layer
-        h_gat2, attn2 = self.gat2(h_gat1, edge_features)  # Second GAT layer
+        h_gat2, neighbor_attentions = self.gat2(h_gat1, edge_features)  # Second GAT layer
         
-        ego_attention = attn2[:, -1, :]  # Attention from second GAT layer
+        ego_attention = neighbor_attentions[:, -1, :]  # Attention from second GAT layer
         context_social = torch.sum(ego_attention.unsqueeze(-1) * h_gat2, dim=1)  # [B, gat_out_dim]
         context_repeated_social = context_social.unsqueeze(1).repeat(1, self.prediction_length, 1)  # [B, T_pred, gat_out_dim]
 
@@ -210,15 +218,12 @@ class GATSBIv2(nn.Module):
 
         # Fusion with Attention
         fused_context, attn_weights_road, attn_weights_social, attn_weights_physics_parts = self.context_fusion(context_repeated_social, context_repeated_physics, context_repeated_road)
+
         # Decode
-        decoder_output = self.decoder(fused_context)  # [B, T_pred, 2]
+        h_dec = self.decoder(fused_context)  # [B, T_pred, 2]
 
-        return decoder_output, attn2, attn_weights_road, attn_weights_social, attn_weights_physics_parts
-
-    
-def load_gatsbi_modelv2(model_path, device, prediction_length):
-    model = GATSBIv2(prediction_length=prediction_length)
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    model.to(device)
-    model.eval()
-    return model
+        # Output Layer
+        if not self.gmm:
+            return output_decode_unimodal(h_dec, self.output), neighbor_attentions, attn_weights_road, attn_weights_social, attn_weights_physics_parts
+        else:
+            return *output_decode_multimodal_gmm(h_dec, self.num_modes, self.output), neighbor_attentions, attn_weights_road, attn_weights_social, attn_weights_physics_parts

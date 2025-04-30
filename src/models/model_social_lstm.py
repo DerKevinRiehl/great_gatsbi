@@ -23,6 +23,8 @@ This file contains the implementation of Social-LSTM following Alahi et al. 2016
 # ### IMPORTS
 import torch
 import torch.nn as nn
+from models.model_utils import output_layer_unimodal, output_layer_multimodal_gmm
+from models.model_utils import output_decode_unimodal, output_decode_multimodal_gmm
 
 
 
@@ -30,20 +32,29 @@ import torch.nn as nn
 # #############################################################################
 # ### MODEL
 class SocialLSTM(nn.Module):
-    def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, grid_size=(10, 10), pooling_radius=20.0):
+    def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, grid_size=(10, 10), pooling_radius=20.0, gmm=False, num_modes=5):
         super(SocialLSTM, self).__init__()
-        # Params
+        # ### PARAMS
+            # general
+        self.prediction_length = prediction_length
+        self.input_dim = input_dim
         self.hidden_dim = hidden_dim
+        self.output_dim = output_dim
+        self.gmm = gmm
+        self.num_modes = num_modes
+            # model specific
         self.grid_size = grid_size
         self.pooling_radius = pooling_radius
-        self.prediction_length = prediction_length
-        # Network Structure
+        # ### NETWORK STRUCTURE
             # encoder LSTM for each agent's history
         self.encoder = nn.LSTM(input_dim, hidden_dim, batch_first=True)
             # decoder LSTM for predicting future positions
         self.decoder = nn.LSTM(hidden_dim + hidden_dim, hidden_dim, batch_first=True)  # with pooled hidden states
-            # final output layer (e.g., predicting delta x, y)
-        self.output = nn.Linear(hidden_dim, output_dim)
+            # final output layer
+        if not self.gmm:
+            self.output = output_layer_unimodal(hidden_dim, output_dim)
+        else:
+            self.output = output_layer_multimodal_gmm(hidden_dim, num_modes)
 
     def social_pooling(self, ego_pos, all_hidden_states, all_positions):
         """
@@ -85,13 +96,9 @@ class SocialLSTM(nn.Module):
         # Decode with pooled context
         h_dec_in = torch.cat([h_ego, pooled_social], dim=1).unsqueeze(1).repeat(1, self.prediction_length, 1)
         h_dec, _ = self.decoder(h_dec_in)
-        out = self.output(h_dec)  # [batch, T_pred, 2]
-        # Return
-        return out
-
-def load_social_lstm_model(model_path, device, prediction_length):
-    model = SocialLSTM(prediction_length=prediction_length)
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    model.to(device)
-    model.eval()
-    return model
+        # Output Layer
+        if not self.gmm:
+            return output_decode_unimodal(h_dec, self.output)
+        else:
+            return output_decode_multimodal_gmm(h_dec, self.num_modes, self.output)
+        

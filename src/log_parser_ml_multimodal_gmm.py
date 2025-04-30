@@ -39,7 +39,7 @@ def read_performance_file(file_path):
             performance = json.loads(content)
             return performance['ADE'], performance['FDE']
         except Exception as e:
-            print(f"Error reading file {file_path}: {e}")
+            print(f"Error reading file {file_path}: {e}\n{content}")
             return None, None
 
 # Function to process and compute average and STD for each experiment
@@ -70,6 +70,12 @@ def process_results(base_dir, model_name, prediction_lengths):
                 
                 if os.path.exists(file_path):
                     ades, fdes = read_performance_file(file_path)
+                    # if ades is None:
+                    #     continue
+                    # if len(ades)<4:
+                    #     print("ERR", file_name)
+                    #     continue
+                    
                     if ades is not None and fdes is not None:
                         experiment_results[exp]['ADE_a'].append(ades[0])
                         experiment_results[exp]['ADE_b'].append(ades[1])
