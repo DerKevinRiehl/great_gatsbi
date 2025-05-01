@@ -123,12 +123,12 @@ def process_results(base_dir, model_name, prediction_lengths):
                 )
                 
                 # Track the best experiment with the lowest average ADE_b
-                if ade_b_mean < best_ade_mean:
-                    best_ade_mean = ade_b_mean
+                if ade_d_mean < best_ade_mean:
+                    best_ade_mean = ade_d_mean
                     best_experiment = (
                         exp, prediction_length,
-                        ade_a_mean, ade_a_std, ade_b_mean, ade_b_std, ade_c_mean, ade_c_std, ade_d_std,
-                        fde_a_mean, fde_a_std, fde_b_mean, fde_b_std, fde_c_mean, fde_c_std, fde_d_std
+                        ade_a_mean, ade_a_std, ade_b_mean, ade_b_std, ade_c_mean, ade_c_std, ade_d_mean, ade_d_std,
+                        fde_a_mean, fde_a_std, fde_b_mean, fde_b_std, fde_c_mean, fde_c_std, fde_d_mean, fde_d_std
                     )
         # Store the best model results for the markdown summary
         best_ade_means[prediction_length] = best_ade_mean
@@ -156,24 +156,24 @@ def process_results(base_dir, model_name, prediction_lengths):
     # The markdown summary now uses the best model results
         # ADE_a
     print(f"| {model_name} | ADE_a Mean | {best_experiments[25][2]:.4f} | {best_experiments[50][2]:.4f} | {best_experiments[75][2]:.4f} | {best_experiments[100][2]:.4f} | "
-          f"{best_experiments[25][9]:.4f} | {best_experiments[50][9]:.4f} | {best_experiments[75][9]:.4f} | {best_experiments[100][9]:.4f} |")
+          f"{best_experiments[25][10]:.4f} | {best_experiments[50][10]:.4f} | {best_experiments[75][10]:.4f} | {best_experiments[100][10]:.4f} |")
     print(f"|        | ADE_a Std  | [{best_experiments[25][3]:.4f}] | [{best_experiments[50][3]:.4f}] | [{best_experiments[75][3]:.4f}] | [{best_experiments[100][3]:.4f}] | "
-          f"[{best_experiments[25][10]:.4f}] | [{best_experiments[50][10]:.4f}] | [{best_experiments[75][10]:.4f}] | [{best_experiments[100][10]:.4f}] |")
+          f"[{best_experiments[25][11]:.4f}] | [{best_experiments[50][11]:.4f}] | [{best_experiments[75][11]:.4f}] | [{best_experiments[100][11]:.4f}] |")
         # ADE_b
     print(f"|        | ADE_b Mean | {best_experiments[25][4]:.4f} | {best_experiments[50][4]:.4f} | {best_experiments[75][4]:.4f} | {best_experiments[100][4]:.4f} | "
-          f"{best_experiments[25][11]:.4f} | {best_experiments[50][11]:.4f} | {best_experiments[75][11]:.4f} | {best_experiments[100][11]:.4f} |")
+          f"{best_experiments[25][12]:.4f} | {best_experiments[50][12]:.4f} | {best_experiments[75][12]:.4f} | {best_experiments[100][12]:.4f} |")
     print(f"|        | ADE_b Std  | [{best_experiments[25][5]:.4f}] | [{best_experiments[50][5]:.4f}] | [{best_experiments[75][5]:.4f}] | [{best_experiments[100][5]:.4f}] | "
-          f"[{best_experiments[25][12]:.4f}] | [{best_experiments[50][12]:.4f}] | [{best_experiments[75][12]:.4f}] | [{best_experiments[100][12]:.4f}] |")
+          f"[{best_experiments[25][13]:.4f}] | [{best_experiments[50][13]:.4f}] | [{best_experiments[75][13]:.4f}] | [{best_experiments[100][13]:.4f}] |")
         # ADE_c
     print(f"|        | ADE_c Mean | {best_experiments[25][6]:.4f} | {best_experiments[50][6]:.4f} | {best_experiments[75][6]:.4f} | {best_experiments[100][6]:.4f} | "
-          f"{best_experiments[25][13]:.4f} | {best_experiments[50][13]:.4f} | {best_experiments[75][13]:.4f} | {best_experiments[100][13]:.4f} |")
+          f"{best_experiments[25][14]:.4f} | {best_experiments[50][14]:.4f} | {best_experiments[75][14]:.4f} | {best_experiments[100][14]:.4f} |")
     print(f"|        | ADE_c Std  | [{best_experiments[25][7]:.4f}] | [{best_experiments[50][7]:.4f}] | [{best_experiments[75][7]:.4f}] | [{best_experiments[100][7]:.4f}] | "
-          f"[{best_experiments[25][14]:.4f}] | [{best_experiments[50][14]:.4f}] | [{best_experiments[75][14]:.4f}] | [{best_experiments[100][14]:.4f}] |")
+          f"[{best_experiments[25][15]:.4f}] | [{best_experiments[50][15]:.4f}] | [{best_experiments[75][15]:.4f}] | [{best_experiments[100][15]:.4f}] |")
         # ADE_d
     print(f"|        | ADE_d Mean | {best_experiments[25][8]:.4f} | {best_experiments[50][8]:.4f} | {best_experiments[75][8]:.4f} | {best_experiments[100][8]:.4f} | "
-          f"{best_experiments[25][15]:.4f} | {best_experiments[50][15]:.4f} | {best_experiments[75][15]:.4f} | {best_experiments[100][15]:.4f} |")
+          f"{best_experiments[25][16]:.4f} | {best_experiments[50][16]:.4f} | {best_experiments[75][16]:.4f} | {best_experiments[100][16]:.4f} |")
     print(f"|        | ADE_d Std  | [{best_experiments[25][9]:.4f}] | [{best_experiments[50][9]:.4f}] | [{best_experiments[75][9]:.4f}] | [{best_experiments[100][9]:.4f}] | "
-          f"[{best_experiments[25][16]:.4f}] | [{best_experiments[50][16]:.4f}] | [{best_experiments[75][16]:.4f}] | [{best_experiments[100][16]:.4f}] |")
+          f"[{best_experiments[25][17]:.4f}] | [{best_experiments[50][17]:.4f}] | [{best_experiments[75][17]:.4f}] | [{best_experiments[100][17]:.4f}] |")
 
 # Main function
 if __name__ == "__main__":
