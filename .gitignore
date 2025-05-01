@@ -11,6 +11,8 @@ data/4_models/phlstm_32_5/*.model
 data/4_models/phlstm_32_5_v2/*.model
 data/4_models/phlstm_32_10/*.model
 data/4_models/phlstm_32_10_v2/*.model
+data/4_models/*.model
+data/4_models/*model_perf.txt
 *.pyc
 *.out
 *.pt

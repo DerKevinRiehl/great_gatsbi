@@ -32,6 +32,9 @@ ML_MODELS_MULTIMODAL_GMM = [
     "physics_lstm",
     "gatsbiv1",
     "gatsbiv2",
+    "gatsbiv3",
+    "gatsbiv4",
+    "gatsbiv5"
 ]
 
 ML_MODELS_MULTIMODAL_CVAE = [

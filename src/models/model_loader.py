@@ -53,11 +53,9 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
         #     if multimodal=="unimodal":  
         #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
         elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
+            model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
-            if multimodal=="unimodal":  
-                model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
+            model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
         else:
             print("ERROR, model in ",model_file_name,"could not be found.")
             sys.exit(-1)
@@ -84,11 +82,9 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
         #     if multimodal=="unimodal":  
         #         model = GATSBIv3(prediction_length=prediction_length)
         elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = GATSBIv4(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv4, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
-            if multimodal=="unimodal":  
-                model = GATSBIv5(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv5, device, prediction_length, multimodal)
         else:
             print("ERROR failed to load model")
             sys.exit(-1)
@@ -127,11 +123,9 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         #     if multimodal=="unimodal":  
         #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
         elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
+            model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
-            if multimodal=="unimodal":  
-                model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
+            model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
                 
     # generate model by creating from scratch
     else:
@@ -150,11 +144,9 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         #     if multimodal=="unimodal":  
         #         model = GATSBIv3(prediction_length=prediction_length)
         elif model_name=="gatsbiv4":
-            if multimodal=="unimodal":  
-                model = GATSBIv4(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv4, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
-            if multimodal=="unimodal":  
-                model = GATSBIv5(prediction_length=prediction_length)
+            model = generate_model_scratch(GATSBIv5, device, prediction_length, multimodal)
         model.to(device)
     return model, last_epoch
 

@@ -235,4 +235,4 @@ class GATSBIv1(nn.Module):
         if not self.gmm:
             return output_decode_unimodal(h_context_fused, self.output), w_ego_attention
         else:
-            return output_decode_multimodal_gmm(h_context_fused, self.num_modes, self.output), w_ego_attention
+            return *output_decode_multimodal_gmm(h_context_fused, self.num_modes, self.output), w_ego_attention
