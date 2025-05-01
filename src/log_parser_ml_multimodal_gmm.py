@@ -141,8 +141,8 @@ def process_results(base_dir, model_name, prediction_lengths):
         if best_experiment is not None:
             print("\n----------")
             print(f"Best Model for [{key}]: Experiment {best_experiment[0]:02d} with Prediction Length {best_experiment[1]} - Lowest Average ADE: {best_experiment[2]:.4f}")
-            print(f"  ADE Mean: {best_experiment[4]:.4f}, ADE STD: {best_experiment[5]:.4f}")
-            print(f"  FDE Mean: {best_experiment[12]:.4f}, FDE STD: {best_experiment[13]:.4f}")
+            print(f"  ADE Mean: {best_experiment[8]:.4f}, ADE STD: {best_experiment[9]:.4f}")
+            print(f"  FDE Mean: {best_experiment[16]:.4f}, FDE STD: {best_experiment[17]:.4f}")
         else:
             print("\nNo valid experiments found.")
     
