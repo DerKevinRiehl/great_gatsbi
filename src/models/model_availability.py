@@ -19,24 +19,28 @@ ML_MODELS_UNIMODAL = [
     "social_lstm",
     "social_bigat",
     "physics_lstm",
+    "physics_lstmv2",
     "gatsbiv1",
     "gatsbiv2",
     "gatsbiv3",
     "gatsbiv4",
     "gatsbiv5",
-    "gatsbiv6"
+    "gatsbiv6",
+    "ego_lstm",   
 ]
 
 ML_MODELS_MULTIMODAL_GMM = [
     "social_lstm",
     "social_bigat",
     "physics_lstm",
+    "physics_lstmv2",
     "gatsbiv1",
     "gatsbiv2",
     "gatsbiv3",
     "gatsbiv4",
     "gatsbiv5",
-    "gatsbiv6"
+    "gatsbiv6",
+    "ego_lstm",   
 ]
 
 ML_MODELS_MULTIMODAL_CVAE = [
