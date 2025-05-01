@@ -23,7 +23,8 @@ ML_MODELS_UNIMODAL = [
     "gatsbiv2",
     "gatsbiv3",
     "gatsbiv4",
-    "gatsbiv5"
+    "gatsbiv5",
+    "gatsbiv6"
 ]
 
 ML_MODELS_MULTIMODAL_GMM = [
@@ -34,7 +35,8 @@ ML_MODELS_MULTIMODAL_GMM = [
     "gatsbiv2",
     "gatsbiv3",
     "gatsbiv4",
-    "gatsbiv5"
+    "gatsbiv5",
+    "gatsbiv6"
 ]
 
 ML_MODELS_MULTIMODAL_CVAE = [
