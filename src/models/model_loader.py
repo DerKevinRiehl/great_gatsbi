@@ -27,7 +27,8 @@ from models.model_physics_lstm import PhysicsLSTM
 from models.model_gatsbi_v1 import GATSBIv1
 # from models.model_gatsbi_v2 import GATSBIv2
 # from models.model_gatsbi_v3 import GATSBIv3, load_gatsbi_modelv3
-# from models.model_gatsbi_v4 import GATSBIv4, load_gatsbi_modelv4
+from models.model_gatsbi_v4 import GATSBIv4
+from models.model_gatsbi_v5 import GATSBIv5
 
 from models.model_utils import load_model, generate_model_scratch
 
@@ -51,9 +52,12 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
         # elif model_name=="gatsbiv3":
         #     if multimodal=="unimodal":  
         #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
-        # elif model_name=="gatsbiv4":
-        #     if multimodal=="unimodal":  
-        #         model = load_gatsbi_modelv4(model_path, device, prediction_length)
+        elif model_name=="gatsbiv4":
+            if multimodal=="unimodal":  
+                model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv5":
+            if multimodal=="unimodal":  
+                model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
         else:
             print("ERROR, model in ",model_file_name,"could not be found.")
             sys.exit(-1)
@@ -79,9 +83,12 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
         # elif model_name=="gatsbiv3":
         #     if multimodal=="unimodal":  
         #         model = GATSBIv3(prediction_length=prediction_length)
-        # elif model_name=="gatsbiv4":
-        #     if multimodal=="unimodal":  
-        #         model = GATSBIv4(prediction_length=prediction_length)
+        elif model_name=="gatsbiv4":
+            if multimodal=="unimodal":  
+                model = GATSBIv4(prediction_length=prediction_length)
+        elif model_name=="gatsbiv5":
+            if multimodal=="unimodal":  
+                model = GATSBIv5(prediction_length=prediction_length)
         else:
             print("ERROR failed to load model")
             sys.exit(-1)
@@ -119,9 +126,12 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         # elif model_name=="gatsbiv3":
         #     if multimodal=="unimodal":  
         #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
-        # elif model_name=="gatsbiv4":
-        #     if multimodal=="unimodal":  
-        #         model = load_gatsbi_modelv4(model_path, device, prediction_length)
+        elif model_name=="gatsbiv4":
+            if multimodal=="unimodal":  
+                model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv5":
+            if multimodal=="unimodal":  
+                model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
                 
     # generate model by creating from scratch
     else:
@@ -139,9 +149,12 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         # elif model_name=="gatsbiv3":
         #     if multimodal=="unimodal":  
         #         model = GATSBIv3(prediction_length=prediction_length)
-        # elif model_name=="gatsbiv4":
-        #     if multimodal=="unimodal":  
-        #         model = GATSBIv4(prediction_length=prediction_length)
+        elif model_name=="gatsbiv4":
+            if multimodal=="unimodal":  
+                model = GATSBIv4(prediction_length=prediction_length)
+        elif model_name=="gatsbiv5":
+            if multimodal=="unimodal":  
+                model = GATSBIv5(prediction_length=prediction_length)
         model.to(device)
     return model, last_epoch
 
@@ -164,7 +177,7 @@ def unpack_data(data, model_name, prediction_length):
         future_trajs = future_trajs[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists)
-    elif model_name=="gatsbiv1" or model_name=="gatsbiv2" or model_name=="gatsbiv4":
+    elif model_name=="gatsbiv1" or model_name=="gatsbiv2" or model_name=="gatsbiv4" or model_name=="gatsbiv5":
         # unpack data
         ego_hists = data['ego_trajectory_history']
         future_trajs = data['ego_trajectory_future']
