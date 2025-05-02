@@ -29,6 +29,7 @@ from models.model_gatsbi_v1 import GATSBIv1
 # from models.model_gatsbi_v2 import GATSBIv2
 # from models.model_gatsbi_v3 import GATSBIv3, load_gatsbi_modelv3
 from models.model_gatsbi_v4 import GATSBIv4
+from models.model_gatsbi_v4_physics_ablation import GATSBIv4_AblPhy
 from models.model_gatsbi_v5 import GATSBIv5
 from models.model_gatsbi_v6 import GATSBIv6
 from models.model_ego_lstm import EgoLSTM
@@ -59,6 +60,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
         #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
         elif model_name=="gatsbiv4":
             model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physics_ablation":
+            model = load_model(GATSBIv4_AblPhy, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -94,6 +97,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
         #         model = GATSBIv3(prediction_length=prediction_length)
         elif model_name=="gatsbiv4":
             model = generate_model_scratch(GATSBIv4, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physics_ablation":
+            model = generate_model_scratch(GATSBIv4_AblPhy, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = generate_model_scratch(GATSBIv5, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -141,6 +146,8 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         #         model = load_gatsbi_modelv3(model_path, device, prediction_length)
         elif model_name=="gatsbiv4":
             model = load_model(GATSBIv4, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physics_ablation":
+            model = load_model(GATSBIv4_AblPhy, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -168,6 +175,8 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
         #         model = GATSBIv3(prediction_length=prediction_length)
         elif model_name=="gatsbiv4":
             model = generate_model_scratch(GATSBIv4, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physics_ablation":
+            model = generate_model_scratch(GATSBIv4_AblPhy, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = generate_model_scratch(GATSBIv5, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -196,7 +205,23 @@ def unpack_data(data, model_name, prediction_length):
         future_trajs = future_trajs[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists)
-    elif model_name=="gatsbiv1" or model_name=="gatsbiv2" or model_name=="gatsbiv4" or model_name=="gatsbiv5" or model_name=="gatsbiv6":
+    elif model_name=="gatsbiv3":
+        # unpack data
+        ego_hists = data['ego_trajectory_history']
+        future_trajs = data['ego_trajectory_future']
+            # social feature        
+        neighbor_hists = data['neighbor_trajectory_history']
+        adj_matrixs = data["neighbor_adjacency_matrix"]
+            # physics feature
+        pred_cv = data["preds_cv"]
+            # road feature
+        road_dist = data["ego_road_border_distance"]
+        # cut future trajectories to prediction length of model
+        future_trajs = future_trajs[:, :prediction_length, :]
+        pred_cv = pred_cv[:, :prediction_length, :]
+        # create tensordataset
+        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, road_dist)
+    elif model_name.startswith("gatsbi"):
         # unpack data
         ego_hists = data['ego_trajectory_history']
         future_trajs = data['ego_trajectory_future']
@@ -216,22 +241,6 @@ def unpack_data(data, model_name, prediction_length):
         pred_xk = pred_xk[:, :prediction_length, :]
         # create tensordataset
         dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, pred_ca, pred_bk, pred_xk)
-    elif model_name=="gatsbiv3":
-        # unpack data
-        ego_hists = data['ego_trajectory_history']
-        future_trajs = data['ego_trajectory_future']
-            # social feature        
-        neighbor_hists = data['neighbor_trajectory_history']
-        adj_matrixs = data["neighbor_adjacency_matrix"]
-            # physics feature
-        pred_cv = data["preds_cv"]
-            # road feature
-        road_dist = data["ego_road_border_distance"]
-        # cut future trajectories to prediction length of model
-        future_trajs = future_trajs[:, :prediction_length, :]
-        pred_cv = pred_cv[:, :prediction_length, :]
-        # create tensordataset
-        dataset = torch.utils.data.TensorDataset(future_trajs, ego_hists, neighbor_hists, adj_matrixs, pred_cv, road_dist)
     elif model_name.startswith("physics_lstm"):
         # unpack data
         ego_hists = data['ego_trajectory_history']
