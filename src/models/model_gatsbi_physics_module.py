@@ -6,7 +6,7 @@ Organization:   ANONYMOUS
 Development:    2025
 Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
-This file contains the implementation of a physics-informed LSTM, that leverages
+This file contains the implementation of GATsBi's physics model, that leverages
 not only the ego vehicle's historical trajectory, but also the forecasts from
 constant velocity, constant acceleration, bicycle-kinematic, and extended-Kalman-filtering prediction models.
 """
@@ -27,9 +27,9 @@ from models.model_utils import output_decode_unimodal, output_decode_multimodal_
 # #############################################################################
 # ### MODEL
     
-class PhysicsLSTMv2(nn.Module):
+class GATsBi_Physics_Module(nn.Module):
     def __init__(self, prediction_length=25, input_dim=2, hidden_dim=64, output_dim=2, gmm=False, num_modes=5):
-        super(PhysicsLSTMv2, self).__init__()
+        super(GATsBi_Physics_Module, self).__init__()
         # ### PARAMS
             # general
         self.prediction_length = prediction_length

@@ -9,7 +9,7 @@ Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 This runnable Python script parses all log files to calculate final statistics for results table.
 This only covers the ML models that have been trained for 50 epochs on 5 different test-training splits.
 Usage: python log_parser_ml_multimodal_gmm.py [1]
-    [1] - model_name ("social_lstm" or "social_bigat" or "physics_lstm" or "gatsbiv1" or "gatsbiv2")
+    [1] - model_name ("social_lstm" or "social_bigat" or "gatsbi")
     
 Example:
     python log_parser_ml_multimodal_gmm.py social_lstm

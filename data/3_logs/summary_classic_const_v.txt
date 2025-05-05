@@ -1,0 +1,87 @@
+[test_model_all.py] Testing Model const_v no 25 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ const_v no 25 ]
+{'ADE': 0.11273600906133652, 'FDE': 0.27221187949180603}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ const_v no 25 ]
+{'ADE': 0.11030545085668564, 'FDE': 0.263317346572876}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ const_v no 25 ]
+{'ADE': 0.09310049563646317, 'FDE': 0.2242431789636612}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ const_v no 25 ]
+{'ADE': 0.10967632383108139, 'FDE': 0.26147517561912537}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ const_v no 25 ]
+{'ADE': 0.11424482613801956, 'FDE': 0.27482160925865173}
+===========================
+Final Test Results
+>> ADE 0.10801262110471725 [ 0.007636062262449536 ] across 5 splits
+>> FDE 0.25921383798122405 [ 0.018206872494507725 ] across 5 splits
+
+[test_model_all.py] Testing Model const_v no 50 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ const_v no 50 ]
+{'ADE': 0.29649898409843445, 'FDE': 0.6900342702865601}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ const_v no 50 ]
+{'ADE': 0.28507453203201294, 'FDE': 0.6623629927635193}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ const_v no 50 ]
+{'ADE': 0.24461232125759125, 'FDE': 0.5726990699768066}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ const_v no 50 ]
+{'ADE': 0.2846790850162506, 'FDE': 0.6684837341308594}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ const_v no 50 ]
+{'ADE': 0.2978956699371338, 'FDE': 0.6905971169471741}
+===========================
+Final Test Results
+>> ADE 0.28175211846828463 [ 0.01937552271219469 ] across 5 splits
+>> FDE 0.6568354368209839 [ 0.04355956500947484 ] across 5 splits
+
+[test_model_all.py] Testing Model const_v no 75 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ const_v no 75 ]
+{'ADE': 0.5575750470161438, 'FDE': 1.4944883584976196}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ const_v no 75 ]
+{'ADE': 0.5572905540466309, 'FDE': 1.5781669616699219}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ const_v no 75 ]
+{'ADE': 0.4601741433143616, 'FDE': 1.2250412702560425}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ const_v no 75 ]
+{'ADE': 0.5887207984924316, 'FDE': 1.781162142753601}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ const_v no 75 ]
+{'ADE': 0.5660714507102966, 'FDE': 1.5434224605560303}
+===========================
+Final Test Results
+>> ADE 0.5459663987159729 [ 0.04439698213199846 ] across 5 splits
+>> FDE 1.5244562387466432 [ 0.17871199046596778 ] across 5 splits
+
+[test_model_all.py] Testing Model const_v no 100 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ const_v no 100 ]
+{'ADE': 0.9272697567939758, 'FDE': 2.574655771255493}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ const_v no 100 ]
+{'ADE': 0.9727364182472229, 'FDE': 2.8652307987213135}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ const_v no 100 ]
+{'ADE': 0.7589353322982788, 'FDE': 2.082858085632324}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ const_v no 100 ]
+{'ADE': 1.0877408981323242, 'FDE': 3.403474807739258}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ const_v no 100 ]
+{'ADE': 0.9563347697257996, 'FDE': 2.7111637592315674}
+===========================
+Final Test Results
+>> ADE 0.9406034350395203 [ 0.10593443545456072 ] across 5 splits
+>> FDE 2.727476644515991 [ 0.427809102210253 ] across 5 splits

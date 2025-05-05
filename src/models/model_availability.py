@@ -16,37 +16,21 @@ This file contains availability of models with different multimodality.
 # MODEL AVAILABILITIES
 
 ML_MODELS_UNIMODAL = [
+    "ego_lstm",   
     "social_lstm",
     "social_bigat",
-    "physics_lstm",
-    "physics_lstmv2",
-    "gatsbiv1",
-    "gatsbiv2",
-    "gatsbiv3",
-    "gatsbiv4",
-    "gatsbiv4_star",
-    "gatsbiv4_physics_ablation",
-    "gatsbiv4_physicsedge_ablation",
-    "gatsbiv5",
-    "gatsbiv6",
-    "ego_lstm",   
+    "gatsbi_physics_module",
+    "gatsbi_social_module",
+    "gatsbi",
 ]
 
-ML_MODELS_MULTIMODAL_GMM = [
+ML_MODELS_MULTIMODAL_GMM = [    
+    "ego_lstm",   
     "social_lstm",
     "social_bigat",
-    "physics_lstm",
-    "physics_lstmv2",
-    "gatsbiv1",
-    "gatsbiv2",
-    "gatsbiv3",
-    "gatsbiv4",
-    "gatsbiv4_star",
-    "gatsbiv4_physics_ablation",
-    "gatsbiv4_physicsedge_ablation",
-    "gatsbiv5",
-    "gatsbiv6",
-    "ego_lstm",   
+    "gatsbi_physics_module",
+    "gatsbi_social_module",
+    "gatsbi",
 ]
 
 ML_MODELS_MULTIMODAL_CVAE = [

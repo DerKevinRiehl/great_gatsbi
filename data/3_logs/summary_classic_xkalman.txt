@@ -1,0 +1,88 @@
+[test_model_all.py] Testing Model xkalman no 25 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ xkalman no 25 ]
+{'ADE': 0.15056151151657104, 'FDE': 0.32103630900382996}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ xkalman no 25 ]
+{'ADE': 0.14679870009422302, 'FDE': 0.3106021285057068}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ xkalman no 25 ]
+{'ADE': 0.12049715965986252, 'FDE': 0.2606472671031952}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ xkalman no 25 ]
+{'ADE': 0.1515336036682129, 'FDE': 0.31737321615219116}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ xkalman no 25 ]
+{'ADE': 0.15313491225242615, 'FDE': 0.3243997395038605}
+===========================
+Final Test Results
+>> ADE 0.14450517743825914 [ 0.01218355813809823 ] across 5 splits
+>> FDE 0.3068117320537567 [ 0.023531878255972354 ] across 5 splits
+
+[test_model_all.py] Testing Model xkalman no 50 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ xkalman no 50 ]
+{'ADE': 0.3425274193286896, 'FDE': 0.749467670917511}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ xkalman no 50 ]
+{'ADE': 0.3300991952419281, 'FDE': 0.720876932144165}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ xkalman no 50 ]
+{'ADE': 0.27941611409187317, 'FDE': 0.6190851330757141}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ xkalman no 50 ]
+{'ADE': 0.3383631408214569, 'FDE': 0.7421032190322876}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ xkalman no 50 ]
+{'ADE': 0.34385329484939575, 'FDE': 0.7455408573150635}
+===========================
+Final Test Results
+>> ADE 0.3268518328666687 [ 0.024199077293922244 ] across 5 splits
+>> FDE 0.7154147624969482 [ 0.04917049659056795 ] across 5 splits
+
+[test_model_all.py] Testing Model xkalman no 75 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ xkalman no 75 ]
+{'ADE': 0.6091398000717163, 'FDE': 1.5597330331802368}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ xkalman no 75 ]
+{'ADE': 0.6082842946052551, 'FDE': 1.6445947885513306}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ xkalman no 75 ]
+{'ADE': 0.49919596314430237, 'FDE': 1.272790789604187}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ xkalman no 75 ]
+{'ADE': 0.6513441801071167, 'FDE': 1.8668750524520874}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ xkalman no 75 ]
+{'ADE': 0.6153689026832581, 'FDE': 1.5995272397994995}
+===========================
+Final Test Results
+>> ADE 0.5966666281223297 [ 0.051245469046634226 ] across 5 splits
+>> FDE 1.5887041807174682 [ 0.19039985851247196 ] across 5 splits
+
+[test_model_all.py] Testing Model xkalman no 100 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ xkalman no 100 ]
+{'ADE': 0.9826705455780029, 'FDE': 2.643176555633545}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ xkalman no 100 ]
+{'ADE': 1.0281095504760742, 'FDE': 2.9343791007995605}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ xkalman no 100 ]
+{'ADE': 0.7997768521308899, 'FDE': 2.1268491744995117}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ xkalman no 100 ]
+{'ADE': 1.15672767162323, 'FDE': 3.4918644428253174}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ xkalman no 100 ]
+{'ADE': 1.0065478086471558, 'FDE': 2.760258197784424}
+===========================
+Final Test Results
+>> ADE 0.9947664856910705 [ 0.1145855612645472 ] across 5 splits
+>> FDE 2.791305494308472 [ 0.4417377537068515 ] across 5 splits
+

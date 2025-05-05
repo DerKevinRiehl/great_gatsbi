@@ -8,7 +8,7 @@ Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script trains a model.
 Usage: python train_model.py [1] [2] [3] [4] ([5])
-    [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "physics_lstm")
+    [1] - model ("social_lstm" or "social_bigat" or "gatsbi")
     [2] - prediction_length in [s] (25, 50 , 75, 100)
     [3] - max_epochs
     [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5")
@@ -48,7 +48,7 @@ def print_info():
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
     print("USAGE: python train_model.py [1] [2 [3] [4] ([5])")
-    print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\" or \"physics_lstm\")")
+    print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\")")
     print(" [2] - prediction_length in [s] (25, 50, 75, 100)")
     print(" [3] - max_epochs")
     print(" [4] - split (\"split_1\" or \"split_2\" or \"split_3\" or \"split_4\" or \"split_5\") ")
@@ -78,18 +78,12 @@ if __name__=="__main__":
     multimodal = "unimodal"
     if len(run_arguments)==6:
         multimodal = run_arguments[5]
-    
-    # model_name="gatsbiv2"
-    # prediction_length = 25
-    # max_epochs = 3
-    # split = "split_1"
-    # multimodal = "multimodal_gmm"
-    
+
     # print info statement
     print("[train_model.py] Training Model", model_name, prediction_length, max_epochs, split, multimodal)
     
     # runargs check
-    if not (model_name=="social_lstm" or model_name=="social_bigat" or model_name.startswith("gatsbi") or model_name.startswith("physics_lstm") or model_name=="ego_lstm"):
+    if not (model_name=="social_lstm" or model_name=="social_bigat" or model_name.startswith("gatsbi") or model_name=="ego_lstm"):
         print("ERROR: invalid model")
         print_info()
         sys.exit(-1)

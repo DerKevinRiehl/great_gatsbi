@@ -8,7 +8,7 @@ Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script tests a model on all testing data.
 Usage: python test_model.py [1] [2] [3] [4] ([5])
-    [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
+    [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman")
     [2] - model_file_name
     [3] - prediction_length in [s] (25, 50, 75, 100)
     [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5" or "all")
@@ -24,7 +24,6 @@ Example:
 
 # #############################################################################
 # ### IMPORTS
-import numpy as np
 import torch
 import sys
 import warnings
@@ -63,27 +62,12 @@ if __name__=="__main__":
         sys.exit(-1)
     model_name = run_arguments[1]
     multimodal = run_arguments[2]
-    # model_file_name = run_arguments[2]
-    # prediction_length = int(run_arguments[3])
-    # split = run_arguments[4]
-    # multimodal = "unimodal"
-    # if len(run_arguments)==6:
-    #     multimodal = run_arguments[5]
-        
-    # prediction_length = 25*4
-    # # model_name = "const_a"
-    # model_name = "xkalman"
-    # # model_name = "social_lstm"
-    # model_file_name = "epochs_30/social_lstm_"+str(prediction_length)+"_5.model"
-    # # model_name = "physics_lstm"
-    # # model_file_name = "physics_lstm_25_5.model"
-    # # model_name = "physics_lstm"
-    # # model_file_name = "epochs_10_phlstm/physics_lstm_"+str(prediction_length)+"_5.model"
-    # # model_name = "physics_lstm"
-    # # model_file_name = "phlstm_32_10_v2/physics_lstm_"+str(prediction_length)+"_5.model"
-    # split = "all"
-    
-    # multimodal = "multimodal_gmm"
+    model_file_name = run_arguments[2]
+    prediction_length = int(run_arguments[3])
+    split = run_arguments[4]
+    multimodal = "unimodal"
+    if len(run_arguments)==6:
+        multimodal = run_arguments[5]
     
     # setup torch
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

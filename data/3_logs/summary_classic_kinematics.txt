@@ -1,0 +1,87 @@
+[test_model_all.py] Testing Model kinematics no 25 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ kinematics no 25 ]
+{'ADE': 0.11346795409917831, 'FDE': 0.31196317076683044}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ kinematics no 25 ]
+{'ADE': 0.11452537775039673, 'FDE': 0.3139289617538452}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ kinematics no 25 ]
+{'ADE': 0.09279685467481613, 'FDE': 0.25117233395576477}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ kinematics no 25 ]
+{'ADE': 0.11436345428228378, 'FDE': 0.3138621747493744}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ kinematics no 25 ]
+{'ADE': 0.11641047149896622, 'FDE': 0.32253631949424744}
+===========================
+Final Test Results
+>> ADE 0.11031282246112824 [ 0.008810204846073628 ] across 5 splits
+>> FDE 0.30269259214401245 [ 0.026019491634245252 ] across 5 splits
+
+[test_model_all.py] Testing Model kinematics no 50 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ kinematics no 50 ]
+{'ADE': 0.4068421423435211, 'FDE': 1.1383188962936401}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ kinematics no 50 ]
+{'ADE': 0.4081490635871887, 'FDE': 1.1431056261062622}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ kinematics no 50 ]
+{'ADE': 0.3222648501396179, 'FDE': 0.8942157626152039}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ kinematics no 50 ]
+{'ADE': 0.41057154536247253, 'FDE': 1.1568398475646973}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ kinematics no 50 ]
+{'ADE': 0.4229896366596222, 'FDE': 1.1910340785980225}
+===========================
+Final Test Results
+>> ADE 0.3941634476184845 [ 0.03640310404236017 ] across 5 splits
+>> FDE 1.1047028422355651 [ 0.10684659403380495 ] across 5 splits
+
+[test_model_all.py] Testing Model kinematics no 75 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ kinematics no 75 ]
+{'ADE': 0.9059016704559326, 'FDE': 2.723034620285034}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ kinematics no 75 ]
+{'ADE': 0.9253921508789062, 'FDE': 2.8365159034729004}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ kinematics no 75 ]
+{'ADE': 0.7145441770553589, 'FDE': 2.1450705528259277}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ kinematics no 75 ]
+{'ADE': 0.9593184590339661, 'FDE': 3.0297021865844727}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ kinematics no 75 ]
+{'ADE': 0.9518227577209473, 'FDE': 2.8844351768493652}
+===========================
+Final Test Results
+>> ADE 0.8913958430290222 [ 0.09045172581942681 ] across 5 splits
+>> FDE 2.72375168800354 [ 0.3056183992682937 ] across 5 splits
+
+[test_model_all.py] Testing Model kinematics no 100 all
+[TORCH]	RUNNING ON DEVICE: cpu
+[test_model_all.py] Testing Model On Split split_1
+>>Split Test Results [ kinematics no 100 ]
+{'ADE': 1.6347376108169556, 'FDE': 4.921277046203613}
+[test_model_all.py] Testing Model On Split split_2
+>>Split Test Results [ kinematics no 100 ]
+{'ADE': 1.6975189447402954, 'FDE': 5.194154262542725}
+[test_model_all.py] Testing Model On Split split_3
+>>Split Test Results [ kinematics no 100 ]
+{'ADE': 1.2891666889190674, 'FDE': 3.8910727500915527}
+[test_model_all.py] Testing Model On Split split_4
+>>Split Test Results [ kinematics no 100 ]
+{'ADE': 1.8050376176834106, 'FDE': 5.65914249420166}
+[test_model_all.py] Testing Model On Split split_5
+>>Split Test Results [ kinematics no 100 ]
+{'ADE': 1.7282696962356567, 'FDE': 5.23435115814209}
+===========================
+Final Test Results
+>> ADE 1.630946111679077 [ 0.17946544177833984 ] across 5 splits
+>> FDE 4.979999542236328 [ 0.59346474674383 ] across 5 splits
