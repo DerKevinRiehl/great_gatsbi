@@ -31,6 +31,7 @@ from models.model_gatsbi_v1 import GATSBIv1
 from models.model_gatsbi_v4 import GATSBIv4
 from models.model_gatsbi_v4_star import GATSBIv4_Star
 from models.model_gatsbi_v4_physics_ablation import GATSBIv4_AblPhy
+from models.model_gatsbi_v4_physicsedge_ablation import GATSBIv4_AblPhyEdg
 from models.model_gatsbi_v5 import GATSBIv5
 from models.model_gatsbi_v6 import GATSBIv6
 from models.model_ego_lstm import EgoLSTM
@@ -65,6 +66,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = load_model(GATSBIv4_Star, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv4_physics_ablation":
             model = load_model(GATSBIv4_AblPhy, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physicsedge_ablation":
+            model = load_model(GATSBIv4_AblPhyEdg, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -104,6 +107,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = generate_model_scratch(GATSBIv4_Star, device, prediction_length, multimodal)
         elif model_name=="gatsbiv4_physics_ablation":
             model = generate_model_scratch(GATSBIv4_AblPhy, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physicsedge_ablation":
+            model = generate_model_scratch(GATSBIv4_AblPhyEdg, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = generate_model_scratch(GATSBIv5, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -155,6 +160,8 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
             model = load_model(GATSBIv4_Star, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv4_physics_ablation":
             model = load_model(GATSBIv4_AblPhy, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physicsedge_ablation":
+            model = load_model(GATSBIv4_AblPhyEdg, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = load_model(GATSBIv5, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
@@ -186,6 +193,8 @@ def load_model_training(model_name, prediction_length, split, device, multimodal
             model = generate_model_scratch(GATSBIv4_Star, device, prediction_length, multimodal)
         elif model_name=="gatsbiv4_physics_ablation":
             model = generate_model_scratch(GATSBIv4_AblPhy, device, prediction_length, multimodal)
+        elif model_name=="gatsbiv4_physicsedge_ablation":
+            model = generate_model_scratch(GATSBIv4_AblPhyEdg, device, prediction_length, multimodal)
         elif model_name=="gatsbiv5":
             model = generate_model_scratch(GATSBIv5, device, prediction_length, multimodal)
         elif model_name=="gatsbiv6":
