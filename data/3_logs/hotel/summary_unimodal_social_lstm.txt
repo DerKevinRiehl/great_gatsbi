@@ -1,0 +1,231 @@
+Results for prediction length: 2
+File not found: ../data/4_models\social_lstm_2_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\social_lstm_2_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.2024, STD: 0.0000  FDE - Mean: 0.0023, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1911, STD: 0.0000  FDE - Mean: 0.0043, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.2009, STD: 0.0000  FDE - Mean: 0.0029, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.1894, STD: 0.0000  FDE - Mean: 0.0020, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.1889, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1915, STD: 0.0000  FDE - Mean: 0.0020, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.1906, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.1885, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.1876, STD: 0.0000  FDE - Mean: 0.0007, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.1886, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.1904, STD: 0.0000  FDE - Mean: 0.0027, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1853, STD: 0.0000  FDE - Mean: 0.0007, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.1858, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.1866, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.1858, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.1852, STD: 0.0000  FDE - Mean: 0.0017, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.1858, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.1841, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.1829, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.1836, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.1832, STD: 0.0000  FDE - Mean: 0.0014, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.1815, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.1834, STD: 0.0000  FDE - Mean: 0.0019, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.1794, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.1817, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1842, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.1788, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.1813, STD: 0.0000  FDE - Mean: 0.0014, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.1800, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+
+Results for prediction length: 4
+File not found: ../data/4_models\social_lstm_4_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\social_lstm_4_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.1044, STD: 0.0000  FDE - Mean: 0.0010, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1041, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.1041, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.1039, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.1039, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1036, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.0955, STD: 0.0000  FDE - Mean: 0.0020, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.0963, STD: 0.0000  FDE - Mean: 0.0022, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0942, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.0977, STD: 0.0000  FDE - Mean: 0.0014, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0937, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.0949, STD: 0.0000  FDE - Mean: 0.0021, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0945, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0949, STD: 0.0000  FDE - Mean: 0.0016, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.0943, STD: 0.0000  FDE - Mean: 0.0010, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0942, STD: 0.0000  FDE - Mean: 0.0010, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.0950, STD: 0.0000  FDE - Mean: 0.0017, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.0945, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0932, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0937, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0944, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0930, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0912, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.0923, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.0916, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.0916, STD: 0.0000  FDE - Mean: 0.0007, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0901, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0906, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.0916, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+
+Results for prediction length: 6
+File not found: ../data/4_models\social_lstm_6_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\social_lstm_6_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.0726, STD: 0.0000  FDE - Mean: 0.0041, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.0702, STD: 0.0000  FDE - Mean: 0.0014, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.0701, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.0697, STD: 0.0000  FDE - Mean: 0.0007, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.0695, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.0692, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.0659, STD: 0.0000  FDE - Mean: 0.0016, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.0648, STD: 0.0000  FDE - Mean: 0.0016, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0646, STD: 0.0000  FDE - Mean: 0.0019, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.0641, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0625, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.0635, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0650, STD: 0.0000  FDE - Mean: 0.0017, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0628, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.0640, STD: 0.0000  FDE - Mean: 0.0015, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0634, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.0630, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.0634, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0632, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0631, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0636, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0632, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0632, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.0638, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.0641, STD: 0.0000  FDE - Mean: 0.0017, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.0629, STD: 0.0000  FDE - Mean: 0.0010, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0627, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0621, STD: 0.0000  FDE - Mean: 0.0007, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.0623, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+
+Results for prediction length: 10
+File not found: ../data/4_models\social_lstm_10_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\social_lstm_10_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.0435, STD: 0.0000  FDE - Mean: 0.0022, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.0432, STD: 0.0000  FDE - Mean: 0.0019, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.0425, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.0421, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.0426, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.0419, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.0419, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.0420, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0420, STD: 0.0000  FDE - Mean: 0.0006, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.0417, STD: 0.0000  FDE - Mean: 0.0003, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0415, STD: 0.0000  FDE - Mean: 0.0003, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.0398, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0398, STD: 0.0000  FDE - Mean: 0.0018, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0390, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.0396, STD: 0.0000  FDE - Mean: 0.0013, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0388, STD: 0.0000  FDE - Mean: 0.0008, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.0389, STD: 0.0000  FDE - Mean: 0.0010, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.0380, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0387, STD: 0.0000  FDE - Mean: 0.0012, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0382, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0383, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0379, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0382, STD: 0.0000  FDE - Mean: 0.0009, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.0383, STD: 0.0000  FDE - Mean: 0.0007, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.0382, STD: 0.0000  FDE - Mean: 0.0004, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.0375, STD: 0.0000  FDE - Mean: 0.0003, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0382, STD: 0.0000  FDE - Mean: 0.0005, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0384, STD: 0.0000  FDE - Mean: 0.0011, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.0375, STD: 0.0000  FDE - Mean: 0.0003, STD: 0.0000
+
+----------
+Best Model for [2]: Experiment 27 with Prediction Length 2 - Lowest Average ADE: 0.1788
+  ADE Mean: 0.1788, ADE STD: 0.0000
+  FDE Mean: 0.0013, FDE STD: 0.0000
+
+----------
+Best Model for [4]: Experiment 27 with Prediction Length 4 - Lowest Average ADE: 0.0901
+  ADE Mean: 0.0901, ADE STD: 0.0000
+  FDE Mean: 0.0009, FDE STD: 0.0000
+
+----------
+Best Model for [6]: Experiment 28 with Prediction Length 6 - Lowest Average ADE: 0.0621
+  ADE Mean: 0.0621, ADE STD: 0.0000
+  FDE Mean: 0.0007, FDE STD: 0.0000
+
+----------
+Best Model for [10]: Experiment 29 with Prediction Length 10 - Lowest Average ADE: 0.0375
+  ADE Mean: 0.0375, ADE STD: 0.0000
+  FDE Mean: 0.0003, FDE STD: 0.0000
+
+-----------
+Markdown Summary of Best Results:
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|--------|-----|-----|-----|-----|-----|-----|-----|-----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
+| social_lstm | 0.1788 | 0.0901 | 0.0621 | 0.0375 | 0.0013 | 0.0009 | 0.0007 | 0.0003 |
+|       | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] |

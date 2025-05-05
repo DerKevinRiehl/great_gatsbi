@@ -1,0 +1,231 @@
+Results for prediction length: 2
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_2_multimodal_gmm_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.2716, STD: 0.0000  FDE - Mean: 0.1044, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.2297, STD: 0.0000  FDE - Mean: 0.0413, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.2883, STD: 0.0000  FDE - Mean: 0.1406, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.4559, STD: 0.0000  FDE - Mean: 0.4885, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.4291, STD: 0.0000  FDE - Mean: 0.4405, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.3626, STD: 0.0000  FDE - Mean: 0.2118, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.4830, STD: 0.0000  FDE - Mean: 0.4486, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.2337, STD: 0.0000  FDE - Mean: 0.0348, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.4103, STD: 0.0000  FDE - Mean: 0.3793, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.3760, STD: 0.0000  FDE - Mean: 0.3295, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.3702, STD: 0.0000  FDE - Mean: 0.3224, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.3687, STD: 0.0000  FDE - Mean: 0.3198, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.2274, STD: 0.0000  FDE - Mean: 0.0329, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.3706, STD: 0.0000  FDE - Mean: 0.3052, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.3231, STD: 0.0000  FDE - Mean: 0.2291, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.3603, STD: 0.0000  FDE - Mean: 0.3039, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.3710, STD: 0.0000  FDE - Mean: 0.3252, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.4078, STD: 0.0000  FDE - Mean: 0.3965, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.2655, STD: 0.0000  FDE - Mean: 0.0965, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.2252, STD: 0.0000  FDE - Mean: 0.0242, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.2179, STD: 0.0000  FDE - Mean: 0.0156, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.2329, STD: 0.0000  FDE - Mean: 0.0486, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.2173, STD: 0.0000  FDE - Mean: 0.0144, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.2585, STD: 0.0000  FDE - Mean: 0.0983, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.2289, STD: 0.0000  FDE - Mean: 0.0463, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.2170, STD: 0.0000  FDE - Mean: 0.0232, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.3144, STD: 0.0000  FDE - Mean: 0.1986, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.2239, STD: 0.0000  FDE - Mean: 0.0196, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.2324, STD: 0.0000  FDE - Mean: 0.0312, STD: 0.0000
+
+Results for prediction length: 4
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_4_multimodal_gmm_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.1243, STD: 0.0000  FDE - Mean: 0.0221, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1551, STD: 0.0000  FDE - Mean: 0.0644, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.1778, STD: 0.0000  FDE - Mean: 0.1315, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.3904, STD: 0.0000  FDE - Mean: 0.4103, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.2510, STD: 0.0000  FDE - Mean: 0.2080, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1824, STD: 0.0000  FDE - Mean: 0.1092, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.1851, STD: 0.0000  FDE - Mean: 0.1138, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.1333, STD: 0.0000  FDE - Mean: 0.0316, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.3635, STD: 0.0000  FDE - Mean: 0.3865, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.3916, STD: 0.0000  FDE - Mean: 0.4138, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.1495, STD: 0.0000  FDE - Mean: 0.0884, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1135, STD: 0.0000  FDE - Mean: 0.0049, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.1385, STD: 0.0000  FDE - Mean: 0.0497, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.5444, STD: 0.0000  FDE - Mean: 0.7056, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.6765, STD: 0.0000  FDE - Mean: 0.7977, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.2375, STD: 0.0000  FDE - Mean: 0.1665, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.1238, STD: 0.0000  FDE - Mean: 0.0079, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.1230, STD: 0.0000  FDE - Mean: 0.0236, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.3721, STD: 0.0000  FDE - Mean: 0.4437, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.3728, STD: 0.0000  FDE - Mean: 0.4463, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.3694, STD: 0.0000  FDE - Mean: 0.4439, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.3668, STD: 0.0000  FDE - Mean: 0.4417, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.3685, STD: 0.0000  FDE - Mean: 0.4430, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.2633, STD: 0.0000  FDE - Mean: 0.2119, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.1177, STD: 0.0000  FDE - Mean: 0.0180, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1813, STD: 0.0000  FDE - Mean: 0.1015, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.1563, STD: 0.0000  FDE - Mean: 0.0739, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.1290, STD: 0.0000  FDE - Mean: 0.0281, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.2486, STD: 0.0000  FDE - Mean: 0.1951, STD: 0.0000
+
+Results for prediction length: 6
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_6_multimodal_gmm_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.2166, STD: 0.0000  FDE - Mean: 0.2052, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.2913, STD: 0.0000  FDE - Mean: 0.2605, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.1648, STD: 0.0000  FDE - Mean: 0.0841, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.2810, STD: 0.0000  FDE - Mean: 0.3069, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.3982, STD: 0.0000  FDE - Mean: 0.4185, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.0893, STD: 0.0000  FDE - Mean: 0.0108, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.6362, STD: 0.0000  FDE - Mean: 0.6855, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.0994, STD: 0.0000  FDE - Mean: 0.0310, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.1014, STD: 0.0000  FDE - Mean: 0.0358, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.2941, STD: 0.0000  FDE - Mean: 0.2953, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0737, STD: 0.0000  FDE - Mean: 0.0026, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1007, STD: 0.0000  FDE - Mean: 0.0209, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.2726, STD: 0.0000  FDE - Mean: 0.2436, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.1105, STD: 0.0000  FDE - Mean: 0.0480, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.1403, STD: 0.0000  FDE - Mean: 0.0662, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0906, STD: 0.0000  FDE - Mean: 0.0384, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.4977, STD: 0.0000  FDE - Mean: 0.5703, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.4038, STD: 0.0000  FDE - Mean: 0.4697, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.3075, STD: 0.0000  FDE - Mean: 0.3525, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.2332, STD: 0.0000  FDE - Mean: 0.2513, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.1760, STD: 0.0000  FDE - Mean: 0.1706, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.1375, STD: 0.0000  FDE - Mean: 0.1154, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.1143, STD: 0.0000  FDE - Mean: 0.0723, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.1040, STD: 0.0000  FDE - Mean: 0.0528, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.0982, STD: 0.0000  FDE - Mean: 0.0401, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1032, STD: 0.0000  FDE - Mean: 0.0505, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.1201, STD: 0.0000  FDE - Mean: 0.0807, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.2365, STD: 0.0000  FDE - Mean: 0.2750, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.3083, STD: 0.0000  FDE - Mean: 0.3663, STD: 0.0000
+
+Results for prediction length: 10
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_10_multimodal_gmm_HOTEL_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.0481, STD: 0.0000  FDE - Mean: 0.0061, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.0462, STD: 0.0000  FDE - Mean: 0.0041, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.0535, STD: 0.0000  FDE - Mean: 0.0132, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.7197, STD: 0.0000  FDE - Mean: 0.7516, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.0517, STD: 0.0000  FDE - Mean: 0.0055, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.3967, STD: 0.0000  FDE - Mean: 0.3982, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.2408, STD: 0.0000  FDE - Mean: 0.2448, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.0523, STD: 0.0000  FDE - Mean: 0.0084, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0597, STD: 0.0000  FDE - Mean: 0.0199, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.0459, STD: 0.0000  FDE - Mean: 0.0053, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0492, STD: 0.0000  FDE - Mean: 0.0080, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1462, STD: 0.0000  FDE - Mean: 0.1563, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0577, STD: 0.0000  FDE - Mean: 0.0166, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0754, STD: 0.0000  FDE - Mean: 0.0379, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.0465, STD: 0.0000  FDE - Mean: 0.0040, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.2206, STD: 0.0000  FDE - Mean: 0.1929, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.2831, STD: 0.0000  FDE - Mean: 0.2692, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.0566, STD: 0.0000  FDE - Mean: 0.0200, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0554, STD: 0.0000  FDE - Mean: 0.0152, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0516, STD: 0.0000  FDE - Mean: 0.0101, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0964, STD: 0.0000  FDE - Mean: 0.0414, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.3204, STD: 0.0000  FDE - Mean: 0.3276, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.2125, STD: 0.0000  FDE - Mean: 0.2013, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.1342, STD: 0.0000  FDE - Mean: 0.1101, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.1294, STD: 0.0000  FDE - Mean: 0.1062, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.0560, STD: 0.0000  FDE - Mean: 0.0112, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0471, STD: 0.0000  FDE - Mean: 0.0048, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.2688, STD: 0.0000  FDE - Mean: 0.2644, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.2678, STD: 0.0000  FDE - Mean: 0.2632, STD: 0.0000
+
+----------
+Best Model for [2]: Experiment 26 with Prediction Length 2 - Lowest Average ADE: 0.2170
+  ADE Mean: 0.2170, ADE STD: 0.0000
+  FDE Mean: 0.0232, FDE STD: 0.0000
+
+----------
+Best Model for [4]: Experiment 12 with Prediction Length 4 - Lowest Average ADE: 0.1135
+  ADE Mean: 0.1135, ADE STD: 0.0000
+  FDE Mean: 0.0049, FDE STD: 0.0000
+
+----------
+Best Model for [6]: Experiment 11 with Prediction Length 6 - Lowest Average ADE: 0.0737
+  ADE Mean: 0.0737, ADE STD: 0.0000
+  FDE Mean: 0.0026, FDE STD: 0.0000
+
+----------
+Best Model for [10]: Experiment 10 with Prediction Length 10 - Lowest Average ADE: 0.0459
+  ADE Mean: 0.0459, ADE STD: 0.0000
+  FDE Mean: 0.0053, FDE STD: 0.0000
+
+-----------
+Markdown Summary of Best Results:
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|--------|-----|-----|-----|-----|-----|-----|-----|-----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
+| gatsbi | 0.2170 | 0.1135 | 0.0737 | 0.0459 | 0.0232 | 0.0049 | 0.0026 | 0.0053 |
+|       | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] |

@@ -84,12 +84,12 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
 # #############################################################################
 # METHODS FOR TRAINING
 
-def load_model_training(model_name, prediction_length, split, device, multimodal):
+def load_model_training(model_name, prediction_length, source, device, multimodal):
     # determine available models from last run
     files = os.listdir("../data/4_models/")
-    relevant_files = [file for file in files if file.startswith(model_name+"_"+str(prediction_length)+"_"+split) and file.endswith(".model")]
+    relevant_files = [file for file in files if file.startswith(model_name+"_"+str(prediction_length)+"_"+source) and file.endswith(".model")]
     if multimodal=="multimodal_gmm" or multimodal=="multimodal_cvae":
-        relevant_files = [file for file in files if file.startswith(model_name+"_"+str(prediction_length)+"_"+multimodal+"_"+split) and file.endswith(".model")]
+        relevant_files = [file for file in files if file.startswith(model_name+"_"+str(prediction_length)+"_"+multimodal+"_"+source) and file.endswith(".model")]
     # generate model by loading from file
     last_epoch = -1
     if len(relevant_files)>0:

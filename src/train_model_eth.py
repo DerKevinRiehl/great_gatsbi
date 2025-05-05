@@ -6,17 +6,17 @@ Organization:   ANONYMOUS
 Development:    2025
 Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
-This runnable Python script trains a model.
-Usage: python train_model.py [1] [2] [3] [4] ([5])
+This runnable Python script trains a model on the ETH pedestrian dataset.
+Usage: python train_model_eth.py [1] [2] [3] [4] ([5])
     [1] - model ("social_lstm" or "social_bigat" or "gatsbi")
-    [2] - prediction_length in [s] (25, 50, 75, 100)
+    [2] - prediction_length in [s] (2, 4, 6, 10)
     [3] - max_epochs
-    [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5")
+    [4] - data_set ("ETH" or "HOTEL")
     optional:
     [5] - multimodal ("unimodal" or "multimodal_gmm" or "multimodal_cvae")
     
 Example:
-    python train_model.py social_lstm 25 10 split_1 unimodal
+    python train_model_eth.py social_lstm 25 10 ETH unimodal
 """
 
 
@@ -26,6 +26,7 @@ Example:
 # ### IMPORTS
 import torch
 import torch.optim as optim
+from torch.utils.data import DataLoader, Subset
 from tqdm import tqdm
 import sys
 import warnings
@@ -34,7 +35,7 @@ warnings.filterwarnings("ignore")
 from training.testing_function import test_model
 from models.model_loader import unpack_trajectory_prediction, load_model_training
 from models.model_availability import ML_MODELS_UNIMODAL, ML_MODELS_MULTIMODAL_GMM, ML_MODELS_MULTIMODAL_CVAE
-from data.dataset_loader import load_dataset
+from data_eth.dataset_loader import load_dataset
 from training.loss_functions import compute_ADE_train, compute_FDE_train, gmm_loss
 import utils.constants as cs
 
@@ -47,15 +48,15 @@ def print_info():
     print("-------------------------------------------")
     print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
     print("-------------------------------------------")
-    print("USAGE: python train_model.py [1] [2 [3] [4] ([5])")
+    print("USAGE: python train_model_eth.py [1] [2 [3] [4] ([5])")
     print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\")")
-    print(" [2] - prediction_length in [s] (25, 50, 75, 100)")
+    print(" [2] - prediction_length in [s] (2, 4, 6, 10)")
     print(" [3] - max_epochs")
-    print(" [4] - split (\"split_1\" or \"split_2\" or \"split_3\" or \"split_4\" or \"split_5\") ")
+    print(" [4] - data_set (\"ETH\" or \"HOTEL\")")
     print(" (optional):")
     print(" [5] - multi_modal (\"unimodal\" or \"multimodal_gmm\" or \"multimodal_cvae\")")
     print("")
-    print("Example: python train_model.py social_lstm 25 50 split_1 unimodal")
+    print("Example: python train_model_eth.py social_lstm 25 50 ETH unimodal")
     print("-------------------------------------------")
 
 
@@ -74,21 +75,17 @@ if __name__=="__main__":
     model_name = run_arguments[1]
     prediction_length = int(run_arguments[2])
     max_epochs = int(run_arguments[3])
-    split = run_arguments[4]
+    data_set = run_arguments[4]
     multimodal = "unimodal"
     if len(run_arguments)==6:
         multimodal = run_arguments[5]
 
     # print info statement
-    print("[train_model.py] Training Model", model_name, prediction_length, max_epochs, split, multimodal)
+    print("[train_model_eth.py] Training Model", model_name, prediction_length, max_epochs, data_set, multimodal)
     
     # runargs check
     if not (model_name=="social_lstm" or model_name=="social_bigat" or model_name.startswith("gatsbi") or model_name=="ego_lstm"):
         print("ERROR: invalid model")
-        print_info()
-        sys.exit(-1)
-    if (not split in cs.TRAIN_TEST_SPLITS):
-        print("ERROR: invalid split")
         print_info()
         sys.exit(-1)
     if not (multimodal=="unimodal" or multimodal=="multimodal_gmm" or multimodal=="multimodal_cvae"):
@@ -116,13 +113,23 @@ if __name__=="__main__":
     print("[TORCH]\tRUNNING ON DEVICE:", device)
     
     # prepare data
-    training_dataset = load_dataset(model_name, cs.TRAIN_TEST_SPLITS[split]["TRAINING_VIDEOS"], prediction_length)
-    train_loader = torch.utils.data.DataLoader(training_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
-    testing_dataset = load_dataset(model_name, cs.TRAIN_TEST_SPLITS[split]["TESTING_VIDEOS"], prediction_length)
-    testing_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
+    dataset = load_dataset(model_name, data_set, prediction_length)    
+        # Assume 'dataset' is your TensorDataset
+    dataset_size = len(dataset)
+    train_size = int(0.8 * dataset_size)
+    test_size = dataset_size - train_size
+    # Indices for splitting (no shuffling)
+    train_indices = list(range(0, train_size))
+    test_indices = list(range(train_size, dataset_size))
+    # Create Subsets
+    training_dataset = Subset(dataset, train_indices)
+    testing_dataset = Subset(dataset, test_indices)
+    # DataLoaders (replace cs.BATCH_SIZE with your batch size variable)
+    train_loader = DataLoader(training_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
+    testing_loader = DataLoader(testing_dataset, batch_size=cs.BATCH_SIZE, shuffle=True)
     
     # load last available model
-    model, last_epoch = load_model_training(model_name, prediction_length, split, device, multimodal)
+    model, last_epoch = load_model_training(model_name, prediction_length, data_set, device, multimodal)
     
     # define loss functions
     if multimodal=="unimodal":
@@ -135,7 +142,7 @@ if __name__=="__main__":
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
     
     # train model
-    print("[train_model.py] Everything prepared, lets start training on dataset, size:", [x.shape for x in training_dataset[0]])
+    print("[train_model_eth.py] Everything prepared, lets start training on dataset, size:", [x.shape for x in training_dataset[0]])
     model.to(device)
     for epoch in range(last_epoch+1, max_epochs):
         # Conduct Training Over All Batches For One Epoch
@@ -173,9 +180,9 @@ if __name__=="__main__":
         avg_loss = total_loss / num_batches
         print(f"[Epoch {epoch+1}] Average Training ADE Loss: {avg_loss:.4f}")        
         # Save Snapshot Of Model
-        model_path = f"../data/4_models/{model_name}_{prediction_length:}_{split}_{epoch:02d}.model" # save model checkpoint after every epoch
+        model_path = f"../data/4_models/{model_name}_{prediction_length:}_{data_set}_{epoch:02d}.model" # save model checkpoint after every epoch
         if multimodal=="multimodal_gmm" or multimodal=="multimodal_cvae":
-            model_path = f"../data/4_models/{model_name}_{prediction_length:}_{multimodal}_{split}_{epoch:02d}.model" # save model checkpoint after every epoch
+            model_path = f"../data/4_models/{model_name}_{prediction_length:}_{multimodal}_{data_set}_{epoch:02d}.model" # save model checkpoint after every epoch
         torch.save(model.state_dict(), model_path, _use_new_zipfile_serialization=False) # downwards compatible saving
         # Determine Testing Loss
         performances = test_model(model_name, model, testing_loader, loss_functions_testing, prediction_length, device, multimodal)

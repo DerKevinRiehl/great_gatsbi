@@ -31,7 +31,7 @@ import utils.constants as cs
 
 def load_ETH():
     tbl = pd.read_csv(
-        "../data/X_other_datasets/seq_pedest_eth/obsmat.txt",
+        "../data/X_datasets_eth/seq_pedest_eth/obsmat.txt",
         sep=r'\s+',
         engine='python',
         header=None,
@@ -45,7 +45,7 @@ def load_ETH():
 
 def load_HOTEL():
     tbl = pd.read_csv(
-        "../data/X_other_datasets/seq_pedest_hotel/obsmat.txt",
+        "../data/X_datasets_eth/seq_pedest_hotel/obsmat.txt",
         sep=r'\s+',
         engine='python',
         header=None,

@@ -1,0 +1,231 @@
+Results for prediction length: 2
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\social_bigat_2_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.3984, STD: 0.0000  FDE - Mean: 0.2985, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.2971, STD: 0.0000  FDE - Mean: 0.0496, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.5254, STD: 0.0000  FDE - Mean: 0.4809, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.3900, STD: 0.0000  FDE - Mean: 0.2589, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.3935, STD: 0.0000  FDE - Mean: 0.2683, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.4808, STD: 0.0000  FDE - Mean: 0.4284, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.2721, STD: 0.0000  FDE - Mean: 0.0499, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.4472, STD: 0.0000  FDE - Mean: 0.3819, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.2728, STD: 0.0000  FDE - Mean: 0.0244, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.3673, STD: 0.0000  FDE - Mean: 0.2095, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.3691, STD: 0.0000  FDE - Mean: 0.2142, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.3893, STD: 0.0000  FDE - Mean: 0.2015, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.3272, STD: 0.0000  FDE - Mean: 0.0989, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.4565, STD: 0.0000  FDE - Mean: 0.4113, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.4302, STD: 0.0000  FDE - Mean: 0.3650, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.3799, STD: 0.0000  FDE - Mean: 0.2275, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.3209, STD: 0.0000  FDE - Mean: 0.1255, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.2577, STD: 0.0000  FDE - Mean: 0.0211, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.2679, STD: 0.0000  FDE - Mean: 0.0258, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.2696, STD: 0.0000  FDE - Mean: 0.0467, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.2518, STD: 0.0000  FDE - Mean: 0.0129, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.2641, STD: 0.0000  FDE - Mean: 0.0486, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.2955, STD: 0.0000  FDE - Mean: 0.0778, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.3031, STD: 0.0000  FDE - Mean: 0.0589, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.2938, STD: 0.0000  FDE - Mean: 0.0773, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.3216, STD: 0.0000  FDE - Mean: 0.1558, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.2655, STD: 0.0000  FDE - Mean: 0.0142, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.2587, STD: 0.0000  FDE - Mean: 0.0364, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.2621, STD: 0.0000  FDE - Mean: 0.0338, STD: 0.0000
+
+Results for prediction length: 4
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\social_bigat_4_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.1671, STD: 0.0000  FDE - Mean: 0.0332, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.2749, STD: 0.0000  FDE - Mean: 0.1649, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.1492, STD: 0.0000  FDE - Mean: 0.0183, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.1692, STD: 0.0000  FDE - Mean: 0.0477, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.1502, STD: 0.0000  FDE - Mean: 0.0206, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1400, STD: 0.0000  FDE - Mean: 0.0079, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.1433, STD: 0.0000  FDE - Mean: 0.0182, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.1743, STD: 0.0000  FDE - Mean: 0.0613, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.1429, STD: 0.0000  FDE - Mean: 0.0142, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.2168, STD: 0.0000  FDE - Mean: 0.1145, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.1657, STD: 0.0000  FDE - Mean: 0.0405, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1460, STD: 0.0000  FDE - Mean: 0.0174, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.1479, STD: 0.0000  FDE - Mean: 0.0199, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.2514, STD: 0.0000  FDE - Mean: 0.1342, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.1842, STD: 0.0000  FDE - Mean: 0.0671, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.1575, STD: 0.0000  FDE - Mean: 0.0275, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.1653, STD: 0.0000  FDE - Mean: 0.0416, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.1969, STD: 0.0000  FDE - Mean: 0.0836, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.1434, STD: 0.0000  FDE - Mean: 0.0081, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.1462, STD: 0.0000  FDE - Mean: 0.0133, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.1449, STD: 0.0000  FDE - Mean: 0.0120, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.1394, STD: 0.0000  FDE - Mean: 0.0030, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.1514, STD: 0.0000  FDE - Mean: 0.0191, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.1384, STD: 0.0000  FDE - Mean: 0.0035, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.1672, STD: 0.0000  FDE - Mean: 0.0379, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1473, STD: 0.0000  FDE - Mean: 0.0089, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.1405, STD: 0.0000  FDE - Mean: 0.0098, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.1567, STD: 0.0000  FDE - Mean: 0.0304, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.1450, STD: 0.0000  FDE - Mean: 0.0131, STD: 0.0000
+
+Results for prediction length: 6
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\social_bigat_6_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.1012, STD: 0.0000  FDE - Mean: 0.0181, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1023, STD: 0.0000  FDE - Mean: 0.0130, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.3682, STD: 0.0000  FDE - Mean: 0.3812, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.2679, STD: 0.0000  FDE - Mean: 0.2463, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.2268, STD: 0.0000  FDE - Mean: 0.1886, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1063, STD: 0.0000  FDE - Mean: 0.0128, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.3340, STD: 0.0000  FDE - Mean: 0.2957, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.4597, STD: 0.0000  FDE - Mean: 0.5589, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.1912, STD: 0.0000  FDE - Mean: 0.1583, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.4479, STD: 0.0000  FDE - Mean: 0.4942, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.1244, STD: 0.0000  FDE - Mean: 0.0395, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1105, STD: 0.0000  FDE - Mean: 0.0118, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.2718, STD: 0.0000  FDE - Mean: 0.2668, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.4021, STD: 0.0000  FDE - Mean: 0.4746, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.2200, STD: 0.0000  FDE - Mean: 0.2162, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.1706, STD: 0.0000  FDE - Mean: 0.1437, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.3015, STD: 0.0000  FDE - Mean: 0.2792, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.2138, STD: 0.0000  FDE - Mean: 0.1704, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0969, STD: 0.0000  FDE - Mean: 0.0083, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.1305, STD: 0.0000  FDE - Mean: 0.0491, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.2651, STD: 0.0000  FDE - Mean: 0.2213, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.1842, STD: 0.0000  FDE - Mean: 0.1047, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0963, STD: 0.0000  FDE - Mean: 0.0063, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.0957, STD: 0.0000  FDE - Mean: 0.0051, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.1157, STD: 0.0000  FDE - Mean: 0.0302, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.0934, STD: 0.0000  FDE - Mean: 0.0033, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0922, STD: 0.0000  FDE - Mean: 0.0017, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0921, STD: 0.0000  FDE - Mean: 0.0016, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.0922, STD: 0.0000  FDE - Mean: 0.0019, STD: 0.0000
+
+Results for prediction length: 10
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\social_bigat_10_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.0870, STD: 0.0000  FDE - Mean: 0.0368, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.2550, STD: 0.0000  FDE - Mean: 0.2394, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.6174, STD: 0.0000  FDE - Mean: 0.6594, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.1020, STD: 0.0000  FDE - Mean: 0.0547, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.3759, STD: 0.0000  FDE - Mean: 0.4008, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.3835, STD: 0.0000  FDE - Mean: 0.4087, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.4100, STD: 0.0000  FDE - Mean: 0.4401, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.4837, STD: 0.0000  FDE - Mean: 0.5195, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.1739, STD: 0.0000  FDE - Mean: 0.1645, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.0541, STD: 0.0000  FDE - Mean: 0.0030, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0643, STD: 0.0000  FDE - Mean: 0.0100, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.0673, STD: 0.0000  FDE - Mean: 0.0139, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0691, STD: 0.0000  FDE - Mean: 0.0138, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.2494, STD: 0.0000  FDE - Mean: 0.2107, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.0699, STD: 0.0000  FDE - Mean: 0.0160, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0646, STD: 0.0000  FDE - Mean: 0.0080, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.0666, STD: 0.0000  FDE - Mean: 0.0107, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.3085, STD: 0.0000  FDE - Mean: 0.2954, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0726, STD: 0.0000  FDE - Mean: 0.0167, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0641, STD: 0.0000  FDE - Mean: 0.0087, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0611, STD: 0.0000  FDE - Mean: 0.0020, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0682, STD: 0.0000  FDE - Mean: 0.0189, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.1350, STD: 0.0000  FDE - Mean: 0.0898, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.2319, STD: 0.0000  FDE - Mean: 0.1920, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.2068, STD: 0.0000  FDE - Mean: 0.1654, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1427, STD: 0.0000  FDE - Mean: 0.0952, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0695, STD: 0.0000  FDE - Mean: 0.0171, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0639, STD: 0.0000  FDE - Mean: 0.0107, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.0616, STD: 0.0000  FDE - Mean: 0.0080, STD: 0.0000
+
+----------
+Best Model for [2]: Experiment 21 with Prediction Length 2 - Lowest Average ADE: 0.2518
+  ADE Mean: 0.2518, ADE STD: 0.0000
+  FDE Mean: 0.0129, FDE STD: 0.0000
+
+----------
+Best Model for [4]: Experiment 24 with Prediction Length 4 - Lowest Average ADE: 0.1384
+  ADE Mean: 0.1384, ADE STD: 0.0000
+  FDE Mean: 0.0035, FDE STD: 0.0000
+
+----------
+Best Model for [6]: Experiment 28 with Prediction Length 6 - Lowest Average ADE: 0.0921
+  ADE Mean: 0.0921, ADE STD: 0.0000
+  FDE Mean: 0.0016, FDE STD: 0.0000
+
+----------
+Best Model for [10]: Experiment 10 with Prediction Length 10 - Lowest Average ADE: 0.0541
+  ADE Mean: 0.0541, ADE STD: 0.0000
+  FDE Mean: 0.0030, FDE STD: 0.0000
+
+-----------
+Markdown Summary of Best Results:
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|--------|-----|-----|-----|-----|-----|-----|-----|-----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
+| social_bigat | 0.2518 | 0.1384 | 0.0921 | 0.0541 | 0.0129 | 0.0035 | 0.0016 | 0.0030 |
+|       | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] |

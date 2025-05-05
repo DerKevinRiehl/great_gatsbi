@@ -1,0 +1,231 @@
+Results for prediction length: 2
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_2_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.1696, STD: 0.0000  FDE - Mean: 0.1035, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1220, STD: 0.0000  FDE - Mean: 0.0361, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.0953, STD: 0.0000  FDE - Mean: 0.0091, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.2970, STD: 0.0000  FDE - Mean: 0.3789, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.1215, STD: 0.0000  FDE - Mean: 0.0707, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1742, STD: 0.0000  FDE - Mean: 0.1778, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.1852, STD: 0.0000  FDE - Mean: 0.1951, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.2148, STD: 0.0000  FDE - Mean: 0.2775, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0988, STD: 0.0000  FDE - Mean: 0.0231, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.1004, STD: 0.0000  FDE - Mean: 0.0295, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.3378, STD: 0.0000  FDE - Mean: 0.5192, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.3180, STD: 0.0000  FDE - Mean: 0.4752, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.2594, STD: 0.0000  FDE - Mean: 0.3584, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0865, STD: 0.0000  FDE - Mean: 0.0052, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.1294, STD: 0.0000  FDE - Mean: 0.1031, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.1241, STD: 0.0000  FDE - Mean: 0.0871, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.1284, STD: 0.0000  FDE - Mean: 0.0857, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.1129, STD: 0.0000  FDE - Mean: 0.0612, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.3362, STD: 0.0000  FDE - Mean: 0.5162, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.1093, STD: 0.0000  FDE - Mean: 0.0378, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0993, STD: 0.0000  FDE - Mean: 0.0297, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0852, STD: 0.0000  FDE - Mean: 0.0138, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0814, STD: 0.0000  FDE - Mean: 0.0046, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.1252, STD: 0.0000  FDE - Mean: 0.0524, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.0883, STD: 0.0000  FDE - Mean: 0.0053, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.0914, STD: 0.0000  FDE - Mean: 0.0159, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0910, STD: 0.0000  FDE - Mean: 0.0231, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0816, STD: 0.0000  FDE - Mean: 0.0085, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.1076, STD: 0.0000  FDE - Mean: 0.0450, STD: 0.0000
+
+Results for prediction length: 4
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_4_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.1448, STD: 0.0000  FDE - Mean: 0.0420, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1262, STD: 0.0000  FDE - Mean: 0.0152, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.1158, STD: 0.0000  FDE - Mean: 0.0501, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.0617, STD: 0.0000  FDE - Mean: 0.0153, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.0926, STD: 0.0000  FDE - Mean: 0.0777, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.0586, STD: 0.0000  FDE - Mean: 0.0168, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.0682, STD: 0.0000  FDE - Mean: 0.0113, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.0933, STD: 0.0000  FDE - Mean: 0.0472, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.1327, STD: 0.0000  FDE - Mean: 0.0770, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.1004, STD: 0.0000  FDE - Mean: 0.0434, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0657, STD: 0.0000  FDE - Mean: 0.0275, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1060, STD: 0.0000  FDE - Mean: 0.0465, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0745, STD: 0.0000  FDE - Mean: 0.0168, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0588, STD: 0.0000  FDE - Mean: 0.0132, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.2338, STD: 0.0000  FDE - Mean: 0.2757, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0519, STD: 0.0000  FDE - Mean: 0.0108, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.0971, STD: 0.0000  FDE - Mean: 0.0298, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.0607, STD: 0.0000  FDE - Mean: 0.0134, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0651, STD: 0.0000  FDE - Mean: 0.0251, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0708, STD: 0.0000  FDE - Mean: 0.0429, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0713, STD: 0.0000  FDE - Mean: 0.0223, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0434, STD: 0.0000  FDE - Mean: 0.0045, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0417, STD: 0.0000  FDE - Mean: 0.0025, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.2776, STD: 0.0000  FDE - Mean: 0.3626, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.1806, STD: 0.0000  FDE - Mean: 0.1513, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1369, STD: 0.0000  FDE - Mean: 0.1373, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0543, STD: 0.0000  FDE - Mean: 0.0138, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0851, STD: 0.0000  FDE - Mean: 0.0610, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.0556, STD: 0.0000  FDE - Mean: 0.0151, STD: 0.0000
+
+Results for prediction length: 6
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_6_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.0948, STD: 0.0000  FDE - Mean: 0.0178, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.1073, STD: 0.0000  FDE - Mean: 0.0610, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.0622, STD: 0.0000  FDE - Mean: 0.0190, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.0434, STD: 0.0000  FDE - Mean: 0.0041, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.0460, STD: 0.0000  FDE - Mean: 0.0110, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.0386, STD: 0.0000  FDE - Mean: 0.0061, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.3691, STD: 0.0000  FDE - Mean: 0.4500, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.1478, STD: 0.0000  FDE - Mean: 0.0917, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0748, STD: 0.0000  FDE - Mean: 0.0228, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.4047, STD: 0.0000  FDE - Mean: 0.4975, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.0691, STD: 0.0000  FDE - Mean: 0.0183, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.0617, STD: 0.0000  FDE - Mean: 0.0262, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.1822, STD: 0.0000  FDE - Mean: 0.0833, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.3433, STD: 0.0000  FDE - Mean: 0.4199, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.2254, STD: 0.0000  FDE - Mean: 0.2906, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.1987, STD: 0.0000  FDE - Mean: 0.2623, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.1839, STD: 0.0000  FDE - Mean: 0.2444, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.1733, STD: 0.0000  FDE - Mean: 0.2307, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.1708, STD: 0.0000  FDE - Mean: 0.2283, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.4170, STD: 0.0000  FDE - Mean: 0.5186, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.8361, STD: 0.0000  FDE - Mean: 1.0554, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.8111, STD: 0.0000  FDE - Mean: 1.0348, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.7891, STD: 0.0000  FDE - Mean: 1.0156, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.7686, STD: 0.0000  FDE - Mean: 0.9963, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.7489, STD: 0.0000  FDE - Mean: 0.9767, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.7304, STD: 0.0000  FDE - Mean: 0.9568, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.7082, STD: 0.0000  FDE - Mean: 0.9362, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.1726, STD: 0.0000  FDE - Mean: 0.1430, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.3348, STD: 0.0000  FDE - Mean: 0.3851, STD: 0.0000
+
+Results for prediction length: 10
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_30.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_31.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_32.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_33.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_34.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_35.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_36.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_37.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_38.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_39.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_40.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_41.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_42.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_43.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_44.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_45.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_46.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_47.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_48.model_perf.txt
+File not found: ../data/4_models\gatsbi_physics_module_10_multimodal_gmm_ETH_49.model_perf.txt
+Experiment 01:  ADE - Mean: 0.0866, STD: 0.0000  FDE - Mean: 0.0480, STD: 0.0000
+Experiment 02:  ADE - Mean: 0.4653, STD: 0.0000  FDE - Mean: 0.4983, STD: 0.0000
+Experiment 03:  ADE - Mean: 0.0550, STD: 0.0000  FDE - Mean: 0.0182, STD: 0.0000
+Experiment 04:  ADE - Mean: 0.2051, STD: 0.0000  FDE - Mean: 0.1849, STD: 0.0000
+Experiment 05:  ADE - Mean: 0.0480, STD: 0.0000  FDE - Mean: 0.0145, STD: 0.0000
+Experiment 06:  ADE - Mean: 0.1334, STD: 0.0000  FDE - Mean: 0.1119, STD: 0.0000
+Experiment 07:  ADE - Mean: 0.0512, STD: 0.0000  FDE - Mean: 0.0127, STD: 0.0000
+Experiment 08:  ADE - Mean: 0.1118, STD: 0.0000  FDE - Mean: 0.0871, STD: 0.0000
+Experiment 09:  ADE - Mean: 0.0708, STD: 0.0000  FDE - Mean: 0.0328, STD: 0.0000
+Experiment 10:  ADE - Mean: 0.3744, STD: 0.0000  FDE - Mean: 0.4140, STD: 0.0000
+Experiment 11:  ADE - Mean: 0.1364, STD: 0.0000  FDE - Mean: 0.1120, STD: 0.0000
+Experiment 12:  ADE - Mean: 0.1732, STD: 0.0000  FDE - Mean: 0.1768, STD: 0.0000
+Experiment 13:  ADE - Mean: 0.0656, STD: 0.0000  FDE - Mean: 0.0367, STD: 0.0000
+Experiment 14:  ADE - Mean: 0.0540, STD: 0.0000  FDE - Mean: 0.0268, STD: 0.0000
+Experiment 15:  ADE - Mean: 0.0290, STD: 0.0000  FDE - Mean: 0.0054, STD: 0.0000
+Experiment 16:  ADE - Mean: 0.0614, STD: 0.0000  FDE - Mean: 0.0149, STD: 0.0000
+Experiment 17:  ADE - Mean: 0.1189, STD: 0.0000  FDE - Mean: 0.0820, STD: 0.0000
+Experiment 18:  ADE - Mean: 0.0752, STD: 0.0000  FDE - Mean: 0.0472, STD: 0.0000
+Experiment 19:  ADE - Mean: 0.0431, STD: 0.0000  FDE - Mean: 0.0102, STD: 0.0000
+Experiment 20:  ADE - Mean: 0.0472, STD: 0.0000  FDE - Mean: 0.0114, STD: 0.0000
+Experiment 21:  ADE - Mean: 0.0947, STD: 0.0000  FDE - Mean: 0.0458, STD: 0.0000
+Experiment 22:  ADE - Mean: 0.0719, STD: 0.0000  FDE - Mean: 0.0458, STD: 0.0000
+Experiment 23:  ADE - Mean: 0.0476, STD: 0.0000  FDE - Mean: 0.0191, STD: 0.0000
+Experiment 24:  ADE - Mean: 0.0348, STD: 0.0000  FDE - Mean: 0.0108, STD: 0.0000
+Experiment 25:  ADE - Mean: 0.0438, STD: 0.0000  FDE - Mean: 0.0194, STD: 0.0000
+Experiment 26:  ADE - Mean: 0.1009, STD: 0.0000  FDE - Mean: 0.0868, STD: 0.0000
+Experiment 27:  ADE - Mean: 0.0931, STD: 0.0000  FDE - Mean: 0.0738, STD: 0.0000
+Experiment 28:  ADE - Mean: 0.0668, STD: 0.0000  FDE - Mean: 0.0288, STD: 0.0000
+Experiment 29:  ADE - Mean: 0.1237, STD: 0.0000  FDE - Mean: 0.0833, STD: 0.0000
+
+----------
+Best Model for [2]: Experiment 23 with Prediction Length 2 - Lowest Average ADE: 0.0814
+  ADE Mean: 0.0814, ADE STD: 0.0000
+  FDE Mean: 0.0046, FDE STD: 0.0000
+
+----------
+Best Model for [4]: Experiment 23 with Prediction Length 4 - Lowest Average ADE: 0.0417
+  ADE Mean: 0.0417, ADE STD: 0.0000
+  FDE Mean: 0.0025, FDE STD: 0.0000
+
+----------
+Best Model for [6]: Experiment 06 with Prediction Length 6 - Lowest Average ADE: 0.0386
+  ADE Mean: 0.0386, ADE STD: 0.0000
+  FDE Mean: 0.0061, FDE STD: 0.0000
+
+----------
+Best Model for [10]: Experiment 15 with Prediction Length 10 - Lowest Average ADE: 0.0290
+  ADE Mean: 0.0290, ADE STD: 0.0000
+  FDE Mean: 0.0054, FDE STD: 0.0000
+
+-----------
+Markdown Summary of Best Results:
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|--------|-----|-----|-----|-----|-----|-----|-----|-----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
+| gatsbi_physics_module | 0.0814 | 0.0417 | 0.0386 | 0.0290 | 0.0046 | 0.0025 | 0.0061 | 0.0054 |
+|       | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] | [0.0000] |
