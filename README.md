@@ -444,9 +444,9 @@ for SPLIT in "${SPLITS[@]}"; do
     echo "Processing $SPLIT:"
     for i in $(seq 1 $NUM_JOBS); do
         if [ $i -eq 1 ]; then
-            echo "  sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
+            echo "  sbatch -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
         else
-            echo "  sbatch --dependency=afterok:<jobid_${SPLIT}_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
+            echo "  sbatch --dependency=afterany:<jobid_${SPLIT}_$((i-1))> -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
         fi
     done
 done
@@ -460,10 +460,10 @@ for SPLIT in "${SPLITS[@]}"; do
     echo "Submitting jobs for $SPLIT..."
     for i in $(seq 1 $NUM_JOBS); do
         if [ -z "$PREV_JOBID" ]; then
-            JOBID=$(sbatch --parsable -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+            JOBID=$(sbatch --parsable -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
                 --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL")
         else
-            JOBID=$(sbatch --parsable --dependency=afterok:$PREV_JOBID -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+            JOBID=$(sbatch --parsable --dependency=afterany:$PREV_JOBID -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
                 --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL")
         fi
         echo "  Submitted job $JOBID (iteration $i for $SPLIT)"
