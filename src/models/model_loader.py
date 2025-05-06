@@ -33,6 +33,7 @@ from models.model_gatsbi_abl3 import GATsBi_Abl_Decay
 from models.model_gatsbi_abl4 import GATsBi_Abl_Phy_Anticip
 from models.model_gatsbi_abl5 import GATsBi_Abl_Phy_Star
 from models.model_gatsbi_abl6 import GATsBi_Abl_Phy_Decay
+from models.model_gatsbi_abl7 import GATsBi_Abl_Phy
 
 from models.model_utils import load_model, generate_model_scratch
 
@@ -65,6 +66,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = load_model(GATsBi_Abl_Phy_Star, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbi_abl_phy_decay":
             model = load_model(GATsBi_Abl_Phy_Decay, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbi_abl_phy":
+            model = load_model(GATsBi_Abl_Phy, model_path, device, prediction_length, multimodal)
         elif model_name=="ego_lstm":
             model = load_model(EgoLSTM, model_path, device, prediction_length, multimodal)
         else:
@@ -101,6 +104,8 @@ def load_model_testing(model_name, model_file_name, prediction_length, device, m
             model = generate_model_scratch(GATsBi_Abl_Phy_Star, device, prediction_length, multimodal)
         elif model_name=="gatsbi_abl_phy_decay":
             model = generate_model_scratch(GATsBi_Abl_Phy_Decay, device, prediction_length, multimodal)
+        elif model_name=="gatsbi_abl_phy":
+            model = generate_model_scratch(GATsBi_Abl_Phy, device, prediction_length, multimodal)
         elif model_name=="ego_lstm":
             model = generate_model_scratch(EgoLSTM, device, prediction_length, multimodal)
         else:
@@ -149,6 +154,8 @@ def load_model_training(model_name, prediction_length, source, device, multimoda
             model = load_model(GATsBi_Abl_Phy_Star, model_path, device, prediction_length, multimodal)
         elif model_name=="gatsbi_abl_phy_decay":
             model = load_model(GATsBi_Abl_Phy_Decay, model_path, device, prediction_length, multimodal)
+        elif model_name=="gatsbi_abl_phy":
+            model = load_model(GATsBi_Abl_Phy, model_path, device, prediction_length, multimodal)
         elif model_name=="ego_lstm":
             model = load_model(EgoLSTM, model_path, device, prediction_length, multimodal)
                 
@@ -177,6 +184,8 @@ def load_model_training(model_name, prediction_length, source, device, multimoda
             model = generate_model_scratch(GATsBi_Abl_Phy_Star, device, prediction_length, multimodal)
         elif model_name=="gatsbi_abl_phy_decay":
             model = generate_model_scratch(GATsBi_Abl_Phy_Decay, device, prediction_length, multimodal)
+        elif model_name=="gatsbi_abl_phy":
+            model = generate_model_scratch(GATsBi_Abl_Phy, device, prediction_length, multimodal)
         elif model_name=="ego_lstm":
             model = generate_model_scratch(EgoLSTM, device, prediction_length, multimodal)
         model.to(device)

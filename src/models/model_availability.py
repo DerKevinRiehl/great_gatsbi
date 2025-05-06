@@ -28,6 +28,7 @@ ML_MODELS_UNIMODAL = [
     "gatsbi_abl_phy_anticip",
     "gatsbi_abl_phy_star",
     "gatsbi_abl_phy_decay",
+    "gatsbi_abl_phy",
 ]
 
 ML_MODELS_MULTIMODAL_GMM = [    
@@ -43,6 +44,7 @@ ML_MODELS_MULTIMODAL_GMM = [
     "gatsbi_abl_phy_anticip",
     "gatsbi_abl_phy_star",
     "gatsbi_abl_phy_decay",
+    "gatsbi_abl_phy",
 ]
 
 ML_MODELS_MULTIMODAL_CVAE = [
