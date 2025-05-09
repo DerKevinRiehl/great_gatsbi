@@ -237,8 +237,51 @@ You can download pretrained models here:
 
 ## [Results](#results)
 
+### Benchmark results (NEW)
+The benchmark of different models shows that the proposed GATsBi model is outperforming pedestrian specific (social_lstm, social_bigats) and car specific (const_v, const_a) models.
 
-### Benchmark results
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|------------|----|----|----|----|----|----|----|----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
+| **conventional (physics)** |   |   |   |   |   |   |   |   |
+| const_v | 0.1080 | 0.2818 | 0.5460 | 0.9406 | 0.2592 | 0.6568 | 1.5245 | 2.7275 |
+|       |[0.0076]|[0.0194]|[0.0444]|[0.1059]|[0.0182]|[0.0436]|[0.1787]|[0.4278]|
+| const_a | 0.1281 | 0.5504 | 1.2951 | 2.3929 | 0.3934 | 1.6373 | 4.0117 | 7.3837 |
+|       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
+| kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
+|       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
+| xkalman | 0.1445 | 0.3269 | 0.5967 | 0.9948 | 0.3068 | 0.7154 | 1.5887 | 2.7913 |
+|       |[0.0122]|[0.0242]|[0.0512]|[0.1146]|[0.0235]|[0.0492]|[0.1904]|[0.4417]|
+| **machine learning <br> (unimodal)** |   |   |   |   |   |   |   |   |
+| social_lstm | 0.0876 | 0.2487 | 0.4762 | 0.8214 | 0.2141 | 0.5479 | 1.2829 | 2.3770 |
+|       | [0.0071] | [0.0133] | [0.0359] | [0.0911] | [0.0162] | [0.0332] | [0.1674] | [0.4008] |
+| social_bigat | 0.0774 | 0.2315 | 0.4708 | 0.8211 | 0.1984 | 0.5209 | 1.2938 | 2.3679 |
+|       | [0.0062] | [0.0138] | [0.0387] | [0.0856] | [0.0146] | [0.0250] | [0.1536] | [0.4044] |
+| gatsbi | 0.0757 | 0.2180 | 0.4302 | 0.7760 | 0.1948 | 0.5051 | 1.2286 | 2.3142 |
+|       | [0.0059] | [0.0125] | [0.0343] | [0.0945] | [0.0138] | [0.0253] | [0.1554] | [0.4071] |
+| gatsbi_abl_phy | 0.0713 | 0.2255 | 0.4400 | 0.7794 | 0.1871 | 0.5060 | 1.2391 | 2.3037 |
+|       | [0.0052] | [0.0134] | [0.0312] | [0.0994] | [0.0127] | [0.0213] | [0.1564] | [0.4107] |
+| **machine learning <br> (multimodal, expected only)** |   |   |   |   |   |   |   |   |
+| social_lstm | 0.0820 | 0.2341 | 0.4630 | 0.8314 | 0.2077 | 0.5393 | 1.3235 | 2.5515 |
+|   | [0.0090] | [0.0172] | [0.0202] | [0.0929] | [0.0191] | [0.0360] | [0.1601] | [0.3610] |
+| social_bigat | 0.0702 | 0.2240 | 0.4586 | 0.8069 | 0.1914 | 0.5242 | 1.3234 | 2.5356 |
+|   | [0.0068] | [0.0139] | [0.0377] | [0.0898] | [0.0138] | [0.0304] | [0.1302] | [0.3435] |
+| gatsbi_abl_star  | 0.0690 | 0.2078 | 0.4347 | 0.7880 | 0.1873 | 0.5006 | 1.3159 | 2.5150 |
+|   | [0.0086] | [0.0127] | [0.0368] | [0.0810] | [0.0175] | [0.0324] | [0.1234] | [0.2881] |
+| gatsbi_abl_anticip | 0.0692 | 0.2099 | 0.4267 | 0.7735 | 0.1868 | 0.4924 | 1.2962 | 2.4673 |
+|   | [0.0063] | [0.0121] | [0.0257] | [0.0795] | [0.0141] | [0.0248] | [0.1117] | [0.3420] |
+| gatsbi_abl_decay  | 0.0707 | 0.2074 | 0.4204 | 0.7727 | 0.1893 | 0.4901 | 1.2824 | 2.5016 |
+|   | [0.0063] | [0.0125] | [0.0338] | [0.0966] | [0.0130] | [0.0260] | [0.1488] | [0.4263] |
+| gatsbi_abl_phy_anticip  | 0.0661 | 0.2030 | 0.4217 | 0.7802 | 0.1795 | 0.4879 | 1.2807 | 2.4736 |
+|   | [0.0087] | [0.0164] | [0.0301] | [0.1037] | [0.0185] | [0.0347] | [0.1392] | [0.4512] |
+| gatsbi_abl_phy_star  | 0.0689 | 0.2079 | 0.4292 | 0.7870 | 0.1867 | 0.4957 | 1.2969 | 2.4383 |
+|   | [0.0077] | [0.0253] | [0.0417] | [0.0949] | [0.0175] | [0.0482] | [0.1570] | [0.3950] |
+| gatsbi_abl_phy_decay  | 0.0644 | 0.2125 | 0.4325 | 0.7892 | 0.1773 | 0.4922 | 1.3014 | 2.4954 |
+|   | [0.0064] | [0.0145] | [0.0334] | [0.0856] | [0.0149] | [0.0318] | [0.1318] | [0.3966] |
+
+
+
+### Benchmark results (OLD)
 The benchmark of different models shows that the proposed GATsBi model is outperforming pedestrian specific (social_lstm, social_bigats) and car specific (const_v, const_a) models.
 
 | Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
@@ -444,9 +487,9 @@ for SPLIT in "${SPLITS[@]}"; do
     echo "Processing $SPLIT:"
     for i in $(seq 1 $NUM_JOBS); do
         if [ $i -eq 1 ]; then
-            echo "  sbatch -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
+            echo "  sbatch -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
         else
-            echo "  sbatch --dependency=afterok:<jobid_${SPLIT}_$((i-1))> -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
+            echo "  sbatch --dependency=afterany:<jobid_${SPLIT}_$((i-1))> -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 --wrap=\"module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL\""
         fi
     done
 done
@@ -460,10 +503,10 @@ for SPLIT in "${SPLITS[@]}"; do
     echo "Submitting jobs for $SPLIT..."
     for i in $(seq 1 $NUM_JOBS); do
         if [ -z "$PREV_JOBID" ]; then
-            JOBID=$(sbatch --parsable -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+            JOBID=$(sbatch --parsable -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
                 --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL")
         else
-            JOBID=$(sbatch --parsable --dependency=afterok:$PREV_JOBID -n4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
+            JOBID=$(sbatch --parsable --dependency=afterany:$PREV_JOBID -n 4 -G 2 --time=02:30:00 --gres=gpumem:10g --mem-per-cpu=8000 \
                 --wrap="module load stack/2024-05 python/3.11.6_cuda ; python train_model.py $MODEL_NAME $PRED_LEN 50 $SPLIT $MULTI_MODAL")
         fi
         echo "  Submitted job $JOBID (iteration $i for $SPLIT)"

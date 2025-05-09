@@ -1,0 +1,231 @@
+Results for prediction length: 25
+Experiment 01:  ADE - Mean: 0.1004, STD: 0.0093  FDE - Mean: 0.2348, STD: 0.0189
+Experiment 02:  ADE - Mean: 0.0935, STD: 0.0068  FDE - Mean: 0.2239, STD: 0.0176
+Experiment 03:  ADE - Mean: 0.0977, STD: 0.0078  FDE - Mean: 0.2283, STD: 0.0194
+Experiment 04:  ADE - Mean: 0.0935, STD: 0.0122  FDE - Mean: 0.2226, STD: 0.0238
+Experiment 05:  ADE - Mean: 0.0929, STD: 0.0048  FDE - Mean: 0.2175, STD: 0.0101
+Experiment 06:  ADE - Mean: 0.0879, STD: 0.0066  FDE - Mean: 0.2121, STD: 0.0127
+Experiment 07:  ADE - Mean: 0.0843, STD: 0.0067  FDE - Mean: 0.2064, STD: 0.0144
+Experiment 08:  ADE - Mean: 0.0899, STD: 0.0026  FDE - Mean: 0.2171, STD: 0.0062
+Experiment 09:  ADE - Mean: 0.0860, STD: 0.0053  FDE - Mean: 0.2102, STD: 0.0114
+Experiment 10:  ADE - Mean: 0.0848, STD: 0.0080  FDE - Mean: 0.2067, STD: 0.0171
+Experiment 11:  ADE - Mean: 0.0848, STD: 0.0070  FDE - Mean: 0.2072, STD: 0.0182
+Experiment 12:  ADE - Mean: 0.0828, STD: 0.0069  FDE - Mean: 0.2023, STD: 0.0147
+Experiment 13:  ADE - Mean: 0.0824, STD: 0.0045  FDE - Mean: 0.2021, STD: 0.0126
+Experiment 14:  ADE - Mean: 0.0806, STD: 0.0056  FDE - Mean: 0.2004, STD: 0.0140
+Experiment 15:  ADE - Mean: 0.0836, STD: 0.0060  FDE - Mean: 0.2030, STD: 0.0146
+Experiment 16:  ADE - Mean: 0.0821, STD: 0.0077  FDE - Mean: 0.2037, STD: 0.0159
+Experiment 17:  ADE - Mean: 0.0795, STD: 0.0037  FDE - Mean: 0.2004, STD: 0.0099
+Experiment 18:  ADE - Mean: 0.0813, STD: 0.0082  FDE - Mean: 0.2020, STD: 0.0177
+Experiment 19:  ADE - Mean: 0.0800, STD: 0.0052  FDE - Mean: 0.2014, STD: 0.0135
+Experiment 20:  ADE - Mean: 0.0791, STD: 0.0042  FDE - Mean: 0.1974, STD: 0.0109
+Experiment 21:  ADE - Mean: 0.0781, STD: 0.0054  FDE - Mean: 0.1971, STD: 0.0138
+Experiment 22:  ADE - Mean: 0.0768, STD: 0.0061  FDE - Mean: 0.1946, STD: 0.0141
+Experiment 23:  ADE - Mean: 0.0774, STD: 0.0066  FDE - Mean: 0.1957, STD: 0.0145
+Experiment 24:  ADE - Mean: 0.0786, STD: 0.0046  FDE - Mean: 0.1972, STD: 0.0107
+Experiment 25:  ADE - Mean: 0.0760, STD: 0.0055  FDE - Mean: 0.1928, STD: 0.0132
+Experiment 26:  ADE - Mean: 0.0769, STD: 0.0052  FDE - Mean: 0.1946, STD: 0.0119
+Experiment 27:  ADE - Mean: 0.0796, STD: 0.0072  FDE - Mean: 0.1995, STD: 0.0159
+Experiment 28:  ADE - Mean: 0.0778, STD: 0.0091  FDE - Mean: 0.1955, STD: 0.0167
+Experiment 29:  ADE - Mean: 0.0784, STD: 0.0056  FDE - Mean: 0.1954, STD: 0.0139
+Experiment 30:  ADE - Mean: 0.0763, STD: 0.0027  FDE - Mean: 0.1940, STD: 0.0084
+Experiment 31:  ADE - Mean: 0.0752, STD: 0.0040  FDE - Mean: 0.1921, STD: 0.0106
+Experiment 32:  ADE - Mean: 0.0749, STD: 0.0053  FDE - Mean: 0.1922, STD: 0.0115
+Experiment 33:  ADE - Mean: 0.0769, STD: 0.0065  FDE - Mean: 0.1939, STD: 0.0138
+Experiment 34:  ADE - Mean: 0.0736, STD: 0.0050  FDE - Mean: 0.1895, STD: 0.0118
+Experiment 35:  ADE - Mean: 0.0743, STD: 0.0035  FDE - Mean: 0.1922, STD: 0.0103
+Experiment 36:  ADE - Mean: 0.0724, STD: 0.0041  FDE - Mean: 0.1888, STD: 0.0104
+Experiment 37:  ADE - Mean: 0.0726, STD: 0.0057  FDE - Mean: 0.1898, STD: 0.0141
+Experiment 38:  ADE - Mean: 0.0750, STD: 0.0066  FDE - Mean: 0.1938, STD: 0.0152
+Experiment 39:  ADE - Mean: 0.0743, STD: 0.0058  FDE - Mean: 0.1919, STD: 0.0138
+Experiment 40:  ADE - Mean: 0.0757, STD: 0.0066  FDE - Mean: 0.1917, STD: 0.0127
+Experiment 41:  ADE - Mean: 0.0742, STD: 0.0038  FDE - Mean: 0.1905, STD: 0.0100
+Experiment 42:  ADE - Mean: 0.0734, STD: 0.0066  FDE - Mean: 0.1891, STD: 0.0136
+Experiment 43:  ADE - Mean: 0.0736, STD: 0.0056  FDE - Mean: 0.1910, STD: 0.0136
+Experiment 44:  ADE - Mean: 0.0720, STD: 0.0043  FDE - Mean: 0.1884, STD: 0.0107
+Experiment 45:  ADE - Mean: 0.0729, STD: 0.0045  FDE - Mean: 0.1900, STD: 0.0110
+Experiment 46:  ADE - Mean: 0.0728, STD: 0.0056  FDE - Mean: 0.1895, STD: 0.0135
+Experiment 47:  ADE - Mean: 0.0713, STD: 0.0052  FDE - Mean: 0.1871, STD: 0.0127
+Experiment 48:  ADE - Mean: 0.0731, STD: 0.0066  FDE - Mean: 0.1885, STD: 0.0140
+Experiment 49:  ADE - Mean: 0.0724, STD: 0.0061  FDE - Mean: 0.1900, STD: 0.0144
+
+Results for prediction length: 50
+Experiment 01:  ADE - Mean: 0.2433, STD: 0.0198  FDE - Mean: 0.5389, STD: 0.0382
+Experiment 02:  ADE - Mean: 0.2537, STD: 0.0256  FDE - Mean: 0.5484, STD: 0.0408
+Experiment 03:  ADE - Mean: 0.2498, STD: 0.0231  FDE - Mean: 0.5556, STD: 0.0615
+Experiment 04:  ADE - Mean: 0.2397, STD: 0.0167  FDE - Mean: 0.5349, STD: 0.0413
+Experiment 05:  ADE - Mean: 0.2485, STD: 0.0225  FDE - Mean: 0.5352, STD: 0.0314
+Experiment 06:  ADE - Mean: 0.2423, STD: 0.0009  FDE - Mean: 0.5243, STD: 0.0211
+Experiment 07:  ADE - Mean: 0.2306, STD: 0.0164  FDE - Mean: 0.5125, STD: 0.0353
+Experiment 08:  ADE - Mean: 0.2300, STD: 0.0112  FDE - Mean: 0.5105, STD: 0.0260
+Experiment 09:  ADE - Mean: 0.2289, STD: 0.0199  FDE - Mean: 0.5104, STD: 0.0427
+Experiment 10:  ADE - Mean: 0.2277, STD: 0.0146  FDE - Mean: 0.5038, STD: 0.0269
+Experiment 11:  ADE - Mean: 0.2260, STD: 0.0175  FDE - Mean: 0.5102, STD: 0.0388
+Experiment 12:  ADE - Mean: 0.2255, STD: 0.0134  FDE - Mean: 0.5060, STD: 0.0213
+Experiment 13:  ADE - Mean: 0.2280, STD: 0.0180  FDE - Mean: 0.5080, STD: 0.0317
+Experiment 14:  ADE - Mean: 0.2296, STD: 0.0122  FDE - Mean: 0.5104, STD: 0.0306
+Experiment 15:  ADE - Mean: 0.2273, STD: 0.0165  FDE - Mean: 0.5100, STD: 0.0312
+Experiment 16:  ADE - Mean: 0.2290, STD: 0.0106  FDE - Mean: 0.5107, STD: 0.0217
+Experiment 17:  ADE - Mean: 0.2290, STD: 0.0130  FDE - Mean: 0.5134, STD: 0.0270
+Experiment 18:  ADE - Mean: 0.2270, STD: 0.0141  FDE - Mean: 0.5144, STD: 0.0293
+Experiment 19:  ADE - Mean: 0.2283, STD: 0.0134  FDE - Mean: 0.5170, STD: 0.0266
+Experiment 20:  ADE - Mean: 0.2316, STD: 0.0163  FDE - Mean: 0.5230, STD: 0.0328
+Experiment 21:  ADE - Mean: 0.2307, STD: 0.0137  FDE - Mean: 0.5220, STD: 0.0261
+Experiment 22:  ADE - Mean: 0.2377, STD: 0.0092  FDE - Mean: 0.5313, STD: 0.0199
+Experiment 23:  ADE - Mean: 0.2311, STD: 0.0136  FDE - Mean: 0.5212, STD: 0.0270
+Experiment 24:  ADE - Mean: 0.2365, STD: 0.0122  FDE - Mean: 0.5342, STD: 0.0234
+Experiment 25:  ADE - Mean: 0.2352, STD: 0.0125  FDE - Mean: 0.5325, STD: 0.0258
+Experiment 26:  ADE - Mean: 0.2396, STD: 0.0165  FDE - Mean: 0.5397, STD: 0.0299
+Experiment 27:  ADE - Mean: 0.2405, STD: 0.0137  FDE - Mean: 0.5461, STD: 0.0257
+Experiment 28:  ADE - Mean: 0.2421, STD: 0.0116  FDE - Mean: 0.5480, STD: 0.0210
+Experiment 29:  ADE - Mean: 0.2424, STD: 0.0176  FDE - Mean: 0.5448, STD: 0.0302
+Experiment 30:  ADE - Mean: 0.2413, STD: 0.0149  FDE - Mean: 0.5477, STD: 0.0308
+Experiment 31:  ADE - Mean: 0.2404, STD: 0.0116  FDE - Mean: 0.5448, STD: 0.0250
+Experiment 32:  ADE - Mean: 0.2477, STD: 0.0129  FDE - Mean: 0.5605, STD: 0.0246
+Experiment 33:  ADE - Mean: 0.2462, STD: 0.0122  FDE - Mean: 0.5546, STD: 0.0256
+Experiment 34:  ADE - Mean: 0.2468, STD: 0.0146  FDE - Mean: 0.5565, STD: 0.0280
+Experiment 35:  ADE - Mean: 0.2493, STD: 0.0132  FDE - Mean: 0.5650, STD: 0.0246
+Experiment 36:  ADE - Mean: 0.2496, STD: 0.0169  FDE - Mean: 0.5636, STD: 0.0321
+Experiment 37:  ADE - Mean: 0.2517, STD: 0.0151  FDE - Mean: 0.5673, STD: 0.0296
+Experiment 38:  ADE - Mean: 0.2503, STD: 0.0131  FDE - Mean: 0.5656, STD: 0.0259
+Experiment 39:  ADE - Mean: 0.2527, STD: 0.0144  FDE - Mean: 0.5711, STD: 0.0278
+Experiment 40:  ADE - Mean: 0.2517, STD: 0.0137  FDE - Mean: 0.5678, STD: 0.0283
+Experiment 41:  ADE - Mean: 0.2540, STD: 0.0171  FDE - Mean: 0.5712, STD: 0.0327
+Experiment 42:  ADE - Mean: 0.2541, STD: 0.0139  FDE - Mean: 0.5751, STD: 0.0265
+Experiment 43:  ADE - Mean: 0.2547, STD: 0.0137  FDE - Mean: 0.5766, STD: 0.0274
+Experiment 44:  ADE - Mean: 0.2558, STD: 0.0105  FDE - Mean: 0.5795, STD: 0.0210
+Experiment 45:  ADE - Mean: 0.2558, STD: 0.0136  FDE - Mean: 0.5775, STD: 0.0252
+Experiment 46:  ADE - Mean: 0.2549, STD: 0.0120  FDE - Mean: 0.5766, STD: 0.0257
+Experiment 47:  ADE - Mean: 0.2561, STD: 0.0133  FDE - Mean: 0.5783, STD: 0.0262
+Experiment 48:  ADE - Mean: 0.2573, STD: 0.0109  FDE - Mean: 0.5809, STD: 0.0223
+Experiment 49:  ADE - Mean: 0.2589, STD: 0.0113  FDE - Mean: 0.5846, STD: 0.0224
+
+Results for prediction length: 75
+Experiment 01:  ADE - Mean: 0.4567, STD: 0.0422  FDE - Mean: 1.2747, STD: 0.1773
+Experiment 02:  ADE - Mean: 0.4564, STD: 0.0372  FDE - Mean: 1.2644, STD: 0.1687
+Experiment 03:  ADE - Mean: 0.4574, STD: 0.0424  FDE - Mean: 1.2718, STD: 0.1883
+Experiment 04:  ADE - Mean: 0.4608, STD: 0.0492  FDE - Mean: 1.2682, STD: 0.1668
+Experiment 05:  ADE - Mean: 0.4449, STD: 0.0325  FDE - Mean: 1.2422, STD: 0.1538
+Experiment 06:  ADE - Mean: 0.4523, STD: 0.0226  FDE - Mean: 1.2556, STD: 0.1453
+Experiment 07:  ADE - Mean: 0.4400, STD: 0.0312  FDE - Mean: 1.2391, STD: 0.1564
+Experiment 08:  ADE - Mean: 0.4461, STD: 0.0417  FDE - Mean: 1.2469, STD: 0.1710
+Experiment 09:  ADE - Mean: 0.4505, STD: 0.0242  FDE - Mean: 1.2462, STD: 0.1489
+Experiment 10:  ADE - Mean: 0.4403, STD: 0.0294  FDE - Mean: 1.2427, STD: 0.1424
+Experiment 11:  ADE - Mean: 0.4520, STD: 0.0422  FDE - Mean: 1.2572, STD: 0.1524
+Experiment 12:  ADE - Mean: 0.4500, STD: 0.0369  FDE - Mean: 1.2625, STD: 0.1615
+Experiment 13:  ADE - Mean: 0.4552, STD: 0.0387  FDE - Mean: 1.2708, STD: 0.1582
+Experiment 14:  ADE - Mean: 0.4510, STD: 0.0345  FDE - Mean: 1.2630, STD: 0.1501
+Experiment 15:  ADE - Mean: 0.4559, STD: 0.0353  FDE - Mean: 1.2764, STD: 0.1463
+Experiment 16:  ADE - Mean: 0.4675, STD: 0.0350  FDE - Mean: 1.2973, STD: 0.1377
+Experiment 17:  ADE - Mean: 0.4669, STD: 0.0328  FDE - Mean: 1.2992, STD: 0.1482
+Experiment 18:  ADE - Mean: 0.4684, STD: 0.0375  FDE - Mean: 1.3091, STD: 0.1525
+Experiment 19:  ADE - Mean: 0.4771, STD: 0.0425  FDE - Mean: 1.3202, STD: 0.1587
+Experiment 20:  ADE - Mean: 0.4717, STD: 0.0335  FDE - Mean: 1.3121, STD: 0.1445
+Experiment 21:  ADE - Mean: 0.4843, STD: 0.0301  FDE - Mean: 1.3390, STD: 0.1404
+Experiment 22:  ADE - Mean: 0.4798, STD: 0.0290  FDE - Mean: 1.3314, STD: 0.1346
+Experiment 23:  ADE - Mean: 0.4864, STD: 0.0361  FDE - Mean: 1.3454, STD: 0.1537
+Experiment 24:  ADE - Mean: 0.4872, STD: 0.0306  FDE - Mean: 1.3544, STD: 0.1364
+Experiment 25:  ADE - Mean: 0.4870, STD: 0.0317  FDE - Mean: 1.3435, STD: 0.1427
+Experiment 26:  ADE - Mean: 0.4868, STD: 0.0285  FDE - Mean: 1.3551, STD: 0.1310
+Experiment 27:  ADE - Mean: 0.4907, STD: 0.0369  FDE - Mean: 1.3505, STD: 0.1414
+Experiment 28:  ADE - Mean: 0.4897, STD: 0.0348  FDE - Mean: 1.3550, STD: 0.1519
+Experiment 29:  ADE - Mean: 0.4944, STD: 0.0305  FDE - Mean: 1.3727, STD: 0.1315
+Experiment 30:  ADE - Mean: 0.5031, STD: 0.0270  FDE - Mean: 1.3953, STD: 0.1257
+Experiment 31:  ADE - Mean: 0.4999, STD: 0.0354  FDE - Mean: 1.3724, STD: 0.1509
+Experiment 32:  ADE - Mean: 0.4972, STD: 0.0353  FDE - Mean: 1.3738, STD: 0.1492
+Experiment 33:  ADE - Mean: 0.4985, STD: 0.0327  FDE - Mean: 1.3837, STD: 0.1451
+Experiment 34:  ADE - Mean: 0.4944, STD: 0.0375  FDE - Mean: 1.3645, STD: 0.1524
+Experiment 35:  ADE - Mean: 0.4976, STD: 0.0329  FDE - Mean: 1.3748, STD: 0.1454
+Experiment 36:  ADE - Mean: 0.4990, STD: 0.0345  FDE - Mean: 1.3796, STD: 0.1494
+Experiment 37:  ADE - Mean: 0.4997, STD: 0.0343  FDE - Mean: 1.3830, STD: 0.1479
+Experiment 38:  ADE - Mean: 0.5022, STD: 0.0362  FDE - Mean: 1.3900, STD: 0.1572
+Experiment 39:  ADE - Mean: 0.5030, STD: 0.0305  FDE - Mean: 1.3925, STD: 0.1360
+Experiment 40:  ADE - Mean: 0.5051, STD: 0.0346  FDE - Mean: 1.3973, STD: 0.1538
+Experiment 41:  ADE - Mean: 0.5029, STD: 0.0396  FDE - Mean: 1.4002, STD: 0.1623
+Experiment 42:  ADE - Mean: 0.5017, STD: 0.0309  FDE - Mean: 1.3901, STD: 0.1445
+Experiment 43:  ADE - Mean: 0.5052, STD: 0.0348  FDE - Mean: 1.4021, STD: 0.1551
+Experiment 44:  ADE - Mean: 0.5080, STD: 0.0377  FDE - Mean: 1.4177, STD: 0.1531
+Experiment 45:  ADE - Mean: 0.5040, STD: 0.0332  FDE - Mean: 1.4016, STD: 0.1398
+Experiment 46:  ADE - Mean: 0.5043, STD: 0.0368  FDE - Mean: 1.3971, STD: 0.1551
+Experiment 47:  ADE - Mean: 0.5062, STD: 0.0358  FDE - Mean: 1.4118, STD: 0.1573
+Experiment 48:  ADE - Mean: 0.5047, STD: 0.0345  FDE - Mean: 1.4085, STD: 0.1328
+Experiment 49:  ADE - Mean: 0.5090, STD: 0.0365  FDE - Mean: 1.4160, STD: 0.1503
+
+Results for prediction length: 100
+Experiment 01:  ADE - Mean: 0.8627, STD: 0.1186  FDE - Mean: 2.4389, STD: 0.4318
+Experiment 02:  ADE - Mean: 0.8291, STD: 0.0790  FDE - Mean: 2.3739, STD: 0.3922
+Experiment 03:  ADE - Mean: 0.8373, STD: 0.1012  FDE - Mean: 2.3609, STD: 0.4166
+Experiment 04:  ADE - Mean: 0.8022, STD: 0.0988  FDE - Mean: 2.3414, STD: 0.4220
+Experiment 05:  ADE - Mean: 0.8024, STD: 0.1006  FDE - Mean: 2.3302, STD: 0.4020
+Experiment 06:  ADE - Mean: 0.7955, STD: 0.0747  FDE - Mean: 2.3228, STD: 0.3709
+Experiment 07:  ADE - Mean: 0.7850, STD: 0.0936  FDE - Mean: 2.3098, STD: 0.3999
+Experiment 08:  ADE - Mean: 0.7794, STD: 0.0994  FDE - Mean: 2.3037, STD: 0.4107
+Experiment 09:  ADE - Mean: 0.7912, STD: 0.1053  FDE - Mean: 2.3306, STD: 0.4354
+Experiment 10:  ADE - Mean: 0.7869, STD: 0.1047  FDE - Mean: 2.3228, STD: 0.4273
+Experiment 11:  ADE - Mean: 0.7902, STD: 0.1027  FDE - Mean: 2.3301, STD: 0.4281
+Experiment 12:  ADE - Mean: 0.7968, STD: 0.1092  FDE - Mean: 2.3411, STD: 0.4499
+Experiment 13:  ADE - Mean: 0.8014, STD: 0.0948  FDE - Mean: 2.3475, STD: 0.4114
+Experiment 14:  ADE - Mean: 0.8096, STD: 0.1025  FDE - Mean: 2.3859, STD: 0.4347
+Experiment 15:  ADE - Mean: 0.8219, STD: 0.1049  FDE - Mean: 2.4092, STD: 0.4265
+Experiment 16:  ADE - Mean: 0.8191, STD: 0.1005  FDE - Mean: 2.4002, STD: 0.4282
+Experiment 17:  ADE - Mean: 0.8274, STD: 0.1089  FDE - Mean: 2.4223, STD: 0.4376
+Experiment 18:  ADE - Mean: 0.8278, STD: 0.1007  FDE - Mean: 2.4204, STD: 0.4038
+Experiment 19:  ADE - Mean: 0.8354, STD: 0.0955  FDE - Mean: 2.4551, STD: 0.3930
+Experiment 20:  ADE - Mean: 0.8347, STD: 0.1104  FDE - Mean: 2.4567, STD: 0.4374
+Experiment 21:  ADE - Mean: 0.8439, STD: 0.1048  FDE - Mean: 2.4650, STD: 0.4341
+Experiment 22:  ADE - Mean: 0.8508, STD: 0.1090  FDE - Mean: 2.5033, STD: 0.4354
+Experiment 23:  ADE - Mean: 0.8470, STD: 0.1208  FDE - Mean: 2.4806, STD: 0.4639
+Experiment 24:  ADE - Mean: 0.8432, STD: 0.1071  FDE - Mean: 2.4680, STD: 0.4381
+Experiment 25:  ADE - Mean: 0.8649, STD: 0.1106  FDE - Mean: 2.5558, STD: 0.4671
+Experiment 26:  ADE - Mean: 0.8600, STD: 0.1039  FDE - Mean: 2.5426, STD: 0.4346
+Experiment 27:  ADE - Mean: 0.8719, STD: 0.0989  FDE - Mean: 2.5600, STD: 0.4284
+Experiment 28:  ADE - Mean: 0.8784, STD: 0.1202  FDE - Mean: 2.6238, STD: 0.5308
+Experiment 29:  ADE - Mean: 0.8687, STD: 0.1131  FDE - Mean: 2.5672, STD: 0.5023
+Experiment 30:  ADE - Mean: 0.8694, STD: 0.1012  FDE - Mean: 2.5855, STD: 0.4552
+Experiment 31:  ADE - Mean: 0.8714, STD: 0.0969  FDE - Mean: 2.5687, STD: 0.4084
+Experiment 32:  ADE - Mean: 0.8663, STD: 0.0879  FDE - Mean: 2.5581, STD: 0.3799
+Experiment 33:  ADE - Mean: 0.8673, STD: 0.0978  FDE - Mean: 2.5805, STD: 0.4478
+Experiment 34:  ADE - Mean: 0.8925, STD: 0.1079  FDE - Mean: 2.6682, STD: 0.4519
+Experiment 35:  ADE - Mean: 0.8846, STD: 0.0967  FDE - Mean: 2.6287, STD: 0.4574
+Experiment 36:  ADE - Mean: 0.8895, STD: 0.0907  FDE - Mean: 2.6719, STD: 0.4278
+Experiment 37:  ADE - Mean: 0.8984, STD: 0.1088  FDE - Mean: 2.7231, STD: 0.5337
+Experiment 38:  ADE - Mean: 0.8905, STD: 0.0990  FDE - Mean: 2.7053, STD: 0.4812
+Experiment 39:  ADE - Mean: 0.8780, STD: 0.0938  FDE - Mean: 2.6259, STD: 0.4229
+Experiment 40:  ADE - Mean: 0.8870, STD: 0.1093  FDE - Mean: 2.6886, STD: 0.5182
+Experiment 41:  ADE - Mean: 0.8924, STD: 0.1005  FDE - Mean: 2.6967, STD: 0.4692
+Experiment 42:  ADE - Mean: 0.8868, STD: 0.0920  FDE - Mean: 2.6940, STD: 0.4156
+Experiment 43:  ADE - Mean: 0.8879, STD: 0.0906  FDE - Mean: 2.6635, STD: 0.4210
+Experiment 44:  ADE - Mean: 0.8860, STD: 0.1001  FDE - Mean: 2.6834, STD: 0.5096
+Experiment 45:  ADE - Mean: 0.8882, STD: 0.0867  FDE - Mean: 2.6837, STD: 0.4126
+Experiment 46:  ADE - Mean: 0.8911, STD: 0.0780  FDE - Mean: 2.6933, STD: 0.3455
+Experiment 47:  ADE - Mean: 0.9155, STD: 0.0898  FDE - Mean: 2.8089, STD: 0.4574
+Experiment 48:  ADE - Mean: 0.9043, STD: 0.0993  FDE - Mean: 2.7982, STD: 0.5112
+Experiment 49:  ADE - Mean: 0.8902, STD: 0.0831  FDE - Mean: 2.6807, STD: 0.3944
+
+----------
+Best Model for [25]: Experiment 47 with Prediction Length 25 - Lowest Average ADE: 0.0713
+  ADE Mean: 0.0713, ADE STD: 0.0052
+  FDE Mean: 0.1871, FDE STD: 0.0127
+
+----------
+Best Model for [50]: Experiment 12 with Prediction Length 50 - Lowest Average ADE: 0.2255
+  ADE Mean: 0.2255, ADE STD: 0.0134
+  FDE Mean: 0.5060, FDE STD: 0.0213
+
+----------
+Best Model for [75]: Experiment 07 with Prediction Length 75 - Lowest Average ADE: 0.4400
+  ADE Mean: 0.4400, ADE STD: 0.0312
+  FDE Mean: 1.2391, FDE STD: 0.1564
+
+----------
+Best Model for [100]: Experiment 08 with Prediction Length 100 - Lowest Average ADE: 0.7794
+  ADE Mean: 0.7794, ADE STD: 0.0994
+  FDE Mean: 2.3037, FDE STD: 0.4107
+
+-----------
+Markdown Summary of Best Results:
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|--------|-----|-----|-----|-----|-----|-----|-----|-----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
+| gatsbi_abl_phy | 0.0713 | 0.2255 | 0.4400 | 0.7794 | 0.1871 | 0.5060 | 1.2391 | 2.3037 |
+|       | [0.0052] | [0.0134] | [0.0312] | [0.0994] | [0.0127] | [0.0213] | [0.1564] | [0.4107] |
