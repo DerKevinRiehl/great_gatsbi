@@ -108,96 +108,115 @@ def model_inference(model_name, model, test_loader, prediction_length, device, m
 # #############################################################################
 # ### MAIN LOGIC
 
-# if __name__=="__main__":
-    # # parse runargs
-    # run_arguments = sys.argv
-    # if len(run_arguments)<6:
-    #     print("ERROR: invalid number of arguments")
-    #     print_info()
-    #     sys.exit(-1)
-    # model_name = run_arguments[1]
-    # model_file_name = run_arguments[2]
-    # sequence = run_arguments[3]
-    # prediction_length = int(run_arguments[4])
-    # output_file_name = run_arguments[5]
+if __name__=="__main__":
+    # parse runargs
+    run_arguments = sys.argv
+    if len(run_arguments)<6:
+        print("ERROR: invalid number of arguments")
+        print_info()
+        sys.exit(-1)
+    model_name = run_arguments[1]
+    model_file_name = run_arguments[2]
+    sequence = run_arguments[3]
+    prediction_length = int(run_arguments[4])
+    output_file_name = run_arguments[5]
+    multimodal = "unimodal"
+    if len(run_arguments)==6:
+        multimodal = run_arguments[5]
+            
+    # model_name = "gatsbiv1"
+    # model_file_name = "gatsbiv1_100_03.model"
+    # # model_name = "physics_lstm"
+    # # model_file_name = "physics_lstm_100_08.model"
+    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
+    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
+    # prediction_length = int(100)
+    # output_file_name = "inference_test.txt"
     # multimodal = "unimodal"
-    # if len(run_arguments)==6:
-    #     multimodal = run_arguments[5]
+    
+    # model_name = "physics_lstm"
+    # model_file_name = "physics_lstm_25_multimodal_gmm_split_1_00.model"
+    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
+    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
+    # prediction_length = int(25)
+    # output_file_name = "inference_test.txt"
+    # multimodal = "multimodal_gmm"
+    
+    # model_name = "gatsbi"
+    # model_file_name = "gatsbi_100_multimodal_gmm_split_1_03.model"
+    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
+    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
+    # prediction_length = int(100)
+    # output_file_name = "inference_test.txt"
+    # multimodal = "multimodal_gmm"
+    
+    # model_name = "gatsbi_physics_module"
+    # model_file_name = "gatsbi_physics_module_100_multimodal_gmm_split_1_07.model"
+    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
+    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
+    # prediction_length = int(100)
+    # output_file_name = "inference_gatsbi_physics.txt"
+    # multimodal = "multimodal_gmm"
+    
+    # model_name = "gatsbi_social_module"
+    # model_file_name = "gatsbi_social_module_100_multimodal_gmm_split_1_03.model"
+    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
+    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
+    # prediction_length = int(100)
+    # output_file_name = "inference_gatsbi_social.txt"
+    # multimodal = "multimodal_gmm"
+    
+    # runargs check
+    if not (model_name=="social_lstm" or model_name.startswith("gatsbi") 
+            or model_name=="const_v" or model_name=="const_a" or model_name=="kinematics"
+            or model_name=="xkalman" or model_name=="physics_lstm"):
+        print("ERROR: invalid model")
+        print_info()
+        sys.exit(-1)
+    if model_name=="const_a" or model_name=="const_v" or model_name=="kinematics" or model_name=="xkalman":
+        model_file_name = "no"
         
-# model_name = "gatsbiv1"
-# model_file_name = "gatsbiv1_100_03.model"
-# # model_name = "physics_lstm"
-# # model_file_name = "physics_lstm_100_08.model"
-# sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-# # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-# prediction_length = int(100)
-# output_file_name = "inference_test.txt"
-# multimodal = "unimodal"
-
-model_name = "physics_lstm"
-model_file_name = "physics_lstm_25_multimodal_gmm_split_1_00.model"
-sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-# sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-prediction_length = int(25)
-output_file_name = "inference_test.txt"
-multimodal = "multimodal_gmm"
-
-# runargs check
-if not (model_name=="social_lstm" or model_name.startswith("gatsbi") 
-        or model_name=="const_v" or model_name=="const_a" or model_name=="kinematics"
-        or model_name=="xkalman" or model_name=="physics_lstm"):
-    print("ERROR: invalid model")
-    print_info()
-    sys.exit(-1)
-if model_name=="const_a" or model_name=="const_v" or model_name=="kinematics" or model_name=="xkalman":
-    model_file_name = "no"
+    # print info statement
+    print("[test_model_all.py] Model Inference", model_name, model_file_name, sequence, prediction_length, output_file_name, multimodal)
     
-# print info statement
-print("[test_model_all.py] Model Inference", model_name, model_file_name, sequence, prediction_length, output_file_name, multimodal)
-
-# setup torch
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print("[TORCH]\tRUNNING ON DEVICE:", device)
-
-# load testing data
-batches, testing_dataset = load_dataset_inference(model_name, sequence, prediction_length)
-testing_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=cs.BATCH_SIZE, shuffle=False)
-
-# load model
-model = load_model_testing(model_name, model_file_name, prediction_length, device, multimodal)
+    # setup torch
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print("[TORCH]\tRUNNING ON DEVICE:", device)
     
-# test model
-all_pred_trajs, all_future_trajs, attentions, gmm_res = model_inference(model_name, model, testing_loader, prediction_length, device, multimodal)
-if attentions != []:
-    attentions = attentions[:, 5, :] # from ego to neighbors
-
-import sys
-sys.exit(0)
-
-# store results
-fW = open(output_file_name, "w+")
-fW.write("sequence\tbicycle\tframe_id\tfuture_coords_x\tfuture_coords_y\tpred_coords_x\tpred_coords_y")
-if model_name.startswith("gatsbi"):
-    fW.write("\tattention_weights")
-fW.write("\n")
-for idx in range(0, len(batches)):
-    fW.write(str(batches[idx][0]))
-    fW.write("\t")
-    fW.write(str(batches[idx][1]))
-    fW.write("\t")
-    fW.write(str(batches[idx][2]))
-    fW.write("\t")
-    fW.write(str(all_future_trajs[idx,:,0].tolist()))
-    fW.write("\t")
-    fW.write(str(all_future_trajs[idx,:,1].tolist()))
-    fW.write("\t")
-    fW.write(str(all_pred_trajs[idx,:,0].tolist()))
-    fW.write("\t")
-    fW.write(str(all_pred_trajs[idx,:,1].tolist()))
+    # load testing data
+    batches, testing_dataset = load_dataset_inference(model_name, sequence, prediction_length)
+    testing_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=cs.BATCH_SIZE, shuffle=False)
+    
+    # load model
+    model = load_model_testing(model_name, model_file_name, prediction_length, device, multimodal)
+        
+    # test model
+    all_pred_trajs, all_future_trajs, attentions, gmm_res = model_inference(model_name, model, testing_loader, prediction_length, device, multimodal)
+    
+    # store results
+    fW = open(output_file_name, "w+")
+    fW.write("sequence\tbicycle\tframe_id\tfuture_coords_x\tfuture_coords_y\tpred_coords_x\tpred_coords_y")
     if model_name.startswith("gatsbi"):
-        fW.write("\t")
-        fW.write(str(attentions[0].tolist()))
+        fW.write("\tattention_weights")
     fW.write("\n")
-fW.close()
-
-torch.save(gmm_res, output_file_name+"_gmm.pt")
+    for idx in range(0, len(batches)):
+        fW.write(str(batches[idx][0]))
+        fW.write("\t")
+        fW.write(str(batches[idx][1]))
+        fW.write("\t")
+        fW.write(str(batches[idx][2]))
+        fW.write("\t")
+        fW.write(str(all_future_trajs[idx,:,0].tolist()))
+        fW.write("\t")
+        fW.write(str(all_future_trajs[idx,:,1].tolist()))
+        fW.write("\t")
+        fW.write(str(all_pred_trajs[idx,:,0].tolist()))
+        fW.write("\t")
+        fW.write(str(all_pred_trajs[idx,:,1].tolist()))
+        if model_name.startswith("gatsbi"):
+            fW.write("\t")
+            fW.write(str(attentions[0].tolist()))
+        fW.write("\n")
+    fW.close()
+    
+    torch.save(gmm_res, output_file_name+"_gmm.pt")
