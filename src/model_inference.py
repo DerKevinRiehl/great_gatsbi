@@ -1,5 +1,5 @@
 """
-Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs
+Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism
 -------------------------------------------
 Authors:        ANONYMOUS
 Organization:   ANONYMOUS
@@ -8,7 +8,7 @@ Submitted to:   Conference on Neural Information Processing Systems (NEURIPS25)
 -------------------------------------------
 This runnable Python script generates inference data from models for visualization purposes as CSV file.
 Usage: python model_inference.py [1] [2] [3] [4] [5] ([6])
-    [1] - model ("social_lstm" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
+    [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
     [2] - model_file_name
     [3] - sequence
     [4] - prediction_length in [s] (25, 50, 75, 100)
@@ -44,10 +44,10 @@ import utils.constants as cs
 # ### METHODS
 def print_info():
     print("-------------------------------------------")
-    print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
+    print("Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism")
     print("-------------------------------------------")
     print("USAGE: python test_model.py [1] [2] [3] [4] [5] ([6])")
-    print(" [1] - model (\"social_lstm\" or \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\" or \"physics_lstm\")")
+    print(" [1] - model (\"social_lstm\" or \"social_bigat\" \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\" or \"physics_lstm\")")
     print(" [2] - model_file_name")
     print(" [3] - sequence")
     print(" [4] - prediction_length in [s] (25, 50, 75, 100)")
@@ -123,51 +123,9 @@ if __name__=="__main__":
     multimodal = "unimodal"
     if len(run_arguments)==6:
         multimodal = run_arguments[5]
-            
-    # model_name = "gatsbiv1"
-    # model_file_name = "gatsbiv1_100_03.model"
-    # # model_name = "physics_lstm"
-    # # model_file_name = "physics_lstm_100_08.model"
-    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-    # prediction_length = int(100)
-    # output_file_name = "inference_test.txt"
-    # multimodal = "unimodal"
-    
-    # model_name = "physics_lstm"
-    # model_file_name = "physics_lstm_25_multimodal_gmm_split_1_00.model"
-    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-    # prediction_length = int(25)
-    # output_file_name = "inference_test.txt"
-    # multimodal = "multimodal_gmm"
-    
-    # model_name = "gatsbi"
-    # model_file_name = "gatsbi_100_multimodal_gmm_split_1_03.model"
-    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-    # prediction_length = int(100)
-    # output_file_name = "inference_test.txt"
-    # multimodal = "multimodal_gmm"
-    
-    # model_name = "gatsbi_physics_module"
-    # model_file_name = "gatsbi_physics_module_100_multimodal_gmm_split_1_07.model"
-    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-    # prediction_length = int(100)
-    # output_file_name = "inference_gatsbi_physics.txt"
-    # multimodal = "multimodal_gmm"
-    
-    # model_name = "gatsbi_social_module"
-    # model_file_name = "gatsbi_social_module_100_multimodal_gmm_split_1_03.model"
-    # sequence = "DJI_20240906103850_0005_D.MP4-PART_1"
-    # # sequence = "DJI_20240906105321_0009_D.MP4-PART_1"
-    # prediction_length = int(100)
-    # output_file_name = "inference_gatsbi_social.txt"
-    # multimodal = "multimodal_gmm"
     
     # runargs check
-    if not (model_name=="social_lstm" or model_name.startswith("gatsbi") 
+    if not (model_name=="social_lstm" or model_name=="social_bigat" or model_name.startswith("gatsbi") 
             or model_name=="const_v" or model_name=="const_a" or model_name=="kinematics"
             or model_name=="xkalman" or model_name=="physics_lstm"):
         print("ERROR: invalid model")

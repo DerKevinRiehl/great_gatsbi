@@ -1,5 +1,5 @@
 """
-Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs
+Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism
 -------------------------------------------
 Authors:        ANONYMOUS
 Organization:   ANONYMOUS
@@ -43,7 +43,7 @@ import utils.constants as cs
 # ### METHODS
 def print_info():
     print("-------------------------------------------")
-    print("Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs")
+    print("Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism")
     print("-------------------------------------------")
     print("USAGE: python test_model.py [1] [2] [3] [4] ([5])")
     print(" [1] - model (\"social_lstm\" or \"social_bigat\" or \"gatsbi\" or \"const_v\" or \"const_a\" or \"kinematics\" or \"xkalman\")")

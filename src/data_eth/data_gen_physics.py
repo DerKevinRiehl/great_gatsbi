@@ -1,5 +1,5 @@
 """
-Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs
+Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism
 -------------------------------------------
 Authors:        ANONYMOUS
 Organization:   ANONYMOUS

@@ -1,6 +1,6 @@
 >📋  Based on template README.md for code accompanying a Machine Learning paper from [paperswithcode](https://github.com/paperswithcode/releasing-research-code/blob/master/templates/README.md) 
 
-# Great GATsBi: Social-Force-Informed, Multimodal Bicycle Trajectory Prediction using GATs
+# Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -8,9 +8,13 @@
 - [Dataset](#dataset)
 - [Requirements](#requirements)
 - [Training](#training)
-- [Evaluation](#evaluation)
+- [Evaluation / Testing](#evaluation)
 - [Pre-trained Models](#models)
 - [Results](#results)
+  - [Forecasting Benchmark on Mass Cycling Dataset](#results_1)
+  - [Ablation Study](#results_2)
+  - [Generalization Capability for Pedestrians (ETH+HOTEL Dataset)](#results_3)
+  - [Codes to reproduce](#results_4)
 - [License](#license)
 - [Cluster and Runtime](#cluster)
 
@@ -26,22 +30,29 @@
 ├── data/
 │   ├── 0_videos/
 │   ├── 1_trajectories/
-│   ├── 2_training_datasets/
-│   ├── 3_testing_datasets/
+│   ├── 2_datasets/
+│   ├── 3_logs/
 │   ├── 4_models/
 │   └── 5_inferences/
 ├── figures/
 ├── src/
 │   ├── data/
-│   ├── evaluation/
 │   ├── models/
 │   ├── training/
 │   ├── utils/
-│   └── main.py
+│   ├── data_generator.py
+│   ├── log_parser*.py
+│   ├── model_inference.py
+│   ├── test_model.py
+│   └── train_model.py
 ├── LICENSE
 ├── README.md
 └── requirements.txt
 ```
+
+There are mainly five runnable python scripts that take run arguments and can be used to reproduce the results of the publication, that can be found in the *src/* directory. 
+These runnable scripts can be executed to (i) create feature data from the raw trajectory files, (ii) train models, (iii) test models, (iv) parse logs of the training process, and (v) to generate inference on new data.
+Their usage will be outlined in the following.
 
 ## [Dataset](#dataset)
 
@@ -70,30 +81,30 @@ The videos were stored in MP4 format and are about 25.7 GB large.
 Due to interruptions by trucks, cars, and drone landing for battery change, only some parts of the video are useful for the purpose of this investigation.
 We therefore selected **20 sequences** from these videos, as outlined in the following table.
 
-| sequence_nr | video_file                    | part    | from_frame | to_frame | num_frames | num_bicycles | data  |
-|-------------|-------------------------------|---------|------------|----------|------------|--------------|-------|
-| 1           | DJI_20240906103036_0003_D.MP4 | PART_1  | 300        | 1950     | 1650       | 6            | train |
-| 2           | DJI_20240906103036_0003_D.MP4 | PART_2  | 2425       | 3450     | 1025       | 10           | train |
-| 3           | DJI_20240906103036_0003_D.MP4 | PART_3  | 5200       | 5350     | 150        | 10           | train |
-| 4           | DJI_20240906103036_0003_D.MP4 | PART_4  | 5625       | 6154     | 529        | 14           | train |
-| 5           | DJI_20240906103442_0004_D.MP4 | PART_1  | 0          | 1375     | 1375       | 14           | train |
-| 6           | DJI_20240906103442_0004_D.MP4 | PART_2  | 2850       | 4500     | 1650       | 19           | train |
-| 7           | DJI_20240906103850_0005_D.MP4 | PART_1  | 325        | 2050     | 1725       | 22           | train |
-| 8           | DJI_20240906105321_0009_D.MP4 | PART_1  | 150        | 350      | 200        | 13           | train |
-| 9           | DJI_20240906105621_0010_D.MP4 | PART_1  | 350        | 925      | 575        | 6            | train |
-| 10          | DJI_20240906105621_0010_D.MP4 | PART_2  | 1250       | 1900     | 650        | 9            | train |
-| 11          | DJI_20240906105621_0010_D.MP4 | PART_3  | 2250       | 2875     | 625        | 12           | train |
-| 12          | DJI_20240906105621_0010_D.MP4 | PART_4  | 3075       | 3250     | 175        | 16           | train |
-| 13          | DJI_20240906105621_0010_D.MP4 | PART_5  | 3250       | 3700     | 450        | 17           | train |
-| 14          | DJI_20240906105621_0010_D.MP4 | PART_6  | 5950       | 6138     | 188        | 17           | train |
-| 15          | DJI_20240906110027_0011_D.MP4 | PART_1  | 0          | 1725     | 1725       | 17           | test  |
-| 16          | DJI_20240906110027_0011_D.MP4 | PART_2  | 2525       | 3300     | 775        | 17           | test  |
-| 17          | DJI_20240906110027_0011_D.MP4 | PART_3  | 3500       | 4375     | 875        | 17           | test  |
-| 18          | DJI_20240906110027_0011_D.MP4 | PART_4  | 4675       | 5500     | 825        | 17           | test  |
-| 19          | DJI_20240906110027_0011_D.MP4 | PART_5  | 5850       | 6122     | 272        | 17           | test  |
-| 20          | DJI_20240906110432_0012_D.MP4 | PART_1  | 0          | 625      | 625        | 17           | train  |
-| | | | | | | |
-| | | | | **total** | 16054 | 25 | |
+| sequence_nr | video_file                    | part    | from_frame | to_frame | num_frames | num_bicycles |
+|-------------|-------------------------------|---------|------------|----------|------------|--------------|
+| 1           | DJI_20240906103036_0003_D.MP4 | PART_1  | 300        | 1950     | 1650       | 6            |
+| 2           | DJI_20240906103036_0003_D.MP4 | PART_2  | 2425       | 3450     | 1025       | 10           |
+| 3           | DJI_20240906103036_0003_D.MP4 | PART_3  | 5200       | 5350     | 150        | 10           |
+| 4           | DJI_20240906103036_0003_D.MP4 | PART_4  | 5625       | 6154     | 529        | 14           |
+| 5           | DJI_20240906103442_0004_D.MP4 | PART_1  | 0          | 1375     | 1375       | 14           |
+| 6           | DJI_20240906103442_0004_D.MP4 | PART_2  | 2850       | 4500     | 1650       | 19           |
+| 7           | DJI_20240906103850_0005_D.MP4 | PART_1  | 325        | 2050     | 1725       | 22           |
+| 8           | DJI_20240906105321_0009_D.MP4 | PART_1  | 150        | 350      | 200        | 13           |
+| 9           | DJI_20240906105621_0010_D.MP4 | PART_1  | 350        | 925      | 575        | 6            |
+| 10          | DJI_20240906105621_0010_D.MP4 | PART_2  | 1250       | 1900     | 650        | 9            |
+| 11          | DJI_20240906105621_0010_D.MP4 | PART_3  | 2250       | 2875     | 625        | 12           |
+| 12          | DJI_20240906105621_0010_D.MP4 | PART_4  | 3075       | 3250     | 175        | 16           |
+| 13          | DJI_20240906105621_0010_D.MP4 | PART_5  | 3250       | 3700     | 450        | 17           |
+| 14          | DJI_20240906105621_0010_D.MP4 | PART_6  | 5950       | 6138     | 188        | 17           |
+| 15          | DJI_20240906110027_0011_D.MP4 | PART_1  | 0          | 1725     | 1725       | 17           |
+| 16          | DJI_20240906110027_0011_D.MP4 | PART_2  | 2525       | 3300     | 775        | 17           |
+| 17          | DJI_20240906110027_0011_D.MP4 | PART_3  | 3500       | 4375     | 875        | 17           |
+| 18          | DJI_20240906110027_0011_D.MP4 | PART_4  | 4675       | 5500     | 825        | 17           |
+| 19          | DJI_20240906110027_0011_D.MP4 | PART_5  | 5850       | 6122     | 272        | 17           |
+| 20          | DJI_20240906110432_0012_D.MP4 | PART_1  | 0          | 625      | 625        | 17           |
+| | | | | | |
+| | | | | **total** | 16054 | 25 |
 
 In the next step we used two different **computer vision approaches** and manual annotation to **detect bicycles on the aerial images**: (i) object detection with YOLO, (ii) an approach that compares two consecutive frames for differences to identify moving objects with OpenCV.
 Also, we extracted a characteristic pattern (the inner circle) with known geometric properties (radius 5.0m) using **Hough transform** (OpenCV), in order to conduct a homography transformation from pixel to Cartesian coordinates.
@@ -139,7 +150,7 @@ pip install -r requirements.txt
 ### Computational Resources
 The proposed network was implemented in Pytorch which allows for the use of CPU on your local machine, in case you don't have access to any GPUs.
 In case GPUs are available, the implementation will automatically switch to use CUDA.
-Within a reasonable amount of time, training and testing can be conducted even without GPUs.
+Within a reasonable amount of time (within multiple minutes per epoch), training and testing can be conducted even without GPUs.
 
 ### Preparation of Trajectory Dataset
 Please extract all trajectory txt files from `\neurips25_great_gatsbi\data\1_trajectories\1_trajectories.zip` and store them in the folder `\neurips25_great_gatsbi\data\1_trajectories`.
@@ -153,7 +164,7 @@ unzip neurips25_great_gatsbi/data/1_trajectories/1_trajectories.zip -d neurips25
 
 ### Data Generation
 We recommend to **precalculate all training & testing data from the trajectory data**, as this is time consuming (especially physical and social features) this might take up to 20 hours.
-We recommend reviewers to run it for one video only with few frames (e.g. *PART_3* of *DJI_20240906103036_0003_D.MP4*)
+We recommend reviewers to run it for one video only with few frames (e.g. *PART_3* of *DJI_20240906103036_0003_D.MP4*).
 First, training data needs to be generated with the script `data_generator.py`. 
 The results are stored in `\neurips25_great_gatsbi\data\2_datasets`.
 
@@ -174,8 +185,6 @@ Three different types of features are generated:
     - neighbor's historical trajectory
     - adjacency matrix representing ego and neighbor's graph incl. distance, angle, rel. speed x and y
     - neighbors include ego's five closest neighbors (within a max. distance of 20m)
-- **Road Features**
-    - ego's historical distance from road edge
 
 ### Model Training
 
@@ -184,51 +193,66 @@ The resulting models are stored in `\neurips25_great_gatsbi\data\4_models`.
 
 The script can be used as follows:
 ```
-python train_model.py [1] [2] [3]
-    [1] - model ("social_lstm" or "gatsbi" or "physics_lstm")
-    [2] - prediction_length in [s] (25, 50 , 75, 100)
+python train_model.py [1] [2] [3] [4] ([5])
+    [1] - model ("social_lstm" or "social_bigat" or "gatsbi")
+    [2] - prediction_length in [s] (25, 50, 75, 100)
     [3] - max_epochs
+    [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5")
+    optional:
+    [5] - multimodal ("unimodal" or "multimodal_gmm" or "multimodal_cvae")
 ```
 
 An example to train a model can be found here:
 ```
-python train_model.py social_lstm 25 50
+python train_model.py social_lstm 25 10 split_1 unimodal
 ```
 
 After training of each epoch a model file is stored in the models folder, as well as a txt file containing the performance on the test set.
 
 
-## [Evaluation](#evaluation)
+## [Evaluation / Testing](#evaluation)
 
 To test the model (and thus evaluate) you can use the script `test_model.py`. 
 The resulting evaluation metrics are printed to the console.
 
 The script can be used as follows:
-```eval
-python test_model.py [1] [2] [3]
-    [1] - model ("social_lstm" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman" or "physics_lstm")
+```
+python test_model.py [1] [2] [3] [4] ([5])
+    [1] - model ("social_lstm" or "social_bigat" or "gatsbi" or "const_v" or "const_a" or "kinematics" or "xkalman")
     [2] - model_file_name
     [3] - prediction_length in [s] (25, 50, 75, 100)
+    [4] - split ("split_1" or "split_2" or "split_3" or "split_4" or "split_5" or "all")
+    optional:
+    [5] - multimodal ("unimodal" or "multimodal_gmm" or "multimodal_cvae")
 ```
 
 An example to run a test can be found here:
 ```
-python test_model_all.py social_lstm social_lstm_25_5_0010.model 25
+python test_model.py social_lstm social_lstm_25_5_0010.model 25 split_1 unimodal
 ```
-This outputs something like this:
+This outputs something like this in the unimodal case:
 ```
 {'ADE': 0.19542816281318665, 'FDE': 0.4298399090766907}
+```
+and something like this in the multimodal case (where numbers reflect (i) best mode, (ii) most probably mode, (iii) randomly sampled mode), (iv) expected mode):
+```
+{'ADE': [0.683112382888794, 0.9391429424285889, 3.8939247131347656, 0.8007057309150696], 'FDE': [1.7313454151153564, 2.219844341278076, 10.175103187561035, 2.3272922039031982]}
 ```
 
 ### Evaluation Metrics
 
 We use average displacement error (ADE) and final displacement error (FDE) as evaluation metrics.
 These evaluation metrics are common metrics in the domain of trajectory prediction.
+For a given predicted trajectory $\hat{X}_{i,t_f}^{p}$, that is based on a certain number of historical observations $t_{obs}$ and a true future trajectory $X_{i,t_f}^{p}$ the prediction for a timehorizon $t_{pred}$ can be evaluated as follows:
 
+$ADE = \frac{1}{t_{pred}} \sum_{t} \| \hat{X}_i^{p} - X_i^{p}\|_2$
+
+$FDE = \| \hat{X}_{i,t_f}^{p} - X_{i,t_f}^{p}\|_2$ at time $t_f=t_{obs}+t_{pred}$
 
 
 ## [Pre-trained Models](#models)
 
+[TODO]
 You can download pretrained models here:
 
 - [My awesome model](https://drive.google.com/mymodel.pth) trained on ImageNet using parameters x,y,z. 
@@ -237,167 +261,73 @@ You can download pretrained models here:
 
 ## [Results](#results)
 
-### Benchmark results (NEW)
-The benchmark of different models shows that the proposed GATsBi model is outperforming pedestrian specific (social_lstm, social_bigats) and car specific (const_v, const_a) models.
+### [Forecasting Benchmark on Mass Cycling Dataset](#results_1)
 
+Table 1 compares *GATsBi* with physics-based baseline models (*const_v*, *const_a*, *kinematics*, and *xkalman*) and social, learning-based baseline models that capture social interactions from pedestrian prediction literature (*SocialLSTM* and *Social-BiGAT*). 
+The comparison reveals insights across different prediction horizons for ADE and FDE evaluation metrics.
+
+**Table 1: Forecasting Benchmark on Mass Cycling Dataset**
+| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
+|------------|----|----|----|----|----|----|----|----|
+| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |**Physics**             |                   |                   |                   |                   |                   |                   |                   |                   |
+| const_v                 | 0.1080  <br> [0.0076] | 0.2818  <br> [0.0194] | 0.5460  <br> [0.0444] | 0.9406  <br> [0.1059] | 0.2592  <br> [0.0182] | 0.6568  <br> [0.0436] | 1.5245  <br> [0.1787] | 2.7275  <br> [0.4278] |
+| const_a                 | 0.1281  <br> [0.0118] | 0.5504  <br> [0.0482] | 1.2951  <br> [0.1180] | 2.3929  <br> [0.2292] | 0.3934  <br> [0.0346] | 1.6373  <br> [0.1422] | 4.0117  <br> [0.3857] | 7.3837  <br> [0.7451] |
+| kinematics              | 0.1103  <br> [0.0088] | 0.3942  <br> [0.0364] | 0.8914  <br> [0.0905] | 1.6309  <br> [0.1795] | 0.3027  <br> [0.0260] | 1.1047  <br> [0.1068] | 2.7238  <br> [0.3056] | 4.9800  <br> [0.5935] |
+| xkalman                 | 0.1445  <br> [0.0122] | 0.3269  <br> [0.0242] | 0.5967  <br> [0.0512] | 0.9948  <br> [0.1146] | 0.3068  <br> [0.0235] | 0.7154  <br> [0.0492] | 1.5887  <br> [0.1904] | 2.7913  <br> [0.4417] |
+| *physics_module         | 0.0802  <br> [0.0057] | 0.2263  <br> [0.0140] | 0.4513  <br> [0.0365] | 0.8045  <br> [0.0924] | 0.2110  <br> [0.0136] | 0.5335  <br> [0.0313] | 1.3292  <br> [0.1714] | 2.4936  <br> [0.3703] |
+| **Social**              |                   |                   |                   |                   |                   |                   |                   |                   |
+| SocialLSTM              | 0.0876  <br> [0.0071] | 0.2487  <br> [0.0133] | 0.4762  <br> [0.0359] | 0.8214  <br> [0.0911] | 0.2141  <br> [0.0162] | 0.5479  <br> [0.0332] | 1.2829  <br> [0.1674] | 2.3770  <br> [0.4008] |
+| Social-BiGAT            | 0.0702  <br> [0.0068] | 0.2240  <br> [0.0139] | 0.4586  <br> [0.0377] | 0.8069  <br> [0.0898] | 0.1914  <br> [0.0138] | 0.5242  <br> [0.0304] | 1.3234  <br> [0.1302] | 2.5356  <br> [0.3435] |
+| *social_module          | **0.0629**  <br> [0.0057] | 0.2101  <br> [0.0137] | 0.4284  <br> [0.0343] | 0.7834  <br> [0.0838] | **0.1749**  <br> [0.0838] | 0.4941  <br> [0.0309] | 1.2761  <br> [0.1376] | 2.4732  <br> [0.2935] |
+| **Great GATsBi**        | 0.0715  <br> [0.0066] | **0.2078**  <br> [0.0130] | **0.4181**  <br> [0.0354] | **0.7543**  <br> [0.0960] | 0.1893  <br> [0.0153] | **0.4891**  <br> [0.0258] | **1.2641**  <br> [0.1762] | **2.3827**  <br> [0.4103] |
+
+*Evaluation metrics (ADE and FDE) reported in average and standard deviation (in brackets) across all train/test splits for four different prediction horizons (1s to 4s). Bold numbers mark the best forecasting performance.*
+
+
+
+
+
+
+
+### [Ablation Study](#results_2)
+
+To better understand the contributions of the elements of the proposed \textit{GATsBi} and anticipation mechanism, several ablation studies were conducted, as shown in the following table.
+
+**Table 2: Great GATsBi Ablations on Mass Cycling Dataset.**
 | Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
 |------------|----|----|----|----|----|----|----|----|
 | *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
-| **conventional (physics)** |   |   |   |   |   |   |   |   |
-| const_v | 0.1080 | 0.2818 | 0.5460 | 0.9406 | 0.2592 | 0.6568 | 1.5245 | 2.7275 |
-|       |[0.0076]|[0.0194]|[0.0444]|[0.1059]|[0.0182]|[0.0436]|[0.1787]|[0.4278]|
-| const_a | 0.1281 | 0.5504 | 1.2951 | 2.3929 | 0.3934 | 1.6373 | 4.0117 | 7.3837 |
-|       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
-| kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
-|       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
-| xkalman | 0.1445 | 0.3269 | 0.5967 | 0.9948 | 0.3068 | 0.7154 | 1.5887 | 2.7913 |
-|       |[0.0122]|[0.0242]|[0.0512]|[0.1146]|[0.0235]|[0.0492]|[0.1904]|[0.4417]|
-| **machine learning <br> (unimodal)** |   |   |   |   |   |   |   |   |
-| social_lstm | 0.0876 | 0.2487 | 0.4762 | 0.8214 | 0.2141 | 0.5479 | 1.2829 | 2.3770 |
-|       | [0.0071] | [0.0133] | [0.0359] | [0.0911] | [0.0162] | [0.0332] | [0.1674] | [0.4008] |
-| social_bigat | 0.0774 | 0.2315 | 0.4708 | 0.8211 | 0.1984 | 0.5209 | 1.2938 | 2.3679 |
-|       | [0.0062] | [0.0138] | [0.0387] | [0.0856] | [0.0146] | [0.0250] | [0.1536] | [0.4044] |
-| gatsbi | 0.0757 | 0.2180 | 0.4302 | 0.7760 | 0.1948 | 0.5051 | 1.2286 | 2.3142 |
-|       | [0.0059] | [0.0125] | [0.0343] | [0.0945] | [0.0138] | [0.0253] | [0.1554] | [0.4071] |
-| gatsbi_abl_phy | 0.0713 | 0.2255 | 0.4400 | 0.7794 | 0.1871 | 0.5060 | 1.2391 | 2.3037 |
-|       | [0.0052] | [0.0134] | [0.0312] | [0.0994] | [0.0127] | [0.0213] | [0.1564] | [0.4107] |
-| **machine learning <br> (multimodal, expected only)** |   |   |   |   |   |   |   |   |
-| social_lstm | 0.0820 | 0.2341 | 0.4630 | 0.8314 | 0.2077 | 0.5393 | 1.3235 | 2.5515 |
-|   | [0.0090] | [0.0172] | [0.0202] | [0.0929] | [0.0191] | [0.0360] | [0.1601] | [0.3610] |
-| social_bigat | 0.0702 | 0.2240 | 0.4586 | 0.8069 | 0.1914 | 0.5242 | 1.3234 | 2.5356 |
-|   | [0.0068] | [0.0139] | [0.0377] | [0.0898] | [0.0138] | [0.0304] | [0.1302] | [0.3435] |
-| gatsbi_abl_star  | 0.0690 | 0.2078 | 0.4347 | 0.7880 | 0.1873 | 0.5006 | 1.3159 | 2.5150 |
+| unimodal            |  0.0757 | 0.2180 | 0.4302 | 0.7760 | 0.1948 | 0.5051 | 1.2286 | 2.3142 |
+|             | [0.0059] | [0.0125] | [0.0343] | [0.0945] | [0.0138] | [0.0253] | [0.1554] | [0.4071] |
+| no anticipation     | 0.0692 | 0.2099 | 0.4267 | 0.7735 | 0.1868 | 0.4924 | 1.2962 | 2.4673 |
+|   | [0.0063] | [0.0121] | [0.0257] | [0.0795] | [0.0141] | [0.0248] |[0.1117] | [0.3420] |
+| no decay            | 0.0707 | 0.2074 | 0.4204 | 0.7727 | 0.1893 | 0.4901 | 1.2824 | 2.5016 |
+|     | [0.0063] | [0.0125] | [0.0338] | [0.0966] | [0.0130] | [0.0260] | [0.1488] | [0.4263] |
+| star-connected      | 0.0690 | 0.2078 | 0.4347 | 0.7880 | 0.1873 | 0.5006 | 1.3159 | 2.5150 |
 |   | [0.0086] | [0.0127] | [0.0368] | [0.0810] | [0.0175] | [0.0324] | [0.1234] | [0.2881] |
-| gatsbi_abl_anticip | 0.0692 | 0.2099 | 0.4267 | 0.7735 | 0.1868 | 0.4924 | 1.2962 | 2.4673 |
-|   | [0.0063] | [0.0121] | [0.0257] | [0.0795] | [0.0141] | [0.0248] | [0.1117] | [0.3420] |
-| gatsbi_abl_decay  | 0.0707 | 0.2074 | 0.4204 | 0.7727 | 0.1893 | 0.4901 | 1.2824 | 2.5016 |
-|   | [0.0063] | [0.0125] | [0.0338] | [0.0966] | [0.0130] | [0.0260] | [0.1488] | [0.4263] |
-| gatsbi_abl_phy_anticip  | 0.0661 | 0.2030 | 0.4217 | 0.7802 | 0.1795 | 0.4879 | 1.2807 | 2.4736 |
-|   | [0.0087] | [0.0164] | [0.0301] | [0.1037] | [0.0185] | [0.0347] | [0.1392] | [0.4512] |
-| gatsbi_abl_phy_star  | 0.0689 | 0.2079 | 0.4292 | 0.7870 | 0.1867 | 0.4957 | 1.2969 | 2.4383 |
-|   | [0.0077] | [0.0253] | [0.0417] | [0.0949] | [0.0175] | [0.0482] | [0.1570] | [0.3950] |
-| gatsbi_abl_phy_decay  | 0.0644 | 0.2125 | 0.4325 | 0.7892 | 0.1773 | 0.4922 | 1.3014 | 2.4954 |
-|   | [0.0064] | [0.0145] | [0.0334] | [0.0856] | [0.0149] | [0.0318] | [0.1318] | [0.3966] |
+| **Great GATsBi**    | 0.0715 | 0.2078 | 0.4181 | 0.7543 | 0.1893 | 0.4891 | 1.2641 | 2.3827 |
+|  | [0.0066] | [0.0130] | [0.0354] | [0.0960] | [0.0153] | [0.0258] | [0.1762] | [0.4103] |
+
+*Evaluation metrics (ADE and FDE) reported in average and standard deviation (in brackets) across all train/test splits for four different prediction horizons (1s to 4s).*
+
+### [Generalization Capability for Pedestrians (ETH+HOTEL Dataset)](#results_3)
+
+Table 3 evaluates the pedestrian forecasting accuracy of the proposed *social_module* and the related anticipation mechanism.
+Two common pedestrian datasets (*ETH* and *HOTEL*) serve for this purpose.
+
+**Table 3: Forecasting Benchmark on Pedestrian Datasets.**
+| Method                  | ADE (ETH) 0.8s | ADE (ETH) 1.6s | ADE (ETH) 2.4s | ADE (ETH) 4.0s | ADE (HOTEL) 0.8s | ADE (HOTEL) 1.6s | ADE (HOTEL) 2.4s | ADE (HOTEL) 4.0s |
+|-------------------------|:--------------:|:--------------:|:--------------:|:--------------:|:----------------:|:----------------:|:----------------:|:----------------:|
+| SocialLSTM              |    0.0150      |    0.0249      |    0.0372      |    0.0744      |     0.0375       |     0.0621       |     0.0901       |     0.1788       |
+| Social-BiGAT            |    0.0541      |    0.0921      |    0.1384      |    0.2518      |     0.0437       |     0.0787       |     0.1083       |     0.2130       |
+| *physics_module         |    0.0290      |    0.0386      |    0.0417      |    0.0814      |     0.0483       |     0.0760       |     0.1105       |     0.2150       |
+| *social_module          |    0.0545      |    0.0970      |    0.1063      |    0.2319      |     0.0432       |     0.0763       |     0.1095       |     0.2117       |
+| **Great GATsBi**        |    0.0420      |    0.0330      |    0.0479      |    0.0800      |     0.0459       |     0.0737       |     0.1135       |     0.2170       |
 
 
+*Evaluation metric ADE reported for two benchmark datasets and for four forecasting horizons (0.8s to 4s).*
 
-### Benchmark results (OLD)
-The benchmark of different models shows that the proposed GATsBi model is outperforming pedestrian specific (social_lstm, social_bigats) and car specific (const_v, const_a) models.
-
-| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
-|------------|----|----|----|----|----|----|----|----|
-| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
-| **conventional (physics)** |   |   |   |   |   |   |   |   |
-| const_v | 0.1080 | 0.2818 | 0.5460 | 0.9406 | 0.2592 | 0.6568 | 1.5245 | 2.7275 |
-|       |[0.0076]|[0.0194]|[0.0444]|[0.1059]|[0.0182]|[0.0436]|[0.1787]|[0.4278]|
-| const_a | 0.1281 | 0.5504 | 1.2951 | 2.3929 | 0.3934 | 1.6373 | 4.0117 | 7.3837 |
-|       |[0.0118]|[0.0482]|[0.1180]|[0.2292]|[0.0346]|[0.1422]|[0.3857]|[0.7451]|
-| kinematics | 0.1103 | 0.3942 | 0.8914 | 1.6309 | 0.3027 | 1.1047 | 2.7238 | 4.9800 |
-|       |[0.0088]|[0.0364]|[0.0905]|[0.1795]|[0.0260]|[0.1068]|[0.3056]|[0.5935]|
-| xkalman | 0.1445 | 0.3269 | 0.5967 | 0.9948 | 0.3068 | 0.7154 | 1.5887 | 2.7913 |
-|       |[0.0122]|[0.0242]|[0.0512]|[0.1146]|[0.0235]|[0.0492]|[0.1904]|[0.4417]|
-| **new run mchine learning (unimodal)** |   |   |   |   |   |   |   |   |
-| ego_lstm | 0.0710 | 0.2158 | 0.4450 | 0.7900 | 0.1891 | 0.5038 | 1.2597 | 2.3289 |
-|       | [0.0062] | [0.0166] | [0.0387] | [0.1036] | [0.0148] | [0.0358] | [0.1673] | [0.4284] |
-| social_lstm | 0.0876 | 0.2487 | 0.4762 | 0.8214 | 0.2141 | 0.5479 | 1.2829 | 2.3770 |
-|       | [0.0071] | [0.0133] | [0.0359] | [0.0911] | [0.0162] | [0.0332] | [0.1674] | [0.4008] |
-| social_bigat | 0.0774 | 0.2315 | 0.4708 | 0.8211 | 0.1984 | 0.5209 | 1.2938 | 2.3679 |
-|       | [0.0062] | [0.0138] | [0.0387] | [0.0856] | [0.0146] | [0.0250] | [0.1536] | [0.4044] |
-| physics_lstm | 0.0752 | 0.2158 | 0.4423 | 0.7943 | 0.1973 | 0.5046 | 1.2667 | 2.3568 |
-|       | [0.0062] | [0.0165] | [0.0431] | [0.1015] | [0.0156] | [0.0340] | [0.1784] | [0.4198] |
-| physics_lstmv2 (no ego) | 0.0810 | 0.2288 | 0.4489 | 0.7959 | 0.2111 | 0.5302 | 1.2786 | 2.3619 |
-|       | [0.0052] | [0.0141] | [0.0371] | [0.1005] | [0.0138] | [0.0303] | [0.1671] | [0.4194] |
-| gatsbiv1 | 0.0763 | 0.2181 | 0.4222 | 0.7812 | 0.1955 | 0.4996 | 1.2218 | 2.3137 |
-|       | [0.0031] | [0.0167] | [0.0342] | [0.1045] | [0.0091] | [0.0264] | [0.1548] | [0.4081] |
-| gatsbiv2 | 0.0771 | 0.2140 | 0.4245 | 0.7633 | 0.1970 | 0.4936 | 1.2259 | 2.3050 |
-|       | [0.0043] | [0.0134] | [0.0392] | [0.0865] | [0.0100] | [0.0290] | [0.1695] | [0.3786] |
-| gatsbiv4 | 0.0750 | 0.2114 | 0.4338 | 0.7705 | 0.1939 | 0.4897 | 1.2321 | 2.3016 |
-|       | [0.0062] | [0.0129] | [0.0338] | [0.0880] | [0.0145] | [0.0280] | [0.1527] | [0.4015] |
-| gatsbiv4_star | 0.0715 | 0.2169 | 0.4361 | 0.7744 | 0.1905 | 0.5084 | 1.2502 | 2.3163 |
-|       | [0.0074] | [0.0163] | [0.0379] | [0.1081] | [0.0173] | [0.0351] | [0.1645] | [0.4282] |
-| gatsbiv4_physics_ablation | 0.0754 | 0.2269 | 0.4375 | 0.7741 | 0.1951 | 0.5023 | 1.2322 | 2.2813 |
-|       | [0.0080] | [0.0144] | [0.0357] | [0.0910] | [0.0175] | [0.0280] | [0.1577] | [0.4127] |
-| gatsbiv5 | 0.0755 | 0.2147 | 0.4324 | 0.7758 | 0.1942 | 0.4942 | 1.2302 | 2.2876 |
-|       | [0.0063] | [0.0114] | [0.0382] | [0.1016] | [0.0150] | [0.0239] | [0.1683] | [0.4270] |
-| gatsbiv6 | 0.0750 | 0.2152 | 0.4333 | 0.7806 | 0.1922 | 0.4952 | 1.2452 | 2.3036 |
-|       | [0.0059] | [0.0075] | [0.0329] | [0.1024] | [0.0136] | [0.0179] | [0.1539] | [0.4275] |
-| **machine learning NEW RUN (multimodal_gmm, expected only)** |   |   |   |   |   |   |   |   |
-| ego_lstm | 0.0628 | 0.2043 | 0.4275 | 0.7946 | 0.1771 | 0.4913 | 1.2635 | 2.4709 |
-|   | [0.0057] | [0.0196] | [0.0392] | [0.0902] | [0.0145] | [0.0403] | [0.1695] | [0.3747] |
-| social_lstm  | 0.0820 | 0.2341 | 0.4630 | 0.8314 | 0.2077 | 0.5393 | 1.3235 | 2.5515 |
-|  | [0.0090] | [0.0172] | [0.0202] | [0.0929] | [0.0191] | [0.0360] | [0.1601] | [0.3610] |
-|  social_bigat  | 0.0702 | 0.2240 | 0.4586 | 0.8069 | 0.1914 | 0.5242 | 1.3234 | 2.5356 |
-|     | [0.0068] | [0.0139] | [0.0377] | [0.0898] | [0.0138] | [0.0304] | [0.1302] | [0.3435] |
-|  physics_lstm | 0.0665 | 0.2130 | 0.4319 | 0.7821 | 0.1839 | 0.5060 | 1.3187 | 2.4470 |
-|     | [0.0060] | [0.0130] | [0.0427] | [0.0919] | [0.0139] | [0.0272] | [0.1703] | [0.4019] |
-| physics_lstmv2 (no ego) | 0.0802 | 0.2263 | 0.4513 | 0.8045 | 0.2110 | 0.5335 | 1.3292 | 2.4936 |
-|   | [0.0057] | [0.0140] | [0.0365] | [0.0924] | [0.0136] | [0.0313] | [0.1714] | [0.3703] |
-| gatsbiv4 | 0.0698 | 0.2107 | 0.4216 | 0.7768 | 0.1869 | 0.4990 | 1.3048 | 2.5425 |
-|  | [0.0059] | [0.0137] | [0.0328] | [0.0961] | [0.0131] | [0.0346] | [0.1425] | [0.4363] |
-| gatsbiv4_star | 0.0652 | 0.2106 | 0.4308 | 0.7882 | 0.1823 | 0.5066 | 1.3027 | 2.4955 |
-|  | [0.0018] | [0.0216] | [0.0362] | [0.0872] | [0.0069] | [0.0442] | [0.1373] | [0.3493] |
-| gatsbiv4_physics_ablation | 0.0642 | 0.2135 | 0.4323 | 0.7834 | 0.1765 | 0.4963 | 1.2964 | 2.4370 |
-|  | [0.0063] | [0.0139] | [0.0302] | [0.0918] | [0.0139] | [0.0297] | [0.1553] | [0.3308] |
-| gatsbiv5 | 0.0662 | 0.2079 | 0.4212 | 0.7761 | 0.1816 | 0.4887 | 1.2968 | 2.4916 |
-|  | [0.0089] | [0.0103] | [0.0325] | [0.0893] | [0.0186] | [0.0254] | [0.1315] | [0.4005] |
-
-| Model  | ADE | ADE | ADE | ADE | FDE | FDE | FDE | FDE |
-|------------|----|----|----|----|----|----|----|----|
-| *prediction length*           | *1s* | *2s* | *3s* | *4s* | *1s* | *2s* | *3s* | *4s* |
-| **machine learning NEW RUN (multimodal_gmm)** |   |   |   |   |   |   |   |   |
-| social_lstm |   |   |   |   |   |   |   |   |
-| *_____(best)* | 0.0703 | 0.2123 | 0.4365 | 0.7291 | 0.1782 | 0.4949 | 1.1216 | 1.8998 |
-|   | [0.0074] | [0.0135] | [0.0188] | [0.0592] | [0.0162] | [0.0564] | [0.0994] | [0.2921] |
-| *_____(most prob)* | 0.0848 | 0.2705 | 0.5304 | 1.0739 | 0.2093 | 0.5458 | 1.3133 | 2.3634 |
-|   | [0.0098] | [0.0247] | [0.0278] | [0.1759] | [0.0208] | [0.0362] | [0.1111] | [0.4013] |
-| *_____(sampled)* | 0.1114 | 0.5974 | 1.6203 | 5.4131 | 0.3211 | 1.8832 | 5.4571 | 12.4895 |
-|     | [0.0066] | [0.4137] | [0.5398] | [1.4416] | [0.0822] | [1.4303] | [2.0081] | [1.7183] |
-| *_____(expected)*   | 0.0820 | 0.2341 | 0.4630 | 0.8314 | 0.2077 | 0.5393 | 1.3235 | 2.5515 |
-|  | [0.0090] | [0.0172] | [0.0202] | [0.0929] | [0.0191] | [0.0360] | [0.1601] | [0.3610] |
-| social_bigat |   |   |   |   |   |   |   |   |
-| *_____(best)* | 0.0602 | 0.2146 | 0.4569 | 0.6828 | 0.1655 | 0.4856 | 1.1771 | 1.6954 |
-|   | [0.0052] | [0.0163] | [0.0590] | [0.0676] | [0.0104] | [0.0268] | [0.1894] | [0.2033] |
-| *_____(most prob)* | 0.0749 | 0.2526 | 0.5342 | 0.9819 | 0.1917 | 0.5254 | 1.2852 | 2.3769 |
-|   | [0.0065] | [0.0193] | [0.1166] | [0.1055] | [0.0143] | [0.0287] | [0.1660] | [0.4126] |
-|  *_____(sampled)* | 0.2194 | 1.1598 | 1.6950 | 6.2134 | 1.3577 | 3.6539 | 5.8660 | 13.6125 |
-|    | [0.1633] | [0.5325] | [0.5229] | [1.1436] | [1.6154] | [1.3359] | [1.8090] | [1.4614] |
-|  *_____(expected)*   | 0.0702 | 0.2240 | 0.4586 | 0.8069 | 0.1914 | 0.5242 | 1.3234 | 2.5356 |
-|     | [0.0068] | [0.0139] | [0.0377] | [0.0898] | [0.0138] | [0.0304] | [0.1302] | [0.3435] |
-| physics_lstm |   |   |   |   |   |   |   |   |
-| *_____(best)* | 0.0555 | 0.2565 | 0.4004 | 0.6765 | 0.1530 | 0.6977 | 1.0327 | 1.5322 |
-|    | [0.0055] | [0.0516] | [0.0085] | [0.0555] | [0.0153] | [0.1308] | [0.0800] | [0.1780] |
-|  *_____(most prob)* | 0.0688 | 0.5305 | 0.5244 | 0.8485 | 0.1857 | 0.5065 | 1.2684 | 2.3344 |
-|    | [0.0062] | [0.1894] | [0.0691] | [0.0629] | [0.0138] | [0.0281] | [0.1948] | [0.4310] |
-|  *_____(sampled)* | 158706.2950 | 1.1474 | 2.5434 | 6.6921 | 3136507.2398 | 3.8130 | 7.5892 | 14.4773 |
-|     | [317382.0409] | [0.5870] | [0.8111] | [0.1273] | [6273013.3801] | [1.5864] | [1.2849] | [0.4441] |
-|   *_____(expected)*  | 0.0665 | 0.2130 | 0.4319 | 0.7821 | 0.1839 | 0.5060 | 1.3187 | 2.4470 |
-|     | [0.0060] | [0.0130] | [0.0427] | [0.0919] | [0.0139] | [0.0272] | [0.1703] | [0.4019] |
-| gatsbiv4_physics_ablation |   |   |   |   |   |   |   |   |
-| *_____(best)* | 0.0557 | 0.2053 | 0.4062 | 0.7263 | 0.1515 | 0.4509 | 1.0214 | 1.9168 |
-|               | [0.0047] | [0.0127] | [0.0327] | [0.0957] | [0.0108] | [0.0199] | [0.1036] | [0.3188] |
-| *_____(most prob)* | 0.0683 | 0.2311 | 0.4914 | 1.2600 | 0.1777 | 0.4960 | 1.2291 | 2.3218 |
-|                    | [0.0063] | [0.0141] | [0.0646] | [0.4419] | [0.0139] | [0.0304] | [0.1635] | [0.4249] |
-| *_____(sampled)* | 0.3220 | 1.1455 | 2.9130 | 4.4423 | 0.4858 | 3.6718 | 8.0018 | 10.8022 |
-|                  | [0.4169] | [0.5892] | [1.3024] | [0.2033] | [0.2248] | [1.4568] | [2.2389] | [0.2663] |
-| *_____(expected)* | 0.0642 | 0.2135 | 0.4323 | 0.7834 | 0.1765 | 0.4963 | 1.2964 | 2.4370 |
-|                   | [0.0063] | [0.0139] | [0.0302] | [0.0918] | [0.0139] | [0.0297] | [0.1553] | [0.3308] |
-| gatsbiv5 |   |   |   |   |   |   |   |   |
-| *_____(best)* | 0.0564 | 0.2724 | 0.5451 | 0.7360 | 0.1546 | 0.5891 | 1.2407 | 1.7462 |
-|               | [0.0064] | [0.0557] | [0.0623] | [0.0985] | [0.0150] | [0.0598] | [0.1666] | [0.1864] |
-| *_____(most prob)* | 0.0693 | 0.3600 | 0.8161 | 1.2315 | 0.1822 | 0.5463 | 1.4792 | 2.4727 |
-|                    | [0.0099] | [0.0768] | [0.1659] | [0.3759] | [0.0190] | [0.0203] | [0.1201] | [0.3896] |
-| *_____(sampled)* | 0.1318 | 1.2634 | 2.6584 | 6.4608 | 0.5425 | 4.2846 | 7.0888 | 14.1942 |
-|                  | [0.0404] | [0.3167] | [1.7631] | [0.5566] | [0.1733] | [0.8106] | [3.5614] | [0.7392] |
-| *_____(expected)*  | 0.0662 | 0.2079 | 0.4212 | 0.7761 | 0.1816 | 0.4887 | 1.2968 | 2.4916 |
-|                    | [0.0089] | [0.0103] | [0.0325] | [0.0893] | [0.0186] | [0.0254] | [0.1315] | [0.4005] |
-
-
-
-
-
->📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
-
-### Codes to reproduce
+### [Codes to reproduce](#results_4)
 
 #### 1) Create Log Files Of Classical Models
 ```
@@ -431,9 +361,15 @@ python log_parser_classic.py xkalman
 python log_parser_ml.py social_lstm
 python log_parser_ml.py social_bigats
 python log_parser_ml.py physics_lstm
-python log_parser_ml.py gatsbiv1
-python log_parser_ml.py gatsbiv2
+python log_parser_ml.py gatsbi
+python log_parser_ml_multimodal_gmm.py social_lstm
+python log_parser_ml_multimodal_gmm.py social_bigats
+python log_parser_ml_multimodal_gmm.py physics_lstm
+python log_parser_ml_multimodal_gmm.py gatsbi
 ```
+
+Similarly, for pedestrian datasets (ETH+HOTEL) the files in *src/data_eth/* can be used.
+
 
 ## [License](#license)
 This repository will be published on GitHub upon publication at Neurips25 under the MIT license.
@@ -443,7 +379,7 @@ For further details, please find the **LICENSE** file in this repository.
 
 ## [Cluster & Runtime](#cluster)
 
-We used our university's computational facility that provided a Linux cluster (OS: Ubuntu 22.04.5 LTS, Kernel: Linux 5.15.0-134-generic) with the Slurm workload manager and GPUs. CUDA (3.11.6_cuda) and Python (v3.11.6) were installed.
+We used our university's computational facility that provided a Linux cluster (OS: Ubuntu 22.04.5 LTS, Kernel: Linux 5.15.0-134-generic) with the Slurm workload manager and GPUs (NVIDA RTX 4090). CUDA (3.11.6_cuda) and Python (v3.11.6) were installed.
 
 In the following we outline several linux commands that we used to automate training and testing.
 
@@ -463,7 +399,7 @@ For each model (social_lstm) and prediction_length (25, 50, 75, 100) we run ten 
 We repeated the same 5 times, so the training was 5 times for 10 epochs each in the order the data appears in the script below.
 
 ```
-./_submit_jobs.sh social_lstm 25 10
+./_submit_jobs.sh social_lstm 25 multimodal_gmm 10
 ```
 
 ```
@@ -512,29 +448,5 @@ for SPLIT in "${SPLITS[@]}"; do
         echo "  Submitted job $JOBID (iteration $i for $SPLIT)"
         PREV_JOBID=$JOBID
     done
-done
-```
-
-### 3. Test Model (outdated)
-(takes around 1 minute)
-
-The following script parses all summaries from models folder to assess for which epoch, prediction_length, and model the performance on testing set was best.
-```
-#!/bin/bash
-
-DATA_DIR="$HOME/neurips25_great_gatsbi/data/4_models"
-
-for model_name in social_lstm physics_lstm; do
-  for prediction_length in 25 50 75 100; do
-    for epoch in $(seq -w 0 49); do
-      file_path="${DATA_DIR}/${model_name}_${prediction_length}_${epoch}.model_perf.txt"
-      if [ -f "$file_path" ]; then
-        file_content=$(tr '\n' ' ' < "$file_path" | sed 's/  */ /g' | sed 's/^ *//;s/ *$//')
-      else
-        file_content="File not found"
-      fi
-      echo -e "${model_name}\t${prediction_length}\t${epoch}\t${file_content}"
-    done
-  done
 done
 ```
