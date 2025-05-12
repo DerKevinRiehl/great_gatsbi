@@ -20,6 +20,30 @@
 
 ## [Introduction](#introduction)
 
+Accurate prediction of road user movement is increasingly required by many applications ranging from advanced driver assistance systems to autonomous driving, and especially crucial for road safety.
+Even though most traffic accident fatalities account to bicycles, they have received little attention, as previous work focused mainly on pedestrians and motorized vehicles.
+In this work, we present the *Great GATsBi*, a domain-knowledge-based, hybrid, multimodal trajectory prediction framework for bicycles.
+The model incorporates both physics-based modeling (inspired by motorized vehicles) and social-based modeling (inspired by pedestrian movements) to explicitly account for the dual nature of bicycle movement.
+The social interactions are modeled with a graph attention network, and include decayed historical, but also anticipated, future trajectory data of a bicycles neighborhood, following recent insights from psychological and social studies.
+The results indicate that the proposed ensemble of physics models -- performing well in the short-term predictions -- and social models -- performing well in the long-term predictions -- exceeds state-of-the-art performance.
+We also conducted a controlled mass-cycling experiment to demonstrate the framework's performance when forecasting bicycle trajectories and modeling social interactions with road users. 
+
+
+<table>
+<tr>
+<td colspan="2">
+<img src="figures/Figure_Inference.png" />
+</td>
+</tr>
+<tr>
+<td>
+<img src="figures/Figure_Architecture_1.png" />
+</td>
+<td>
+<img src="figures/Figure_Architecture_2.png" />
+</td>
+</tr>
+</table>
 
 
 
