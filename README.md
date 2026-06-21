@@ -50,7 +50,7 @@ We also conducted a controlled mass-cycling experiment to demonstrate the framew
 ## [Repository Structure](#repository-structure)
 
 ```
-./neurips25_great_gatsbi/
+./great_gatsbi/
 ├── data/
 │   ├── 0_videos/
 │   ├── 1_trajectories/
@@ -135,7 +135,7 @@ Also, we extracted a characteristic pattern (the inner circle) with known geomet
 Afterwards we used a computational pipeline to extract trajectories from these object detections.
 The trajectories were filtered with a **Kalman-Filter** and checked for quality manually. 
 
-The trajectories can be found in `\neurips25_great_gatsbi\data\1_trajectories`.
+The trajectories can be found in `\great_gatsbi\data\1_trajectories`.
 The trajectories of each sequence (named `video_file`+`-`+`part`+`.txt`) are stored in a **csv format**, with following columns:
 
 | column_name   | example value             |  unit |
@@ -177,11 +177,11 @@ In case GPUs are available, the implementation will automatically switch to use 
 Within a reasonable amount of time (within multiple minutes per epoch), training and testing can be conducted even without GPUs.
 
 ### Preparation of Trajectory Dataset
-Please extract all trajectory txt files from `\neurips25_great_gatsbi\data\1_trajectories\1_trajectories.zip` and store them in the folder `\neurips25_great_gatsbi\data\1_trajectories`.
+Please extract all trajectory txt files from `\great_gatsbi\data\1_trajectories\1_trajectories.zip` and store them in the folder `\great_gatsbi\data\1_trajectories`.
 
 On Linux you could use this command:
 ```
-unzip neurips25_great_gatsbi/data/1_trajectories/1_trajectories.zip -d neurips25_great_gatsbi/data/1_trajectories/
+unzip great_gatsbi/data/1_trajectories/1_trajectories.zip -d great_gatsbi/data/1_trajectories/
 ```
 
 ## [Training](#training)
@@ -190,7 +190,7 @@ unzip neurips25_great_gatsbi/data/1_trajectories/1_trajectories.zip -d neurips25
 We recommend to **precalculate all training & testing data from the trajectory data**, as this is time consuming (especially physical and social features) this might take up to 20 hours.
 We recommend reviewers to run it for one video only with few frames (e.g. *PART_3* of *DJI_20240906103036_0003_D.MP4*).
 First, training data needs to be generated with the script `data_generator.py`. 
-The results are stored in `\neurips25_great_gatsbi\data\2_datasets`.
+The results are stored in `\great_gatsbi\data\2_datasets`.
 
 The script can be used as follows:
 ```
@@ -213,7 +213,7 @@ Three different types of features are generated:
 ### Model Training
 
 To train the model you can use  the script `train_model.py`. 
-The resulting models are stored in `\neurips25_great_gatsbi\data\4_models`.
+The resulting models are stored in `\great_gatsbi\data\4_models`.
 
 The script can be used as follows:
 ```
@@ -396,7 +396,7 @@ Similarly, for pedestrian datasets (ETH+HOTEL) the files in *src/data_eth/* can 
 
 
 ## [License](#license)
-This repository will be published on GitHub upon publication at Neurips25 under the MIT license.
+This repository will be published on GitHub upon publication at ITSC 2026 under the MIT license.
 For further details, please find the **LICENSE** file in this repository.
 
 
@@ -407,10 +407,10 @@ We used our university's computational facility that provided a Linux cluster (O
 
 In the following we outline several linux commands that we used to automate training and testing.
 
-**[!!!] Important Note:** All of the following commands are executed from within folder `./neurips25_great_gatsbi/src/`.
+**[!!!] Important Note:** All of the following commands are executed from within folder `./great_gatsbi/src/`.
 
 ```
-cd ./neurips25_great_gatsbi/src/
+cd ./great_gatsbi/src/
 ```
 
 ### 1. Prepare Training Dataset
