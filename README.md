@@ -2,6 +2,8 @@
 
 # Great GATsBi: Hybrid, Multimodal, Trajectory Forecasting for Bicycles using Anticipation Mechanism
 
+==> FULL LENGTH PAPER HERE: https://arxiv.org/pdf/2508.14523
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Repository Structure](#repository-structure)
